@@ -2673,6 +2673,173 @@ class TestMirrorFanPairs(unittest.TestCase):
             B._mirror_fan_candidates(self._lay(boxes), edges, routes4), [])
 
 
+class TestMirrorFanInPairs(unittest.TestCase):
+    """SEM-7-5: 同一 dst へ集まる上下対ファンインは入射辺と折れ構造が鏡像に揃う。
+
+    SEM-6(同一 src のファンアウト)の裏返し。実使用の構成図03 実測:
+    上 NAT→ECR が entry=上辺の 2 折れ・下 NAT→ECR が entry=左辺の 3 折れで、
+    同一 dst への対枝の入射辺が不一致(左右非対称)だった。鏡像化後は両枝が
+    同一辺へ鏡像 frac(0.35/0.65)・同一縦レーンで入る。
+    """
+
+    def _pair_spec(self, with_upstream: bool) -> dict:
+        """上下 AZ の NAT から region 直下の ECR へ集まるファンイン対
+        (構成図03 の縮約)。with_upstream=True は NAT の上流に ECS 鎖を
+        足した変種(入射側 ECR の辺共有条件は変えず、経路の混雑だけ変える)。
+        旧エンジン実測: どちらも上枝 T 入射・下枝 L 入射の非対称。
+        """
+        conts = [
+            {"id": "cloud", "label": "AWS Cloud", "type": "aws_cloud"},
+            {"id": "region", "label": "Region", "type": "region",
+             "parent": "cloud"},
+            {"id": "vpc", "label": "VPC", "type": "vpc", "parent": "region"}]
+        nodes = [{"id": "ecr", "label": "Amazon ECR", "icon": "ecr",
+                  "parent": "region", "col": 7, "row": 2}]
+        edges = []
+        for az, srow in (("a", 1), ("c", 3)):
+            conts += [{"id": f"az_{az}", "label": f"Availability Zone {az}",
+                       "type": "az", "parent": "vpc"},
+                      {"id": f"sub_p_{az}", "label": "Public subnet",
+                       "type": "public_subnet", "parent": f"az_{az}"}]
+            nodes += [{"id": f"nat_{az}", "label": "NAT Gateway",
+                       "icon": "nat_gateway", "parent": f"sub_p_{az}",
+                       "col": 6, "row": srow}]
+            edges += [{"id": f"en_{az}", "src": f"nat_{az}", "dst": "ecr",
+                       "kind": "main"}]
+            if with_upstream:
+                conts += [{"id": f"sub_a_{az}", "label": "App subnet",
+                           "type": "private_subnet", "parent": f"az_{az}"}]
+                nodes += [{"id": f"ecs_{az}", "label": "ECS サービス",
+                           "icon": "ecs", "parent": f"sub_a_{az}",
+                           "col": 4, "row": srow}]
+                edges += [{"id": f"eb_{az}", "src": f"ecs_{az}",
+                           "dst": f"nat_{az}", "kind": "main"}]
+        return {"name": "fanin", "meta": {"purpose": "test"},
+                "containers": conts, "nodes": nodes, "edges": edges}
+
+    @staticmethod
+    def _entry_side(style: str) -> tuple[str, float]:
+        ex, ey = re.search(r"entryX=([\d.]+);entryY=([\d.]+)", style).groups()
+        ex, ey = float(ex), float(ey)
+        if ex == 0.0:
+            return "L", ey
+        if ex == 1.0:
+            return "R", ey
+        return ("T", ex) if ey == 0.0 else ("B", ex)
+
+    def _assert_mirror_in(self, xml: str) -> None:
+        info = {}
+        for eid in ("en_a", "en_c"):
+            m = re.search(f'id="{eid}"[^>]*style="([^"]*)".*?</mxCell>',
+                          xml, re.S)
+            self.assertIsNotNone(m, f"edge {eid} が出力に無い")
+            side, frac = self._entry_side(m.group(1))
+            wps = [(float(x), float(y)) for x, y in
+                   re.findall(r'<mxPoint x="([\d.-]+)" y="([\d.-]+)" />',
+                              m.group(0))]
+            info[eid] = (side, frac, wps)
+        (sa, fa, wa), (sc, fc, wc) = info["en_a"], info["en_c"]
+        # 入射辺の一致(旧実装: 上枝 T / 下枝 L の不一致)
+        self.assertEqual(sa, sc, f"入射辺が不一致: {info}")
+        # 入射 frac の鏡像(辺中心 0.5 に対して対称)
+        self.assertAlmostEqual(fa + fc, 1.0, delta=0.02,
+                               msg=f"入射 frac が鏡像でない: {info}")
+        # 折れ数一致 + 縦レーンの鏡像 = 同一 x(対称ユニットのレーン共有)
+        self.assertEqual(len(wa), len(wc), f"対枝の折れ数が不一致: {info}")
+        self.assertEqual(sorted({p[0] for p in wa}), sorted({p[0] for p in wc}),
+                         f"縦レーンが鏡像でない: {info}")
+
+    def test_pair_plain(self):
+        with tempfile.TemporaryDirectory() as td:
+            r = build_spec(self._pair_spec(False), Path(td), "fi1")
+            self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+            self.assertIn("0 error(s), 0 warning(s)", r.stdout, r.stdout)
+            xml = (Path(td) / "fi1.spec.out.drawio").read_text(encoding="utf-8")
+        self._assert_mirror_in(xml)
+
+    def test_pair_with_upstream_chain(self):
+        with tempfile.TemporaryDirectory() as td:
+            r = build_spec(self._pair_spec(True), Path(td), "fi2")
+            self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+            self.assertIn("0 error(s), 0 warning(s)", r.stdout, r.stdout)
+            xml = (Path(td) / "fi2.spec.out.drawio").read_text(encoding="utf-8")
+        self._assert_mirror_in(xml)
+
+    def _lay(self, boxes: dict) -> "B.Layout":
+        lay = B.Layout(C=8, R=8, cell={}, cmap={}, cext={}, occ=set())
+        lay.boxes = boxes
+        lay.cell = {k: (0, 0) for k in boxes}   # 全てノード扱い
+        return lay
+
+    def _route(self, runs, entry=("L", .5)) -> "B.NodeRoute":
+        return B.NodeRoute(exit=("R", .5), entry=entry,
+                           runs=[B.Run(a, c) for a, c in runs],
+                           direct=len(runs) == 1)
+
+    def test_candidates_align_fallback(self):
+        boxes = {"hub": (300.0, 0.0, 78.0, 78.0),
+                 "up": (0.0, -300.0, 78.0, 78.0),
+                 "down": (0.0, 300.0, 78.0, 78.0)}
+        edges = [{"id": "eu", "src": "up", "dst": "hub"},
+                 {"id": "ed", "src": "down", "dst": "hub"}]
+        # 構成図03 の形: 上枝 T 入射 2 Run・下枝 L 入射 3 Run。
+        # 短い鋳型(T 入射)の鏡像は hub 下辺 = キャプション貫通で不可 →
+        # 長い枝を鋳型に、上枝を L 入射 3 Run へ整合させる候補が出る
+        routes = {"eu": self._route([("h", 0), ("v", 339.0)],
+                                    entry=("T", .5)),
+                  "ed": self._route([("h", 0), ("v", 250.0), ("h", 0)])}
+        cands = B._mirror_fan_candidates(self._lay(boxes), edges, routes,
+                                         "dst")
+        self.assertEqual(len(cands), 1)
+        (e, cand), = cands[0]
+        self.assertEqual(e["id"], "eu")
+        self.assertEqual(cand.entry, ("L", .5))
+        self.assertEqual([r.axis for r in cand.runs], ["h", "v", "h"])
+        self.assertEqual(cand.runs[1].coord, 250.0)   # 縦レーンは同一 x
+        self.assertEqual(cand.exit, ("R", .5))        # 自 src の出射は維持
+        # Run 差 3 以上の不整合対は整合化しない(過剰一般化の抑止)
+        routes5 = {"eu": self._route([("h", 0), ("v", 339.0)],
+                                     entry=("T", .5)),
+                   "ed": self._route([("h", 0), ("v", 250.0), ("h", 100.0),
+                                      ("v", 260.0), ("h", 0)])}
+        self.assertEqual(
+            B._mirror_fan_candidates(self._lay(boxes), edges, routes5, "dst"),
+            [])
+
+    def test_candidates_mirror_and_skip(self):
+        boxes = {"hub": (300.0, 0.0, 78.0, 78.0),
+                 "up": (0.0, -300.0, 78.0, 78.0),
+                 "down": (0.0, 300.0, 78.0, 78.0)}
+        edges = [{"id": "eu", "src": "up", "dst": "hub"},
+                 {"id": "ed", "src": "down", "dst": "hub"}]
+        # 入射辺が揃った対(L/L)の階段枝 → SEM-6 同様に短い枝を鋳型に鏡像
+        routes = {"eu": self._route([("h", 0), ("v", 250.0), ("h", 0)]),
+                  "ed": self._route([("h", 0), ("v", 100.0), ("h", 150.0),
+                                     ("v", 250.0), ("h", 0)])}
+        cands = B._mirror_fan_candidates(self._lay(boxes), edges, routes,
+                                         "dst")
+        self.assertEqual(len(cands), 1)
+        (e, cand), = cands[0]
+        self.assertEqual(e["id"], "ed")
+        self.assertEqual([r.axis for r in cand.runs], ["h", "v", "h"])
+        self.assertEqual(cand.runs[1].coord, 250.0)
+        self.assertEqual(cand.entry, ("L", .5))   # 既存入射端点を維持
+        # 既に鏡像(入射辺整合 + 中間 Run 一致)→ 候補なし(冪等)
+        routes2 = {"eu": self._route([("h", 0), ("v", 250.0), ("h", 0)]),
+                   "ed": self._route([("h", 0), ("v", 250.0), ("h", 0)])}
+        self.assertEqual(
+            B._mirror_fan_candidates(self._lay(boxes), edges, routes2, "dst"),
+            [])
+        # 対にならないファンイン(両 src とも上)→ 候補なし
+        boxes3 = dict(boxes, down=(0.0, -500.0, 78.0, 78.0))
+        self.assertEqual(
+            B._mirror_fan_candidates(self._lay(boxes3), edges, routes, "dst"),
+            [])
+        # 同一 src ロール(SEM-6)では同一 dst 対は対象外のまま
+        self.assertEqual(
+            B._mirror_fan_candidates(self._lay(boxes), edges, routes), [])
+
+
 class TestSparseGrid(unittest.TestCase):
     """空き行/列は潰れる(疎な row/col 指定が余白の海にならない)。"""
 

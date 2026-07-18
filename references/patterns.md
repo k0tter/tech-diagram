@@ -57,8 +57,8 @@ API GW→Lambda(薄い受付)→EventBridge(ルールで多対多配送)→SQS�
 ## P7. コンテナ(ECS/Fargate)— `reference-architectures/container-ecs.spec.json`
 
 ユーザー→ALB(public)→タスク(private・複数 AZ)。外向き(image pull・外部 API)は NAT(public)→IGW。
-- 代替: ECR/S3/CloudWatch へは VPC エンドポイント(endpoints アイコンを subnet 内に)で NAT 回避
-- https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_fault_isolation_multiaz_region_system.html / https://docs.aws.amazon.com/AmazonECS/latest/bestpracticesguide/networking-best-practices.html
+- private subnet からの ECR 取得は 2 択とも正当: **NAT 経由**(単純・外部 API 兼用)/**VPC エンドポイント**(ecr.api+ecr.dkr interface+S3 gateway。NAT/IGW 不要・AWS 網内に閉じる。endpoints アイコンを subnet 内に)
+- https://docs.aws.amazon.com/AmazonECS/latest/developerguide/vpc-endpoints.html / https://docs.aws.amazon.com/AmazonECS/latest/bestpracticesguide/networking-best-practices.html / https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_fault_isolation_multiaz_region_system.html
 
 ## P8. ハイブリッド(Direct Connect / Site-to-Site VPN)
 
@@ -88,3 +88,4 @@ W コード付きの行はビルド段+バリデータが機械検査する(W17/
 | AP11 | S3 website endpoint+OAC/OAI の組合せ | 非公開化は REST エンドポイント+OAC(P6) |
 | AP12 | 集中 egress なのに各 VPC に NAT/IGW が残る | 出口は egress VPC のみ(P4) |
 | AP13 | 「ヘルスチェックで自動切替」とだけ注記 | 切替の自動/手動と手順自動化を説明文で明示(P3) |
+| AP14 | Public subnet を流れの奥に描く/internet-facing ALB が Public subnet 層から離れて浮く | Public は入口(users/IGW)側。LB は scheme と一致した配置(AZ 省略図=所属 subnet 内・AZ 明示図=所属 subnet と同列。SKILL.md の 2 形態) |

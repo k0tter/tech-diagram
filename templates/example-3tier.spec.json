@@ -19,7 +19,7 @@
    {"id": "waf", "label": "AWS WAF", "icon": "waf", "parent": "cloud", "col": 1, "row": 1},
    {"id": "cf", "label": "CloudFront", "icon": "cloudfront", "parent": "cloud", "col": 1, "row": 2},
    {"id": "igw", "label": "Internet Gateway", "icon": "internet_gateway", "parent": "vpc", "col": 2, "row": 2},
-   {"id": "alb", "label": "ALB", "icon": "application_load_balancer", "parent": "vpc", "col": 3, "row": 2},
+   {"id": "alb", "label": "ALB (internet-facing)", "icon": "application_load_balancer", "parent": "vpc", "col": 4, "row": 2},
    {"id": "nat1", "label": "NAT Gateway", "icon": "nat_gateway", "parent": "az1_pub", "col": 4, "row": 1},
    {"id": "ec2a", "label": "EC2 アプリサーバー", "icon": "ec2", "parent": "az1_app", "col": 5, "row": 1},
    {"id": "rds1", "label": "RDS (プライマリ)", "icon": "rds", "parent": "az1_db", "col": 6, "row": 1},
@@ -43,6 +43,6 @@
    {"id": "e_s3", "src": "cf", "dst": "s3", "kind": "main", "label": "静的コンテンツ"},
    {"id": "e_cw", "src": "vpc", "dst": "cw", "kind": "sub", "label": "ログ/メトリクス"}
  ],
- "meta": {"updated": "2026-07-09", "purpose": "Web 3 層構成の標準形", "audience": "開発チーム", "scope": "単一リージョン・Multi-AZ の本番構成", "abstraction": "概要", "assumptions": "標準的な 3 層構成の見本"},
+ "meta": {"updated": "2026-07-09", "purpose": "Web 3 層構成の標準形", "audience": "開発チーム", "scope": "単一リージョン・Multi-AZ の本番構成", "abstraction": "概要", "assumptions": "標準的な 3 層構成の見本。ALB (internet-facing) は複製せず単一ノードを Public subnet と同じ列・AZ 間に描く(各 AZ の Public subnet に展開)"},
  "legend": {"main": "主フロー(同期)", "sub": "補助・非同期"}
 }

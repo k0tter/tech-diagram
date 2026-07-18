@@ -21,7 +21,7 @@
    {"id": "waf", "label": "AWS WAF", "icon": "waf", "parent": "cloud", "col": 1, "row": 1},
    {"id": "cf", "label": "CloudFront", "icon": "cloudfront", "parent": "cloud", "col": 1, "row": 2},
    {"id": "igw", "label": "Internet Gateway", "icon": "internet_gateway", "parent": "vpc", "col": 2, "row": 2},
-   {"id": "alb", "label": "ALB", "icon": "application_load_balancer", "parent": "vpc", "col": 3, "row": 2},
+   {"id": "alb", "label": "ALB (internet-facing)", "icon": "application_load_balancer", "parent": "vpc", "col": 4, "row": 2},
    {"id": "nat1", "label": "NAT Gateway", "icon": "nat_gateway", "parent": "az1_pub", "col": 4, "row": 1},
    {"id": "ec2a", "label": "EC2 アプリサーバー", "icon": "ec2", "parent": "az1_app", "col": 5, "row": 1},
    {"id": "rds1", "label": "RDS (プライマリ)", "icon": "rds", "parent": "az1_db", "col": 6, "row": 1},
@@ -48,6 +48,6 @@
    "audience": "tech-diagram での作図(正解トポロジの起点)",
    "scope": "入口(Route 53/CloudFront/WAF 任意)+ALB+アプリ 2AZ+RDS Multi-AZ+NAT egress",
    "abstraction": "骨格(監視・静的配信は省略)",
-   "assumptions": "正解ポイント(カタログ P1): ①EC2/RDS は private subnet(DB を public に置かない=AP6) ②RDS Multi-AZ はプライマリ→スタンバイの一方向同期複製で、スタンバイへ読取線を引かない(AP10) ③NAT は public subnet に置き、private からの外向きは NAT→IGW 経由(AP5) ④ALB は単一ノードを AZ 間に描き複数 AZ 展開を示す(複製しない)"
+   "assumptions": "正解ポイント(カタログ P1): ①EC2/RDS は private subnet(DB を public に置かない=AP6) ②RDS Multi-AZ はプライマリ→スタンバイの一方向同期複製で、スタンバイへ読取線を引かない(AP10) ③NAT は public subnet に置き、private からの外向きは NAT→IGW 経由(AP5) ④ALB (internet-facing) は複製せず単一ノードを Public subnet と同じ列・AZ 間に描く(各 AZ の Public subnet に展開)"
  }
 }

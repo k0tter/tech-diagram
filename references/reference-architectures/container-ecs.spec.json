@@ -16,7 +16,7 @@
    {"id": "users", "label": "ユーザー", "icon": "users", "col": 0, "row": 2},
    {"id": "ecr", "label": "ECR", "icon": "ecr", "parent": "region", "col": 1, "row": 0},
    {"id": "igw", "label": "Internet Gateway", "icon": "internet_gateway", "parent": "vpc", "col": 1, "row": 2},
-   {"id": "alb", "label": "ALB", "icon": "application_load_balancer", "parent": "vpc", "col": 2, "row": 2},
+   {"id": "alb", "label": "ALB (internet-facing)", "icon": "application_load_balancer", "parent": "vpc", "col": 2, "row": 2},
    {"id": "nat1", "label": "NAT Gateway", "icon": "nat_gateway", "parent": "az1_pub", "col": 2, "row": 1},
    {"id": "task1", "label": "ECS/Fargate\nタスク", "icon": "fargate", "parent": "az1_app", "col": 3, "row": 1},
    {"id": "nat2", "label": "NAT Gateway", "icon": "nat_gateway", "parent": "az2_pub", "col": 2, "row": 3},
@@ -37,6 +37,6 @@
    "audience": "tech-diagram での作図(正解トポロジの起点)",
    "scope": "ALB+ECS/Fargate 2AZ+NAT egress+ECR",
    "abstraction": "骨格(サービス/タスク内部階層・CI/CD は省略)",
-   "assumptions": "正解ポイント(カタログ P7): ①タスクは private subnet・複数 AZ、前段に ALB ②外向き(image pull・外部 API)は NAT(public subnet)→IGW 経由(AP5) ③ECR はリージョナルで VPC 外 ④代替: ECR/S3/CloudWatch へは VPC エンドポイントで NAT を通さない構成も可(その場合 endpoints アイコンを subnet 内に)"
+   "assumptions": "正解ポイント(カタログ P7): ①タスクは private subnet・複数 AZ、前段に ALB (internet-facing・単一ノードを Public subnet と同じ列・AZ 間に描き、各 AZ の Public subnet に展開) ②外向き(image pull・外部 API)は NAT(public subnet)→IGW 経由(AP5) ③ECR はリージョナルで VPC 外 ④代替: ECR/S3/CloudWatch へは VPC エンドポイント(ecr.api+ecr.dkr interface+S3 gateway)で NAT を通さない構成も可(その場合 endpoints アイコンを subnet 内に)"
  }
 }

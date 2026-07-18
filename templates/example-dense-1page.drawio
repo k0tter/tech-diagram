@@ -279,14 +279,14 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="e19" value="非同期レプリケーション" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#2E8B57;strokeWidth=1.5;dashed=1;dashPattern=10 5;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.675;entryDx=0;entryDy=0;" edge="1" parent="1" source="aurora" target="aurorab" >
-          <mxGeometry x="0.0406" relative="1" as="geometry">
-            <Array as="points"><mxPoint x="1325" y="343" /><mxPoint x="1325" y="180" /><mxPoint x="1936.9" y="180" /><mxPoint x="1936.9" y="356.7" /></Array>
+          <mxGeometry x="0.0468" relative="1" as="geometry">
+            <Array as="points"><mxPoint x="1325" y="343" /><mxPoint x="1325" y="180" /><mxPoint x="1943.9" y="180" /><mxPoint x="1943.9" y="356.7" /></Array>
             <mxPoint as="offset" x="0.0" y="0.0" />
           </mxGeometry>
         </mxCell>
         <mxCell id="e20" value="CRR" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#2E8B57;strokeWidth=1.5;dashed=1;dashPattern=10 5;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="s3a" target="s3b" >
-          <mxGeometry x="-0.0490" relative="1" as="geometry">
-            <Array as="points"><mxPoint x="602.8" y="897" /><mxPoint x="602.8" y="1362" /><mxPoint x="1926.9" y="1362" /><mxPoint x="1926.9" y="719" /></Array>
+          <mxGeometry x="-0.0500" relative="1" as="geometry">
+            <Array as="points"><mxPoint x="602.8" y="897" /><mxPoint x="602.8" y="1362" /><mxPoint x="1929.9" y="1362" /><mxPoint x="1929.9" y="719" /></Array>
             <mxPoint as="offset" x="0.0" y="0.0" />
           </mxGeometry>
         </mxCell>
@@ -305,7 +305,7 @@
         </mxCell>
         <mxCell id="e24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.85;entryDx=0;entryDy=0;" edge="1" parent="1" source="svcb2" target="aurorab" >
           <mxGeometry x="0" relative="1" as="geometry">
-            <Array as="points"><mxPoint x="1946.9" y="507" /><mxPoint x="1946.9" y="370.3" /></Array>
+            <Array as="points"><mxPoint x="1943.9" y="507" /><mxPoint x="1943.9" y="370.3" /></Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="e25" value="イベント" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#7D8998;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=1;exitY=0.285;exitDx=0;exitDy=0;entryX=0;entryY=0.65;entryDx=0;entryDy=0;" edge="1" parent="1" source="svc2" target="eb" >
@@ -343,7 +343,7 @@
         </mxCell>
         <mxCell id="e31" value="メトリクス" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#0FA3A6;strokeWidth=1.5;dashed=1;dashPattern=1 3;exitX=0.5158;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vpcA" target="cw" >
           <mxGeometry x="0.3720" relative="1" as="geometry">
-            <Array as="points"><mxPoint x="958.8" y="826" /><mxPoint x="1049.8" y="826" /><mxPoint x="1049.8" y="985" /><mxPoint x="744.3" y="985" /></Array>
+            <Array as="points"><mxPoint x="958.8" y="829" /><mxPoint x="1049.8" y="829" /><mxPoint x="1049.8" y="985" /><mxPoint x="744.3" y="985" /></Array>
             <mxPoint as="offset" x="0.0" y="0.0" />
           </mxGeometry>
         </mxCell>
@@ -367,13 +367,13 @@
         </mxCell>
         <mxCell id="e36" value="デプロイ" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#8C4FFF;strokeWidth=1.5;dashed=1;dashPattern=6 3 1 3;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.8375;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="ecr" target="vpcA" >
           <mxGeometry x="0.0841" relative="1" as="geometry">
-            <Array as="points"><mxPoint x="1160.9" y="1164" /><mxPoint x="1295" y="1164" /><mxPoint x="1295" y="999" /><mxPoint x="1063.8" y="999" /><mxPoint x="1063.8" y="837.5" /><mxPoint x="1160.9" y="837.5" /></Array>
+            <Array as="points"><mxPoint x="1160.9" y="1164" /><mxPoint x="1295" y="1164" /><mxPoint x="1295" y="999" /><mxPoint x="1063.8" y="999" /><mxPoint x="1063.8" y="843" /><mxPoint x="1160.9" y="843" /></Array>
             <mxPoint as="offset" x="0.0" y="0.0" />
           </mxGeometry>
         </mxCell>
         <mxCell id="e37" value="GitOps" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#8C4FFF;strokeWidth=1.5;dashed=1;dashPattern=6 3 1 3;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.1743;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="argo" target="vpcA" >
           <mxGeometry x="-0.5898" relative="1" as="geometry">
-            <Array as="points"><mxPoint x="592.8" y="1423" /><mxPoint x="592.8" y="849" /><mxPoint x="744.3" y="849" /></Array>
+            <Array as="points"><mxPoint x="592.8" y="1423" /><mxPoint x="592.8" y="843" /><mxPoint x="744.3" y="843" /></Array>
             <mxPoint as="offset" x="-0.0" y="0.0" />
           </mxGeometry>
         </mxCell>

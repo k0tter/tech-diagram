@@ -3535,30 +3535,35 @@ def assign_lanes(lay: Layout, node_edges: list[dict],
             # 置くと、同方向へ折れる線同士が編み込まずに入れ子になる
             nest = -hi if next_c > coords[i] else hi
             groups.setdefault((axis, round(coords[i], 1)), []).append(
-                (e["id"], i, key, lo, hi, nest, e["src"]))
+                (e["id"], i, key, lo, hi, nest, e["src"], e["dst"]))
     offsets: dict[str, dict[int, float]] = {}
     for (axis, coord), members in groups.items():
         if len(members) <= 1:
             continue
         members.sort(key=lambda m: (m[2], m[5]))
-        # 同一 src で区間が重ならない(隙間 12px 以上)Run 同士は、1 本の
-        # レーンを共有する対称ユニットにまとめる — 上下対称ファンアウトが
-        # ±7px のレーン分離で「階段状」に崩れるのを防ぐ(FB第3R 指摘3)。
-        # 無関係なエッジ同士は従来どおりオフセットで分離する(同 指摘1。
-        # ユニット化を同一 src に限るのは、無関係エッジの共有が dense 系で
-        # レーン順序の意味(交差防止)を崩し交差を増やすため — 実測 4→6)
+        # 同一 src または同一 dst で区間が重ならない(隙間 12px 以上)Run
+        # 同士は、1 本のレーンを共有する対称ユニットにまとめる — 上下対称
+        # ファンアウト/ファンインが ±7px のレーン分離で「階段状」に崩れる
+        # のを防ぐ(FB第3R 指摘3 / SEM-7-5)。無関係なエッジ同士は従来
+        # どおりオフセットで分離する(同 指摘1。ユニット化を端点共有エッジに
+        # 限るのは、無関係エッジの共有が dense 系でレーン順序の意味
+        # (交差防止)を崩し交差を増やすため — 実測 4→6)
         units: list[list] = []
-        by_src: dict[str, list[list]] = {}
+        by_end: dict[tuple[str, str], list[list]] = {}
         for m in members:
-            unit = next((u for u in by_src.get(m[6], ())
+            unit = next((u for end in (("s", m[6]), ("d", m[7]))
+                         for u in by_end.get(end, ())
                          if all(m[3] >= um[4] + 12.0 or um[3] >= m[4] + 12.0
                                 for um in u)), None)
             if unit is None:
                 unit = [m]
                 units.append(unit)
-                by_src.setdefault(m[6], []).append(unit)
             else:
                 unit.append(m)
+            for end in (("s", m[6]), ("d", m[7])):
+                lst = by_end.setdefault(end, [])
+                if not any(u is unit for u in lst):
+                    lst.append(unit)
         k = len(units)
         if k <= 1:
             continue    # 全員が 1 対称ユニット = 回廊線を共有(オフセット不要)
@@ -3581,7 +3586,7 @@ def assign_lanes(lay: Layout, node_edges: list[dict],
         if offs[-1] + shift > pos:
             shift = pos - offs[-1]
         for idx, unit in enumerate(units):
-            for eid, i, _key, _lo, _hi, _nest, _src in unit:
+            for eid, i, _key, _lo, _hi, _nest, _src, _dst in unit:
                 offsets.setdefault(eid, {})[i] = offs[idx] + shift
     return offsets
 
@@ -4028,41 +4033,67 @@ def _mirror_runs_clear(lay: Layout, e: dict, route: NodeRoute) -> bool:
     return True
 
 
-def _mirror_fan_candidates(lay: Layout, node_edges: list[dict],
-                           routes: dict[str, NodeRoute]
-                           ) -> list[list[tuple[dict, NodeRoute]]]:
-    """SEM-6: 同一 src・同一出射辺から上下(左右)へ分かれる対ファンの
-    「折れ構造を鏡像に揃える」差し替え候補を列挙する。
+def _fan_pairs(lay: Layout, node_edges: list[dict],
+               routes: dict[str, NodeRoute], shared: str
+               ) -> list[tuple[bool, float, tuple, tuple]]:
+    """鏡像対称化の対象になる対ファンを列挙する(SEM-6/SEM-7-5 共通)。
 
-    v1.6.0 の対称ユニット(assign_lanes)と _fan_slots は端点とレーン
-    共有までを対称化するが、探索の SHARE/CROSS ペナルティが後着の対枝を
-    別回廊の階段状経路(折れ +2)へ追いやるのは防げない(構成図03 の
-    ALB ファン実測: 上枝 2 折れ・下枝 4 折れ)。ここでは Run 数が少ない
-    枝を鋳型に、src 中心線で鏡像した Run 列をもう一方の候補として返す。
-    採用可否(ハード幾何・境界並走・スコア非悪化)は route_all が判定する。
-    対にならないファン(片側 0 本・複数本)・ひし形端点・既に鏡像の対は
-    対象外(過剰一般化しない)。返り値: 対ごとの候補リスト(優先順)。
+    shared="src" は同一 src・同一出射辺のファンアウト、"dst" は同一 dst・
+    同一出射辺文字のファンイン。共有ノードの中心線を挟んで反対側の端点が
+    1 本ずつのものだけを対とする。返り値: (vert, mid, (ea, ra), (eb, rb))。
+    vert=True は上下対(y 反転)、mid は鏡像軸の座標。ea/ra が上(左)。
     """
+    other = "dst" if shared == "src" else "src"
     groups: dict[tuple[str, str], list[tuple[dict, NodeRoute]]] = {}
     for e in node_edges:
         r = routes.get(e["id"])
         if not isinstance(r, NodeRoute) or e["src"] == e["dst"]:
             continue
-        if e["src"] in lay.cmap or e["src"] in lay.diamond \
+        if e[shared] in lay.cmap or e["src"] in lay.diamond \
                 or e["dst"] in lay.diamond:
             continue
-        groups.setdefault((e["src"], r.exit[0]), []).append((e, r))
-    out: list[list[tuple[dict, NodeRoute]]] = []
-    for (src, side), members in sorted(groups.items()):
-        vert = side in "LR"      # 横辺から出る対 → 上下の鏡像(y 反転)
-        mid = lay.center(src)[1] if vert else lay.center(src)[0]
+        groups.setdefault((e[shared], r.exit[0]), []).append((e, r))
+    out: list[tuple[bool, float, tuple, tuple]] = []
+    for (hub, side), members in sorted(groups.items()):
+        vert = side in "LR"      # 横辺の出射対 → 上下の鏡像(y 反転)
+        mid = lay.center(hub)[1] if vert else lay.center(hub)[0]
         lo_m = [m for m in members
-                if lay.center(m[0]["dst"])[1 if vert else 0] < mid - 4.0]
+                if lay.center(m[0][other])[1 if vert else 0] < mid - 4.0]
         hi_m = [m for m in members
-                if lay.center(m[0]["dst"])[1 if vert else 0] > mid + 4.0]
+                if lay.center(m[0][other])[1 if vert else 0] > mid + 4.0]
         if len(lo_m) != 1 or len(hi_m) != 1:
             continue             # 対にならないファンは従来動作
-        (ea, ra), (eb, rb) = lo_m[0], hi_m[0]
+        out.append((vert, mid, lo_m[0], hi_m[0]))
+    return out
+
+
+def _mirror_fan_candidates(lay: Layout, node_edges: list[dict],
+                           routes: dict[str, NodeRoute],
+                           shared: str = "src"
+                           ) -> list[list[tuple[dict, NodeRoute]]]:
+    """SEM-6/SEM-7-5: 対ファンの「折れ構造を鏡像に揃える」差し替え候補を列挙する。
+
+    shared="src"(SEM-6)は同一 src・同一出射辺から上下(左右)へ分かれる
+    ファンアウト対、shared="dst"(SEM-7-5)は同一 dst へ上下(左右)から
+    集まるファンイン対(src 側の出射辺が同一文字)を対象にする。
+    v1.6.0 の対称ユニット(assign_lanes)と _fan_slots は端点とレーン
+    共有までを対称化するが、探索の SHARE/CROSS ペナルティが後着の対枝を
+    別回廊の階段状経路(折れ +2)や別の入射辺(構成図03 の NAT→ECR 実測:
+    上枝 = ECR 上辺・下枝 = ECR 左辺)へ追いやるのは防げない。ここでは
+    Run 数が少ない枝を鋳型に、共有ノード中心線で鏡像した Run 列をもう一方の
+    候補として返す。ファンインで入射辺そのものが不整合の対は、長い枝を
+    鋳型にする候補(折れ増を許す整合化。差 2 Run まで)も併せて返す。
+    採用可否(ハード幾何・境界並走・スコア非悪化)は route_all が判定する。
+    対にならないファン(片側 0 本・複数本)・ひし形端点・既に鏡像の対は
+    対象外(過剰一般化しない)。返り値: 対ごとの候補リスト(優先順)。
+
+    ファンインを src 側出射辺の同一文字で群化する理由: 共有ノード側の辺
+    (entry)は当の不整合量なので鍵に使えない。軸鏡像で自分自身に写る辺
+    (縦対なら L/R、横対なら T/B)だけが鏡像対の出射辺になり得る。
+    """
+    out: list[list[tuple[dict, NodeRoute]]] = []
+    for vert, mid, (ea, ra), (eb, rb) in _fan_pairs(lay, node_edges,
+                                                    routes, shared):
         flip = "h" if vert else "v"
         mside = _MIRROR_V if vert else _MIRROR_H
 
@@ -4081,16 +4112,25 @@ def _mirror_fan_candidates(lay: Layout, node_edges: list[dict],
             return NodeRoute(exit=fr.exit, entry=entry, runs=runs,
                              direct=len(runs) == 1)
 
+        # 入射辺の鏡像整合(ファンインの群では共有 dst 上の同一辺 or 対面辺)
+        aligned = mside[ra.entry[0]] == rb.entry[0]
         if len(ra.runs) == len(rb.runs):
             mir = _mirror_runs(ra.runs, flip, mid)
-            if all(abs(m.coord - r.coord) <= 2.0
-                   for m, r in list(zip(mir, rb.runs))[1:-1]):
+            if (shared == "src" or aligned) \
+                    and all(abs(m.coord - r.coord) <= 2.0
+                            for m, r in list(zip(mir, rb.runs))[1:-1]):
                 continue         # 既に鏡像 — 触らない
             alts = [(eb, cand(ra, eb, rb)), (ea, cand(rb, ea, ra))]
         elif len(ra.runs) < len(rb.runs):
             alts = [(eb, cand(ra, eb, rb))]
+            if shared == "dst" and not aligned \
+                    and len(rb.runs) - len(ra.runs) <= 2:
+                alts.append((ea, cand(rb, ea, ra)))
         else:
             alts = [(ea, cand(rb, ea, ra))]
+            if shared == "dst" and not aligned \
+                    and len(ra.runs) - len(rb.runs) <= 2:
+                alts.append((eb, cand(ra, eb, rb)))
         alts = [(e, c) for e, c in alts if c is not None]
         if alts:
             out.append(alts)
@@ -4563,33 +4603,67 @@ def route_all(router: Router, lay: Layout, node_edges: list[dict],
                     if tscore <= score:
                         routes, score = trial, tscore
 
-    # SEM-6: 同一 src の上下(左右)対ファンの折れ構造を鏡像に揃える。
+    # SEM-6/SEM-7-5: 対ファンの折れ構造を鏡像に揃える(shared="src" =
+    # 同一 src のファンアウト対、shared="dst" = 同一 dst のファンイン対)。
     # 対称ユニット(assign_lanes)と fan スロットは端点・レーン共有までしか
-    # 対称化できず、探索の SHARE/CROSS が後着の枝を階段状経路へ追いやった
-    # 場合の折れ構造の非対称はここで直す。ハード幾何(_seed_geometry_ok)・
+    # 対称化できず、探索の SHARE/CROSS が後着の枝を階段状経路や別の入射辺へ
+    # 追いやった場合の非対称はここで直す。ハード幾何(_seed_geometry_ok)・
     # 境界並走ガード・タブ全体スコア(交差→題字→anti→fan→折れ→長さ)の
     # 非悪化・密着並走の非増加を全て満たす候補だけ採用する(満たせない対は
-    # 従来経路のまま = 交差増・迂回を作らない)
+    # 従来経路のまま = 交差増・迂回を作らない)。例外: ファンインの入射辺
+    # そのものを整合させる候補(SEM-7-5)は、鏡像化の対価である折れ・長さの
+    # 増加を許し、上位成分(交差→題字→anti→fan)の非悪化だけを要求する
     if not draft and routes:
         polys = finalize_polys(lay, node_edges, routes)
         score = full_score(routes, polys)
-        for alts in _mirror_fan_candidates(lay, node_edges, routes):
-            for e, cand in alts:
-                eid = e["id"]
-                if eid not in polys or not _seed_geometry_ok(lay, e, cand) \
-                        or not _mirror_runs_clear(lay, e, cand):
-                    continue
-                trial = dict(routes)
-                trial[eid] = cand
-                tpolys = finalize_polys(lay, node_edges, trial)
-                tscore = full_score(trial, tpolys)
-                others_old = [p for k, p in polys.items() if k != eid]
-                others_new = [p for k, p in tpolys.items() if k != eid]
-                if tscore <= score and \
-                        _tight_coruns(tpolys[eid], others_new + fixed_polys) \
-                        <= _tight_coruns(polys[eid], others_old + fixed_polys):
-                    routes, polys, score = trial, tpolys, tscore
-                    break
+        for role in ("src", "dst"):
+            for alts in _mirror_fan_candidates(lay, node_edges, routes, role):
+                for e, cand in alts:
+                    eid = e["id"]
+                    if eid not in polys or not _seed_geometry_ok(lay, e, cand) \
+                            or not _mirror_runs_clear(lay, e, cand):
+                        continue
+                    trial = dict(routes)
+                    trial[eid] = cand
+                    tpolys = finalize_polys(lay, node_edges, trial)
+                    tscore = full_score(trial, tpolys)
+                    others_old = [p for k, p in polys.items() if k != eid]
+                    others_new = [p for k, p in tpolys.items() if k != eid]
+                    align = role == "dst" \
+                        and cand.entry[0] != routes[eid].entry[0]
+                    ok = tscore[:4] <= score[:4] if align \
+                        else tscore <= score
+                    if ok and \
+                            _tight_coruns(tpolys[eid], others_new + fixed_polys) \
+                            <= _tight_coruns(polys[eid], others_old + fixed_polys):
+                        routes, polys, score = trial, tpolys, tscore
+                        break
+
+    # SEM-7-5: 鏡像が成立しているファンイン対の端点辺を、後段の直線化
+    # (straighten_polys の辺付け替えリシェイプ)から保護する。リシェイプは
+    # 対を知らないため、片枝だけ折れを 1 つ減らす付け替え(実測: 構成図03 の
+    # NAT→ECR 上枝 Z 字 → ECR 上辺 L 字)で入射辺の整合を再び崩す。
+    # 流入辺規約(R7-15/A3)と同じ ban 機構に固定する — straighten_polys は
+    # ban された辺への付け替えを行わない。対象は「入射辺が鏡像整合かつ折れ
+    # 構造も鏡像」の対だけ(整合していない対は従来どおりリシェイプに委ねる)
+    if not draft and routes:
+        for vert, mid, (ea, ra), (eb, rb) in \
+                _fan_pairs(lay, node_edges, routes, "dst"):
+            flip = "h" if vert else "v"
+            mside = _MIRROR_V if vert else _MIRROR_H
+            if mside[ra.entry[0]] != rb.entry[0] \
+                    or len(ra.runs) != len(rb.runs):
+                continue
+            mir = _mirror_runs(ra.runs, flip, mid)
+            if not all(abs(m.coord - r.coord) <= 2.0
+                       for m, r in list(zip(mir, rb.runs))[1:-1]):
+                continue
+            for e2, r2 in ((ea, ra), (eb, rb)):
+                keep = {(e2["src"], r2.exit[0]), (e2["dst"], r2.entry[0])}
+                ban = {(t, s) for t in (e2["src"], e2["dst"])
+                       for s in "LRTB"} - keep
+                lay.diamond_bans[e2["id"]] = \
+                    lay.diamond_bans.get(e2["id"], frozenset()) | frozenset(ban)
 
     # 後段の修復(迂回・R5-C・経路の慣性)が diamond の辺占有を崩して
     # いないか最終確認する(run_order 内の dedupe と同じ強制パス)

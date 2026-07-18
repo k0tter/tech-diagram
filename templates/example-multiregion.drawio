@@ -150,14 +150,14 @@
             <Array as="points"><mxPoint x="674" y="606.7" /></Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="svcA1" target="auroraA" >
+        <mxCell id="e9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.35;entryDx=0;entryDy=0;" edge="1" parent="1" source="svcA1" target="auroraA" >
           <mxGeometry x="0" relative="1" as="geometry">
-            <Array as="points"><mxPoint x="876.1" y="343" /></Array>
+            <Array as="points"><mxPoint x="772" y="343" /><mxPoint x="772" y="583.3" /></Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="svcA2" target="auroraA" >
+        <mxCell id="e10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.65;entryDx=0;entryDy=0;" edge="1" parent="1" source="svcA2" target="auroraA" >
           <mxGeometry x="0" relative="1" as="geometry">
-            <Array as="points"><mxPoint x="772" y="773" /><mxPoint x="772" y="595" /></Array>
+            <Array as="points"><mxPoint x="772" y="773" /><mxPoint x="772" y="606.7" /></Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="e11" value="非同期レプリケーション" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#2E8B57;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=1;exitY=0.65;exitDx=0;exitDy=0;entryX=0;entryY=0.675;entryDx=0;entryDy=0;" edge="1" parent="1" source="auroraA" target="auroraB" >

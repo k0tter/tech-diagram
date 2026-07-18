@@ -135,9 +135,9 @@
             <mxPoint as="offset" x="0.0" y="0.0" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e9" value="ナレッジ参照" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.675;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="hub" target="s3" >
-          <mxGeometry x="-0.3347" relative="1" as="geometry">
-            <Array as="points"><mxPoint x="954.7" y="620.6" /></Array>
+        <mxCell id="e9" value="ナレッジ参照" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.675;exitDx=0;exitDy=0;entryX=0;entryY=0.35;entryDx=0;entryDy=0;" edge="1" parent="1" source="hub" target="s3" >
+          <mxGeometry x="-0.6366" relative="1" as="geometry">
+            <Array as="points"><mxPoint x="862.7" y="620.6" /><mxPoint x="862.7" y="745.3" /></Array>
             <mxPoint as="offset" x="-0.0" y="-0.0" />
           </mxGeometry>
         </mxCell>
@@ -156,9 +156,9 @@
             <mxPoint as="offset" x="0.0" y="0.0" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e13" value="成果物格納" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#7D8998;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=1;exitY=0.285;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="worker" target="s3" >
-          <mxGeometry x="0.1425" relative="1" as="geometry">
-            <Array as="points"><mxPoint x="876.7" y="1138.2" /><mxPoint x="876.7" y="757" /></Array>
+        <mxCell id="e13" value="成果物格納" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#7D8998;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=1;exitY=0.285;exitDx=0;exitDy=0;entryX=0;entryY=0.65;entryDx=0;entryDy=0;" edge="1" parent="1" source="worker" target="s3" >
+          <mxGeometry x="0.1455" relative="1" as="geometry">
+            <Array as="points"><mxPoint x="876.7" y="1138.2" /><mxPoint x="876.7" y="768.7" /></Array>
             <mxPoint as="offset" x="0.0" y="0.0" />
           </mxGeometry>
         </mxCell>

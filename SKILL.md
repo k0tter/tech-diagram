@@ -149,7 +149,9 @@ python3 {SKILL}/scripts/find_icon.py <英語キーワード>
    ノードは gear 可) ③コンテナ端点集約。コンテナ内外に分かれるときはリングの
    **部分適用でよい**
 7. 小中規模の Multi-AZ 図は各 AZ 内のサブネットを**同一行に横並び**(Public→
-   Private→Isolated)にして AZ を 1 行に潰す(縦長化の防止)。入口系(users/
+   Private→Isolated)にして AZ を 1 行に潰す(縦長化の防止)。Public は VPC の
+   インターネット接点(IGW 直結経路)なので入口側(手前)— 流れは 外→IGW→Public
+   →Private。egress 先(ECR 等)の都合で Public を奥へ動かさない。入口系(users/
    IGW/LB)は **AZ の間の 1 行**に集約し、貫通行を入口フローの帯として使う。
    AZ 行はハブ行を挟んで**鏡映対称**に組む — コンテナの上下パディングは
    非対称なので、行構成が対称でないとペア経路の脚長・折れ構造が揃わない
@@ -211,7 +213,9 @@ python3 {SKILL}/scripts/build_drawio.py <name>.spec.json -o <name>.drawio
    CloudFront 用 WAF)は region 外か(W17)/HA・Multi-AZ 表記に AZ×2 あるか(W20)
    /DB は private subnet・外部直結なし(W18/W19)・private の外向きは NAT 経由
    (W21)/複製線の方向(Aurora Global=一方向・DynamoDB GT=双方向)/
-   CloudFront→API GW 直列は regional 注記 ⑥線は行き先に面した
+   CloudFront→API GW 直列は regional 注記/Public subnet は入口(users/IGW)側・
+   並びは Public→Private か(集中 egress 等の意図的な逆は理由を報告)/LB の
+   scheme(internet-facing/internal)と配置が一致するか(AP14) ⑥線は行き先に面した
    辺から出ているか ⑦対エッジの折れ構造は対称か ⑧同種コンテナの寸法は
    揃っているか
 5. 目視: `--emit-png` を付けてビルド(draw.io CLI を自動検出して実描画 PNG。
@@ -241,8 +245,10 @@ python3 {SKILL}/scripts/build_drawio.py <name>.spec.json -o <name>.drawio
 - SG が複数サブネットをまたぐ構成はコンテナでは描けない → **AZ ごとに同名 SG を
   複製**して注釈(EC2 をサブネット外に出す回避は不可)
 - ALB/NLB など複数サブネット展開の LB は **SG と違い複製しない**(複製すると
-  2 台に見える)。単一ノードを VPC 直下・2 つの AZ の間の行に置き、ラベルか
-  注記で複数 AZ 展開を示す(AWS 公式図の慣例)
+  2 台に見える)。AZ を描かない図では**所属 subnet 内**(internet-facing=Public /
+  internal=Private subnet)。AZ を描く図では単一ノードを VPC 直下・AZ の間の行・
+  **所属 subnet と同じ列**(internet-facing=2 つの Public subnet に挟む)に置き、
+  scheme と「各 AZ の Public subnet に展開」をラベルか注記で示す(AWS 公式図の慣例)
 - ECS 内部図は cluster=`generic` > service=`auto_scaling` > task=`ec2_contents`
   (この階層は W9 許容済み)
 - 最新の公式アイコン・正式サービス名のみ。変形・独自再配色は禁止(色分けは

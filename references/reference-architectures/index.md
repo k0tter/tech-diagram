@@ -9,10 +9,11 @@ meta を依頼内容に合わせて書き換えること)。
 | ファイル | パターン | 要点 | patterns.md |
 |---|---|---|---|
 | multiregion-dr.spec.json | マルチリージョン DR(active-passive 方式A) | オリジンのみ切替・CloudFront/WAF 共通の対称 failover。Aurora 一方向/DynamoDB 双方向/S3 CRR | P3 |
-| three-tier-web.spec.json | 3層 Web(Multi-AZ) | アプリ/DB=private・スタンバイ読取不可・NAT egress | P1 |
+| three-tier-web.spec.json | 3層 Web(Multi-AZ) | アプリ/DB=private・スタンバイ読取不可・NAT egress・ALB=internet-facing(Public 列・AZ 間) | P1 |
 | serverless-api.spec.json | サーバーレス API | Cognito 非直列・API GW regional・S3 OAC | P2 |
 | static-site.spec.json | 静的サイト | CloudFront+S3 OAC(REST エンドポイント・非公開) | P6 |
-| container-ecs.spec.json | コンテナ(ECS/Fargate) | タスク private・NAT 経由 pull・ECR は VPC 外 | P7 |
+| container-ecs.spec.json | コンテナ(ECS/Fargate) | タスク private・pull=NAT/VPC エンドポイントの 2 択・ALB=internet-facing(Public 列・AZ 間) | P7 |
 
+- LB は複製せず、AZ 省略図=所属 subnet 内/AZ 明示図=所属 subnet と同列・AZ 間の 2 形態(SKILL.md)。scheme(internet-facing/internal)を明示する。
 - P4(マルチアカウント)は `templates/example-multiaccount.spec.json` を起点にする。
 - P5(イベント駆動)・P8(ハイブリッド)は patterns.md の要点に従い自由構成(境界は W8/W14 が機械検査)。

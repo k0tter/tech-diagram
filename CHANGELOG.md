@@ -6,6 +6,40 @@ and versioning follows [Semantic Versioning](https://semver.org/). The
 distribution zip and auto-generated notes for each version live on GitHub
 Releases.
 
+## [1.1.0] - 2026-07-19
+
+Architectural-placement correctness. / 配置のアーキテクチャ的正しさ。/
+Ketepatan penempatan arsitektur.
+
+### Added
+
+- **Public-subnet-front principle**: public subnets (the internet entry side)
+  are placed at the front (left/top) of the VPC, private subnets (App / DB /
+  Cache) behind them, so every diagram reads internet → IGW → public →
+  private (SKILL.md placement principle 7, patterns.md AP14)
+- **Internet-facing ALB placement rule (two forms)**: diagrams without
+  explicit AZs draw the ALB inside the public subnet; diagrams with explicit
+  AZs draw a single ALB node (no duplication) in the public-subnet column at
+  VPC level, sandwiched between the AZs' public subnets — grounded in the AWS
+  VPC documentation ("each public subnet contains a NAT gateway and a load
+  balancer node")
+
+### Changed
+
+- **Fan-in mirroring**: paired edges converging on the same destination now
+  take mirror-image routes, generalizing the existing same-source fan-out
+  mirroring (e.g. the two NAT → ECR lines are symmetric)
+- Reference specs (`references/reference-architectures/`) and the bundled
+  templates updated to the ALB / public-subnet rules above; all gallery
+  images regenerated from the current engine
+- Template PNGs now live only under `docs/images/templates/`
+  (`templates/*.png` removed)
+
+### Fixed
+
+- CI fuzz no longer counts W16–W21 architectural build rejections as layout
+  failures
+
 ## [1.0.0] - 2026-07-18
 
 First public release. / 初回公開リリース。/ Rilis publik pertama.
