@@ -51,12 +51,13 @@ jobs:
           (cd dist && sha256sum "tech-diagram-${GITHUB_REF_NAME}.zip" > SHA256SUMS)
           cat dist/SHA256SUMS
       - name: ビルド来歴の attestation(gh attestation verify で検証可能)
-        # attestation は個人所有の private リポジトリでは保存不可。private の間は
-        # スキップし(リリース自体は止めない)、public 化後に来歴が付与される。
-        continue-on-error: true
+        id: attest
         uses: actions/attest-build-provenance@0f67c3f4856b2e3261c31976d6725780e5e4c373 # v4
         with:
           subject-path: dist/tech-diagram-${{ github.ref_name }}.zip
+      - name: 来歴バンドルを Release 資産に含める(オフライン検証・Scorecard Signed-Releases 用)
+        run: cp "${{ steps.attest.outputs.bundle-path }}" \
+               "dist/tech-diagram-${GITHUB_REF_NAME}.zip.intoto.jsonl"
       - name: リリースノート生成(前タグからのコミットを分類)
         run: python3 tools/release_notes.py "${GITHUB_REF_NAME}" > notes.md && cat notes.md
       - name: GitHub Release を公開
@@ -65,6 +66,7 @@ jobs:
         run: |
           gh release create "${GITHUB_REF_NAME}" \
             "dist/tech-diagram-${GITHUB_REF_NAME}.zip" \
+            "dist/tech-diagram-${GITHUB_REF_NAME}.zip.intoto.jsonl" \
             "dist/SHA256SUMS" \
             --title "tech-diagram ${GITHUB_REF_NAME}" \
             --notes-file notes.md
