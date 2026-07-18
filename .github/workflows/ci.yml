@@ -73,6 +73,17 @@ jobs:
         run: python3 tools/fuzz_hcl.py 80
       - name: レイアウト幾何(正当スペックで E エラー・斜め線ゼロ)
         run: python3 tools/fuzz_layout.py 50
+      - name: atheris(カバレッジ誘導。敵対的入力で SpecError 以外の例外ゼロ)
+        run: |
+          set -eu
+          # ハッシュ固定(atheris は依存ゼロ。cp312 manylinux wheel)
+          printf '%s\n' "atheris==3.1.0 --hash=sha256:ec5e11f21a4c197fe91f7aea2b2de88e623c73a21fc07b105ac6329a1588457b" > /tmp/req-fuzz.txt
+          pip install --quiet --no-deps --require-hashes -r /tmp/req-fuzz.txt
+          mkdir -p /tmp/fuzz-corpus
+          cp templates/*.spec.json \
+             references/reference-architectures/*.spec.json /tmp/fuzz-corpus/
+          python3 tools/fuzz_atheris.py /tmp/fuzz-corpus \
+            -max_total_time=60 -timeout=30 -rss_limit_mb=2048
 
   render:
     name: draw.io 実描画スモーク
