@@ -1599,12 +1599,13 @@ class TestFontFamilyArial(unittest.TestCase):
     """全ラベルのフォントは Arial 明示(公式デッキ準拠+描画一貫性)。"""
 
     def test_style_constants_include_arial(self):
-        import _common as C
+        from _common import (SERVICE_STYLE, RESOURCE_STYLE, AZURE_STYLE,
+                             GCP_STYLE)
         consts = {"TEXT": B.TEXT, "GRP": B.GRP, "PLAIN": B.PLAIN,
                   "E_BASE": B.E_BASE, "ENTITY_STYLE": B.ENTITY_STYLE,
-                  "SERVICE_STYLE": C.SERVICE_STYLE,
-                  "RESOURCE_STYLE": C.RESOURCE_STYLE,
-                  "AZURE_STYLE": C.AZURE_STYLE, "GCP_STYLE": C.GCP_STYLE}
+                  "SERVICE_STYLE": SERVICE_STYLE,
+                  "RESOURCE_STYLE": RESOURCE_STYLE,
+                  "AZURE_STYLE": AZURE_STYLE, "GCP_STYLE": GCP_STYLE}
         consts.update({f"BADGE_STYLES[{k}]": v
                        for k, v in B.BADGE_STYLES.items()})
         consts.update({f"FLOW_STYLES[{k}]": v
@@ -3384,7 +3385,6 @@ class TestForeignTransit(unittest.TestCase):
     """
 
     def assert_no_transit(self, tab: dict, xml: str):
-        import re
         pmap = {}
         cmap = {c["id"]: c for c in tab.get("containers", [])}
         for c in tab.get("containers", []):

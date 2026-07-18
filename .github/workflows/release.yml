@@ -5,13 +5,16 @@ on:
     tags: ["v*"]
 
 permissions:
-  contents: write       # Release の作成・資産アップロード
-  id-token: write       # attest-build-provenance の OIDC 署名
-  attestations: write   # attestation の保存
+  contents: read
 
 jobs:
   release:
     name: 検証 → 配布 zip → Release 公開
+    # write 権限はこのジョブに限定(トップレベルは read のみ)
+    permissions:
+      contents: write       # Release の作成・資産アップロード
+      id-token: write       # attest-build-provenance の OIDC 署名
+      attestations: write   # attestation の保存
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
