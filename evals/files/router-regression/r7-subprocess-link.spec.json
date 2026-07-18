@@ -1,0 +1,13 @@
+{
+  "name": "r7-subprocess-link",
+  "meta": {"purpose": "R7 C subprocess link regression"},
+  "nodes": [
+    {"id": "start", "shape": "terminator", "label": "Start", "col": 0, "row": 0},
+    {"id": "detail", "shape": "subprocess", "label": "Detail", "link": "detail-flow.drawio", "col": 0, "row": 1},
+    {"id": "end", "shape": "terminator", "label": "End", "col": 0, "row": 2}
+  ],
+  "edges": [
+    {"id": "e1", "src": "start", "dst": "detail", "kind": "main"},
+    {"id": "e2", "src": "detail", "dst": "end", "kind": "main"}
+  ]
+}

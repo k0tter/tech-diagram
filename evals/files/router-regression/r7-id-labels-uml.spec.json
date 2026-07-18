@@ -1,0 +1,11 @@
+{
+  "name": "r7-id-labels-uml",
+  "meta": {"purpose": "R7 A and B id, end-label, and stereotype regression"},
+  "nodes": [
+    {"id": "join", "shape": "entity", "title": "PaymentGateway", "stereotype": "interface", "rows2": ["+ charge()"], "col": 0, "row": 0},
+    {"id": "base", "shape": "entity", "title": "BasePayment", "stereotype": "abstract", "rows": ["# id"], "col": 1, "row": 0}
+  ],
+  "edges": [
+    {"id": "rel", "src": "join", "dst": "base", "kind": "uml_assoc", "src_label": "1", "dst_label": "1..*"}
+  ]
+}

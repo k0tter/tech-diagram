@@ -1,0 +1,67 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write       # Release の作成・資産アップロード
+  id-token: write       # attest-build-provenance の OIDC 署名
+  attestations: write   # attestation の保存
+
+jobs:
+  release:
+    name: 検証 → 配布 zip → Release 公開
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          fetch-depth: 0   # リリースノート生成に全履歴とタグが要る
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.12"
+      - name: リリース前検証(テスト+テンプレ同期)
+        run: |
+          set -eu
+          python3 scripts/tests.py
+          for f in templates/*.spec.json; do
+            out=$(python3 scripts/build_drawio.py "$f" -o "${f%.spec.json}.drawio" 2>&1)
+            echo "$out" | grep -q "=== 0 error(s), 0 warning(s) ===" || {
+              echo "::error::$f が 0e0w でない"; echo "$out"; exit 1; }
+          done
+          git diff --exit-code -- templates/
+      - name: 配布 zip を作成
+        run: |
+          set -eu
+          mkdir -p dist/tech-diagram
+          # 利用に必要な最小構成のみ(テスト・ファザーは開発用 = リポジトリ側)
+          cp -R SKILL.md README.md LICENSE NOTICE references scripts \
+                templates dist/tech-diagram/
+          rm -f dist/tech-diagram/scripts/tests.py
+          rm -rf dist/tech-diagram/scripts/__pycache__
+          (cd dist && zip -qr "tech-diagram-${GITHUB_REF_NAME}.zip" tech-diagram)
+          unzip -l "dist/tech-diagram-${GITHUB_REF_NAME}.zip" | tail -3
+      - name: SHA256SUMS を作成(改ざん検知用チェックサム)
+        run: |
+          set -eu
+          (cd dist && sha256sum "tech-diagram-${GITHUB_REF_NAME}.zip" > SHA256SUMS)
+          cat dist/SHA256SUMS
+      - name: ビルド来歴の attestation(gh attestation verify で検証可能)
+        # attestation は個人所有の private リポジトリでは保存不可。private の間は
+        # スキップし(リリース自体は止めない)、public 化後に来歴が付与される。
+        continue-on-error: true
+        uses: actions/attest-build-provenance@0f67c3f4856b2e3261c31976d6725780e5e4c373 # v4
+        with:
+          subject-path: dist/tech-diagram-${{ github.ref_name }}.zip
+      - name: リリースノート生成(前タグからのコミットを分類)
+        run: python3 tools/release_notes.py "${GITHUB_REF_NAME}" > notes.md && cat notes.md
+      - name: GitHub Release を公開
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            "dist/tech-diagram-${GITHUB_REF_NAME}.zip" \
+            "dist/SHA256SUMS" \
+            --title "tech-diagram ${GITHUB_REF_NAME}" \
+            --notes-file notes.md

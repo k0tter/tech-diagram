@@ -1,0 +1,34 @@
+{
+ "name": "サーバーレス API (Cognito 認証)",
+ "legend": {"main": "リクエスト(同期)", "sub": "非同期・補助", "auth": "認証(トークン取得・検証)"},
+ "kinds": {"auth": {"base": "sub", "color": "#8C4FFF"}},
+ "containers": [
+   {"id": "cloud", "label": "AWS Cloud", "type": "aws_cloud"}
+ ],
+ "nodes": [
+   {"id": "users", "label": "クライアント", "icon": "users", "col": 0, "row": 1},
+   {"id": "cf", "label": "CloudFront", "icon": "cloudfront", "parent": "cloud", "col": 1, "row": 0},
+   {"id": "s3", "label": "S3 (静的資産)", "icon": "s3", "parent": "cloud", "col": 3, "row": 0},
+   {"id": "apigw", "label": "API Gateway\n(regional)", "icon": "api_gateway", "parent": "cloud", "col": 1, "row": 1},
+   {"id": "lambda", "label": "Lambda", "icon": "lambda", "parent": "cloud", "col": 2, "row": 1},
+   {"id": "ddb", "label": "DynamoDB", "icon": "dynamodb", "parent": "cloud", "col": 3, "row": 1},
+   {"id": "cognito", "label": "Cognito\nUser Pool", "icon": "cognito", "parent": "cloud", "col": 1, "row": 2}
+ ],
+ "edges": [
+   {"id": "e_static", "src": "users", "dst": "cf", "kind": "main", "label": "静的資産"},
+   {"id": "e_oac", "src": "cf", "dst": "s3", "kind": "main", "label": "OAC (CF のみ許可)"},
+   {"id": "e_signin", "src": "users", "dst": "cognito", "kind": "auth", "bidir": true, "label": "① サインイン\n(トークン取得)"},
+   {"id": "e_api", "src": "users", "dst": "apigw", "kind": "main", "label": "② API (JWT 付与)"},
+   {"id": "e_verify", "src": "apigw", "dst": "cognito", "kind": "auth", "label": "トークン検証"},
+   {"id": "e_lambda", "src": "apigw", "dst": "lambda", "kind": "main"},
+   {"id": "e_ddb", "src": "lambda", "dst": "ddb", "kind": "main"}
+ ],
+ "meta": {
+   "updated": "2026-07-18",
+   "purpose": "サーバーレス API の検証済みリファレンス。作図時はここから差分編集する",
+   "audience": "tech-diagram での作図(正解トポロジの起点)",
+   "scope": "静的資産(CloudFront+S3 OAC)+API(API Gateway→Lambda→DynamoDB)+Cognito 認証",
+   "abstraction": "骨格(サーバーレスは AZ をサービス側が担うため AZ コンテナ不要)",
+   "assumptions": "正解ポイント(カタログ P2): ①Cognito はメイン経路に直列に入れない(AP8) — 先にトークン取得し API GW が検証(補助線で表現) ②自前 CloudFront を API の前段に置くなら API GW は regional(edge-optimized は CDN 二重=AP7) ③S3 は OAC でバケット直アクセスを遮断 ④全てマネージドで VPC 外(W8)"
+ }
+}

@@ -1,0 +1,53 @@
+{
+ "name": "3層 Web (Multi-AZ)",
+ "legend": {"main": "リクエスト(同期)", "sub": "非同期・補助", "repl": "レプリケーション"},
+ "kinds": {"repl": {"base": "sub", "color": "#2E8B57", "style_extra": "dashPattern=10 5;"}},
+ "containers": [
+   {"id": "cloud", "label": "AWS Cloud", "type": "aws_cloud"},
+   {"id": "region", "label": "リージョン (ap-northeast-1)", "type": "region", "parent": "cloud"},
+   {"id": "vpc", "label": "VPC", "type": "vpc", "parent": "region"},
+   {"id": "az1", "label": "Availability Zone A", "type": "az", "parent": "vpc"},
+   {"id": "az1_pub", "label": "Public subnet", "type": "public_subnet", "parent": "az1"},
+   {"id": "az1_app", "label": "Private subnet (App)", "type": "private_subnet", "parent": "az1"},
+   {"id": "az1_db", "label": "Private subnet (DB)", "type": "private_subnet", "parent": "az1"},
+   {"id": "az2", "label": "Availability Zone C", "type": "az", "parent": "vpc"},
+   {"id": "az2_pub", "label": "Public subnet", "type": "public_subnet", "parent": "az2"},
+   {"id": "az2_app", "label": "Private subnet (App)", "type": "private_subnet", "parent": "az2"},
+   {"id": "az2_db", "label": "Private subnet (DB)", "type": "private_subnet", "parent": "az2"}
+ ],
+ "nodes": [
+   {"id": "users", "label": "ユーザー", "icon": "users", "col": 0, "row": 2},
+   {"id": "r53", "label": "Route 53", "icon": "route_53", "parent": "cloud", "col": 1, "row": 0},
+   {"id": "waf", "label": "AWS WAF", "icon": "waf", "parent": "cloud", "col": 1, "row": 1},
+   {"id": "cf", "label": "CloudFront", "icon": "cloudfront", "parent": "cloud", "col": 1, "row": 2},
+   {"id": "igw", "label": "Internet Gateway", "icon": "internet_gateway", "parent": "vpc", "col": 2, "row": 2},
+   {"id": "alb", "label": "ALB", "icon": "application_load_balancer", "parent": "vpc", "col": 3, "row": 2},
+   {"id": "nat1", "label": "NAT Gateway", "icon": "nat_gateway", "parent": "az1_pub", "col": 4, "row": 1},
+   {"id": "ec2a", "label": "EC2 アプリサーバー", "icon": "ec2", "parent": "az1_app", "col": 5, "row": 1},
+   {"id": "rds1", "label": "RDS (プライマリ)", "icon": "rds", "parent": "az1_db", "col": 6, "row": 1},
+   {"id": "nat2", "label": "NAT Gateway", "icon": "nat_gateway", "parent": "az2_pub", "col": 4, "row": 3},
+   {"id": "ec2b", "label": "EC2 アプリサーバー", "icon": "ec2", "parent": "az2_app", "col": 5, "row": 3},
+   {"id": "rds2", "label": "RDS (スタンバイ)", "icon": "rds", "parent": "az2_db", "col": 6, "row": 3}
+ ],
+ "edges": [
+   {"id": "e_dns", "src": "users", "dst": "r53", "kind": "sub", "label": "DNS 解決"},
+   {"id": "e_https", "src": "users", "dst": "cf", "kind": "main", "label": "HTTPS"},
+   {"id": "e_waf", "src": "waf", "dst": "cf", "kind": "sub"},
+   {"id": "e_dyn", "src": "cf", "dst": "igw", "kind": "main", "label": "動的コンテンツ"},
+   {"id": "e_alb", "src": "igw", "dst": "alb", "kind": "main"},
+   {"id": "e_ec2a", "src": "alb", "dst": "ec2a", "kind": "main"},
+   {"id": "e_ec2b", "src": "alb", "dst": "ec2b", "kind": "main"},
+   {"id": "e_sqla", "src": "ec2a", "dst": "rds1", "kind": "main", "label": "SQL"},
+   {"id": "e_sqlb", "src": "ec2b", "dst": "rds1", "kind": "main"},
+   {"id": "e_repl", "src": "rds1", "dst": "rds2", "kind": "repl", "label": "同期レプリケーション"},
+   {"id": "e_egress", "src": "ec2a", "dst": "nat1", "kind": "sub", "label": "外向き egress\n(NAT→IGW 経由)"}
+ ],
+ "meta": {
+   "updated": "2026-07-18",
+   "purpose": "3層 Web (Multi-AZ) の検証済みリファレンス。作図時はここから差分編集する",
+   "audience": "tech-diagram での作図(正解トポロジの起点)",
+   "scope": "入口(Route 53/CloudFront/WAF 任意)+ALB+アプリ 2AZ+RDS Multi-AZ+NAT egress",
+   "abstraction": "骨格(監視・静的配信は省略)",
+   "assumptions": "正解ポイント(カタログ P1): ①EC2/RDS は private subnet(DB を public に置かない=AP6) ②RDS Multi-AZ はプライマリ→スタンバイの一方向同期複製で、スタンバイへ読取線を引かない(AP10) ③NAT は public subnet に置き、private からの外向きは NAT→IGW 経由(AP5) ④ALB は単一ノードを AZ 間に描き複数 AZ 展開を示す(複製しない)"
+ }
+}

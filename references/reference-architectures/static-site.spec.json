@@ -1,0 +1,28 @@
+{
+ "name": "静的サイト (CloudFront + S3 + OAC)",
+ "legend": {"main": "リクエスト(同期)", "sub": "補助"},
+ "containers": [
+   {"id": "cloud", "label": "AWS Cloud", "type": "aws_cloud"}
+ ],
+ "nodes": [
+   {"id": "users", "label": "ユーザー", "icon": "users", "col": 0, "row": 1},
+   {"id": "r53", "label": "Route 53", "icon": "route_53", "parent": "cloud", "col": 1, "row": 0},
+   {"id": "cf", "label": "CloudFront", "icon": "cloudfront", "parent": "cloud", "col": 1, "row": 1},
+   {"id": "waf", "label": "WAF (global)", "icon": "waf", "parent": "cloud", "col": 1, "row": 2},
+   {"id": "s3", "label": "S3 バケット\n(REST エンドポイント・非公開)", "icon": "s3", "parent": "cloud", "col": 3, "row": 1}
+ ],
+ "edges": [
+   {"id": "e_dns", "src": "users", "dst": "r53", "kind": "sub", "label": "DNS"},
+   {"id": "e_https", "src": "users", "dst": "cf", "kind": "main", "label": "HTTPS"},
+   {"id": "e_waf", "src": "waf", "dst": "cf", "kind": "sub"},
+   {"id": "e_oac", "src": "cf", "dst": "s3", "kind": "main", "label": "OAC (署名のみ許可)"}
+ ],
+ "meta": {
+   "updated": "2026-07-18",
+   "purpose": "静的サイトの検証済みリファレンス。作図時はここから差分編集する",
+   "audience": "tech-diagram での作図(正解トポロジの起点)",
+   "scope": "ユーザー→CloudFront→S3 (OAC)",
+   "abstraction": "骨格",
+   "assumptions": "正解ポイント(カタログ P6): ①ユーザー→S3 の直行線を引かない(CloudFront バイパス) ②OAC が現行推奨(OAI はレガシー) ③website endpoint は OAC/OAI 不可 — 非公開化は REST エンドポイント+OAC(AP11)"
+ }
+}

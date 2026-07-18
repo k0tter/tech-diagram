@@ -1,0 +1,20 @@
+{
+  "name": "sublane-step", "meta": {"purpose": "router regression fixture: R5-C terminal two-step"},
+  "containers": [
+    {"id": "cloud", "label": "AWS Cloud", "type": "aws_cloud"}
+  ],
+  "nodes": [
+    {"id": "w0", "icon": "ec2", "label": "W0", "col": 1, "row": 0, "parent": "cloud"},
+    {"id": "w1", "icon": "s3", "label": "W1", "col": 0, "row": 1, "parent": "cloud"},
+    {"id": "w2", "icon": "lambda", "label": "W2", "col": 3, "row": 0, "parent": "cloud"},
+    {"id": "w4", "icon": "sns", "label": "W4", "col": 0, "row": 0, "parent": "cloud"},
+    {"id": "w5", "icon": "dynamodb", "label": "W5", "col": 2, "row": 0, "parent": "cloud"}
+  ],
+  "edges": [
+    {"id": "s3", "src": "w1", "dst": "w2", "kind": "main"},
+    {"id": "s4", "src": "w5", "dst": "w4", "kind": "main"},
+    {"id": "s5", "src": "w4", "dst": "w2", "kind": "main"},
+    {"id": "s6", "src": "w0", "dst": "w4", "kind": "main"},
+    {"id": "s7", "src": "w1", "dst": "w5", "kind": "main"}
+  ]
+}

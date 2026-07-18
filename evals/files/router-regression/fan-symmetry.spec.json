@@ -1,0 +1,64 @@
+{
+  "name": "fan-symmetry",
+  "meta": {
+    "purpose": "e17 回帰用の固定スペック(ファンアウト対称)。同一 src の上下対称ファン。修正前エンジンは縦レーンが x=223/209 の ±7px 階段に割れていた"
+  },
+  "nodes": [
+    {
+      "id": "waf",
+      "icon": "waf",
+      "label": "AWS WAF",
+      "col": 1,
+      "row": 1
+    },
+    {
+      "id": "alb",
+      "icon": "application_load_balancer",
+      "label": "ALB",
+      "col": 1,
+      "row": 2
+    },
+    {
+      "id": "cog",
+      "icon": "cognito",
+      "label": "Cognito",
+      "col": 1,
+      "row": 3
+    },
+    {
+      "id": "ecs1",
+      "icon": "ecs",
+      "label": "ECS Service A",
+      "col": 2,
+      "row": 1
+    },
+    {
+      "id": "mid",
+      "icon": "elasticache",
+      "label": "ElastiCache",
+      "col": 2,
+      "row": 2
+    },
+    {
+      "id": "ecs2",
+      "icon": "ecs",
+      "label": "ECS Service B",
+      "col": 2,
+      "row": 3
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "src": "alb",
+      "dst": "ecs1",
+      "kind": "main"
+    },
+    {
+      "id": "e2",
+      "src": "alb",
+      "dst": "ecs2",
+      "kind": "main"
+    }
+  ]
+}

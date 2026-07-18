@@ -1,0 +1,32 @@
+{
+  "name": "r7-decision",
+  "meta": {"purpose": "R7 A2 decision vertex regression"},
+  "legend": {"main": "normal", "sub": "exception"},
+  "containers": [
+    {"id": "lane_emp", "label": "Applicant", "type": "lane"},
+    {"id": "lane_mgr", "label": "Manager", "type": "lane"},
+    {"id": "lane_acc", "label": "Accounting", "type": "lane"}
+  ],
+  "nodes": [
+    {"id": "start", "shape": "terminator", "label": "Start", "parent": "lane_emp", "col": 0, "row": 0, "pin": true},
+    {"id": "apply", "shape": "io", "label": "Submit expense", "parent": "lane_emp", "col": 0, "row": 1, "pin": true},
+    {"id": "fix", "shape": "process", "label": "Revise", "parent": "lane_emp", "col": 1, "row": 1, "pin": true},
+    {"id": "mgr_check", "shape": "decision", "label": "Approve?", "parent": "lane_mgr", "col": 2, "row": 2, "pin": true},
+    {"id": "amount", "shape": "decision", "label": "Under limit?", "parent": "lane_mgr", "col": 2, "row": 3, "pin": true},
+    {"id": "rejected", "shape": "terminator", "label": "Rejected", "parent": "lane_mgr", "col": 3, "row": 6, "pin": true},
+    {"id": "acc_check", "shape": "decision", "label": "Accounting approve?", "parent": "lane_acc", "col": 4, "row": 4, "pin": true},
+    {"id": "approved", "shape": "terminator", "label": "Approved", "parent": "lane_acc", "col": 4, "row": 6, "pin": true}
+  ],
+  "edges": [
+    {"id": "f1", "src": "start", "dst": "apply", "kind": "main"},
+    {"id": "f2", "src": "apply", "dst": "mgr_check", "kind": "main", "label": "submit"},
+    {"id": "f3", "src": "mgr_check", "dst": "amount", "kind": "main", "label": "yes"},
+    {"id": "f4", "src": "mgr_check", "dst": "fix", "kind": "sub", "label": "revise"},
+    {"id": "f5", "src": "mgr_check", "dst": "rejected", "kind": "sub", "label": "no"},
+    {"id": "f6", "src": "amount", "dst": "approved", "kind": "main", "label": "yes"},
+    {"id": "f7", "src": "amount", "dst": "acc_check", "kind": "main", "label": "no"},
+    {"id": "f8", "src": "acc_check", "dst": "approved", "kind": "main", "label": "yes"},
+    {"id": "f9", "src": "acc_check", "dst": "rejected", "kind": "sub", "label": "no"},
+    {"id": "f11", "src": "fix", "dst": "apply", "kind": "main", "label": "resubmit"}
+  ]
+}

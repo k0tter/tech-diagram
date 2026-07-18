@@ -1,0 +1,296 @@
+{
+  "skill_name": "tech-diagram",
+  "note": "測るのは『Claude がこのスキルを起動して、自然言語の作図依頼から人手修正不要の 0 エラー・0 警告 .drawio を作れるか』という end-to-end の有効性。scripts/tests.py(250件)がスクリプト内部の正しさ(バリデータが W8 を出すか等)を担うのに対し、こちらはエージェントの判断(アイコン選択・境界配置・縮約・番号付け・バリデータ反復・レポート)を測る。この空白は従来 RUN_STATE の手動『実戦検証 A/B/C』でしか埋めていなかったものを定式化したもの。スキル無しのベースラインは Mermaid や生 XML を手書きし、バリデータを通さず重なり・貫通の残る図を出しがち — expectations はその差が出るよう設計している。客観判定は evals/check_diagram.py(生成 .drawio にバリデータを走らせ 0/0・交差目安・境界コードを機械照合)で行い、判断・レポート系は成果物とトランスクリプトで採点する。生成物の置き場所を指定しない prompt は、エージェントが着手前に確認する余地を残している(SKILL.md の着手前確認)。 id13-16 は iteration-2 の高難度セット(規模の衝突・誤指示への対処・汚いTerraform・壊れ図の修復)— スキルの上限を測るために追加。id17 は外部フィードバック第3ラウンド(ルータ優先原則『接続して見える(辺中央付近)> 直線 > 折れ点最少』)の回帰 eval — 第4ラウンド(出射辺の方向・垂直ペア中心 0.5・兄弟コンテナ寸法等化)の回帰も兼ね、第5ラウンド(外部パッチ A-1/A-2/A-3 と fork・サブレーン修復)の回帰も兼ね、機械照合は check_diagram.py --router の10チェックで行い、fail-before は files/router-regression/verify.py(--era r3|r4|r5 で世代別)で再現できる。 id19-20 は SEM(アーキテクチャ正しさ)の回帰 eval — 素人的な依頼からアンチパターン(W16 DR 非対称・W17 グローバルのリージョン内配置・W18 DB public・W19 外部→DB 直結・W20 HA 詐称単一 AZ・W21 NAT 欠落)を踏まない図が出るかを測る。機械照合は check_diagram.py --absent W16..W21、機械判定不能なレビューゲート7件(AP7-13)は grader.md のアーキ正しさルーブリックで採点し、fail-before は verify.py --era sem(誤り fixture が旧 v1.9.0 エンジン+旧バリデータを素通りし現行で発火)で再現できる。",
+  "evals": [
+    {
+      "id": 1,
+      "eval_name": "aws-web-3tier",
+      "prompt": "AWS で Web アプリの3層構成図を作ってほしい。Multi-AZ の VPC に ALB・EC2(アプリ)・Aurora を置いて、CloudWatch で監視する構成。生成した .drawio と元スペックはスクラッチ領域に置いてください。",
+      "expected_output": "VPC/サブネット境界が正しく、主フローが左→右に読める 0 エラー・0 警告の AWS 3層 .drawio と、対の .spec.json。レポートに Abstraction Notes と QA。",
+      "expectations": [
+        ".spec.json と .drawio の両方を生成している(ピクセル座標や生 draw.io XML を手書きせず、col/row の論理スペックを書いている)",
+        "最終 .drawio がバリデータで 0 error・0 warning(ビルド段の『注意:』WARN 行も残っていない)",
+        "Aurora・EC2 がサブネット内に置かれ(ALB はサブネットまたぎの論理リソースのため VPC 直下も正 — 同梱 example-3tier と同じ扱い)、マネージドサービスをサブネット/VPC に入れる W8 警告が出ていない",
+        "CloudWatch が region 内・VPC 外に置かれ(グローバルサービスの W11 も出ない配置)、監視エッジが ops(点線)等で本流と区別されている",
+        "ユーザー(users)が aws_cloud の範囲外に置かれ、主フローが同一 row で左→右に一直線に読める",
+        "納品レポートに構成要約・バリデータ結果・Abstraction Notes(入力要素の kept/grouped/omitted 分類)・QA が含まれている"
+      ]
+    },
+    {
+      "id": 2,
+      "eval_name": "reference-architecture",
+      "prompt": "サーバーレス Web アプリ(CloudFront → S3 / API Gateway → Lambda → DynamoDB、認証は Cognito)の『リファレンスアーキテクチャ図』を、AWS 公式のように番号付きの手順解説つきで作ってください。",
+      "expected_output": "各サービスに step バッジ、右側に番号と対応する steps 説明パネル、矢印は無地。W12 警告なしの 0/0 .drawio。",
+      "expectations": [
+        "各サービスノードに step 番号(起点=リクエスト側が 1 の連番・図内一意)が付き、アイコン右上のバッジで描画されている",
+        "トップレベルに steps 説明パネル(バッジと同数の説明文)があり、W12(欠番・重複・説明数不一致・パネル欠如)警告が出ていない",
+        "矢印にテキストラベルが付いていない(意味は番号と説明パネルに載せる公式の流儀)",
+        "name が図の左上タイトルとして使われている",
+        "最終 .drawio がバリデータで 0 error・0 warning"
+      ]
+    },
+    {
+      "id": 3,
+      "eval_name": "multi-account-org",
+      "prompt": "AWS Organizations のマルチアカウント構成図を作ってください。OU の下に Network / Security Tooling / Log Archive / Workload の各アカウントを置き、それぞれの用途と責務が分かるように。",
+      "expected_output": "ou(点線枠)+ account コンテナで Organizations 階層を表し、アカウントは用途名+ID、統制エッジは代表化。W9 なしの 0/0。",
+      "expectations": [
+        "Organizations 階層が ou(点線枠)と account コンテナで表現され、階層を飛ばして混ぜていない(ビルド段の W9 コンテナ階層警告が出ていない)",
+        "各アカウントのラベルが用途名+アカウントID形式(例: Workload (1234-5678-9012))になっている",
+        "Network / Security Tooling / Log Archive / Workload の4責務でアカウントが分かれている",
+        "統制系エッジが代表1本(または省略+注記)で、全アカウント総結線になっていない",
+        "最終 .drawio がバリデータで 0 error・0 warning"
+      ]
+    },
+    {
+      "id": 4,
+      "eval_name": "multi-region-dr",
+      "prompt": "マルチリージョン DR 構成図を作ってください。東京をプライマリ、大阪を DR とし、データはリージョン間レプリケーション、障害時は Route 53 でフェイルオーバーします。",
+      "expected_output": "プライマリと DR が左右対称、Route 53 はグローバル、レプリケーションとフェイルオーバーが別線種で凡例に自己完結。0/0。",
+      "expectations": [
+        "プライマリと DR が左右対称に配置されている(上下分割でない)",
+        "Route 53 がリージョンコンテナの外(グローバル側・aws_cloud 直下)に置かれ、グローバルサービスの W11 警告が出ていない",
+        "レプリケーションが sub(破線)など非同期線で表され、フェイルオーバー経路と線種で区別されている",
+        "線種が4種以上になる場合、色だけでなく style_extra(dashPattern 等)でも区別され、legend で自己完結している(線種の legend 未掲載 WARN が出ていない)",
+        "最終 .drawio がバリデータで 0 error・0 warning"
+      ]
+    },
+    {
+      "id": 5,
+      "eval_name": "multicloud-aws-azure-gcp",
+      "prompt": "AWS・Azure・GCP の3クラウドをまたぐ接続構成図を作ってください。各クラウドの代表サービスを専用線でつなぐ、マルチクラウドの俯瞰図です。",
+      "expected_output": "azure:/gcp: プレフィックスの公式アイコンが混在し、各社のコンテナ型で囲い、専用線で接続。貫通なしの 0/0。",
+      "expectations": [
+        "Azure と GCP のアイコンが azure: / gcp: プレフィックスで解決され、3社の公式アイコンが混在している",
+        "3プロバイダそれぞれのコンテナ型(aws_cloud / Azure の subscription・vnet / GCP の project・gcp_vpc 等)が使い分けられている",
+        "クラウド間の専用線エッジがあり、他コンテナを貫通していない(E3 貫通・W7 祖先外走行が出ていない)",
+        "着手時に references/azure-gcp.md を参照したことが伺える(azure:/gcp: 記法やコンテナ型を正しく使っている)",
+        "最終 .drawio がバリデータで 0 error・0 warning"
+      ]
+    },
+    {
+      "id": 6,
+      "eval_name": "er-diagram",
+      "prompt": "EC サイトの ER 図を作ってください。users / orders / order_items / products の4テーブルで、主キー・外部キーと、テーブル間のリレーション(1対多など)の多重度を表現して。",
+      "expected_output": "entity 箱4つ(属性つき)と er_ 系の多重度つき関係線。0/0 の .drawio。",
+      "expectations": [
+        "各テーブルが entity 箱(shape=entity・title・rows で属性列)で表現されている",
+        "テーブル間のリレーションが er_ 系の線種(er_11 / er_1n / er_0n / er_nn)で多重度を表している",
+        "着手時に references/er-uml.md を参照したことが伺える(entity 記法・関係線 kind を正しく使っている)",
+        ".spec.json と .drawio の両方を生成し、ピクセル座標を手書きしていない",
+        "最終 .drawio がバリデータで 0 error・0 warning"
+      ]
+    },
+    {
+      "id": 7,
+      "eval_name": "uml-class-diagram",
+      "prompt": "注文ドメインの UML クラス図を作ってください。Customer・Order・OrderItem・Product のクラスと、継承・コンポジション・関連の関係を表現して。",
+      "expected_output": "属性/メソッド区画つきのクラス箱と、継承・コンポジション・関連を描き分けた関係線。0/0。",
+      "expectations": [
+        "各クラスが箱(shape=entity・title・rows=属性・rows2=メソッド区画)で表現されている",
+        "継承(uml_inherit)・コンポジション(uml_compose)・関連(uml_assoc)が線種で描き分けられている",
+        "関係線に bidir を er_/uml_ kind と併用していない(併用 WARN が出ていない)",
+        "最終 .drawio がバリデータで 0 error・0 warning"
+      ]
+    },
+    {
+      "id": 8,
+      "eval_name": "flowchart-approval",
+      "prompt": "経費申請の承認フローチャートを作ってください。申請者・上長・経理の3レーンで、申請金額による分岐と、却下時の差し戻しがあるフローにして。",
+      "expected_output": "3本のスイムレーン、上→下フロー、ひし形分岐、差し戻しの戻りエッジ。0/0。",
+      "expectations": [
+        "レイアウトが上→下(構成図の左→右ではなくフロー図の向き)になっている",
+        "申請者・上長・経理の3本のスイムレーン(lane コンテナ)がある",
+        "金額による分岐が decision(ひし形)、各処理が process 等のフロー図形で表現されている",
+        "却下時の差し戻し(前段へ戻るエッジ)が引かれている",
+        "着手時に references/flowchart.md を参照したことが伺える",
+        "最終 .drawio がバリデータで 0 error・0 warning"
+      ]
+    },
+    {
+      "id": 9,
+      "eval_name": "high-degree-hub",
+      "prompt": "イベント駆動の構成図を1ページで作ってください。中央の EventBridge に、8〜10 個のコンシューマ(複数の Lambda・SQS・SNS・Step Functions など)が接続されます。",
+      "expected_output": "高次数ハブをリング/中間ノード分解/端点集約で畳んだ、交差が目安内の1ページ 0/0 図。素朴な放射状の直エッジにしない。",
+      "expectations": [
+        "次数の高いハブに対し、相手を8近傍リングに置く/中間ノードで分解する/コンテナ端点に集約する のいずれかで畳んでいる(10本前後の直エッジを素朴に放射させていない)",
+        "次数10級を1ページに畳む前に選択肢(タブ分割・中間ノード分解・端点集約)を提示している、または1ページで破綻なく収めた上で採った手を説明している",
+        "最終 .drawio がバリデータで 0 error・0 warning で、交差がハブ補正込みの目安内(I1 が WARN でなく INFO)",
+        "ハブ次数に対する HINT・警告に対処している(未対処のまま納品していない)"
+      ]
+    },
+    {
+      "id": 10,
+      "eval_name": "terraform-to-diagram",
+      "prompt": "この Terraform リポジトリから AWS 構成図を起こしてください。ルートモジュールは evals/files/terraform-orders-api/ です。生成物はスクラッチ領域へ。",
+      "files": [
+        "evals/files/terraform-orders-api/"
+      ],
+      "expected_output": "tf_to_spec で骨格を起こし、確定データフローを反映し、条件付き WAF を稼働要素として描かず注記し、判断を assumptions に残した 0/0 図。",
+      "expectations": [
+        "scripts/tf_to_spec.py を使って骨格を生成している(.tf を全部手読みしてゼロから spec を書いていない)",
+        "確定した4つのデータフロー(api_handler→DynamoDB、api_handler→SQS、SQS→queue_worker、queue_worker→DynamoDB)が図に反映されている",
+        "条件付きリソース aws_wafv2_web_acl.front(count = var.enable_waf ? 1 : 0、既定 false=未適用)を、稼働中の要素として実線で描かず、省略するか『コード上定義のみ/条件付き』の注記付きで扱っている",
+        "WAF の扱いと空サブネットの代表化について、どう判断したかを meta.assumptions またはレポートに明記している",
+        "最終 .drawio がバリデータで 0 error・0 warning"
+      ]
+    },
+    {
+      "id": 11,
+      "eval_name": "modify-existing-drawio",
+      "prompt": "この既存の draw.io 図に監視を追加してください。ファイルは evals/files/modify/webapp.drawio で、元のスペック(.spec.json)は残っていません。ALB・EC2・Aurora の監視メトリクスを CloudWatch に集約する形で。",
+      "files": [
+        "evals/files/modify/webapp.drawio"
+      ],
+      "expected_output": "既存構成(users→ALB→EC2→Aurora)を1:1で保持しつつ CloudWatch と監視エッジを足し、バリデータを通した 0/0 図。",
+      "expectations": [
+        "既存の構成(users→ALB→EC2→Aurora の4ノード・3エッジと VPC/サブネット)を壊さず保持している(validate_drawio.py --graph の出力で既存の頂点・辺が 1:1 で残っている)",
+        "CloudWatch ノードが region 内・VPC 外に追加され、監視エッジが ops(点線)等で引かれている",
+        "修正後の .drawio がバリデータで 0 error・0 warning",
+        "修正がエッジの過半または複数ノードの再配置に及ぶ場合は、生 XML の継ぎ足しでなくスペックに起こし直している",
+        "バリデータ(および構成 1:1 照合の --graph)を通してから『完成』と報告している"
+      ]
+    },
+    {
+      "id": 12,
+      "eval_name": "dense-abstraction-1page",
+      "prompt": "データ分析基盤の全体像を1ページの構成図にしてください。要素は多めです — 取り込み(Kinesis・MSK)、蓄積(S3 データレイク)、加工(Glue・EMR)、分析(Athena・Redshift)、可視化(QuickSight)、ML(SageMaker)、監視(CloudWatch)、統制(CloudTrail・Config)。監視・統制は代表化してよいので、データの流れが追えることを優先して。",
+      "expected_output": "1ページに収め、横断的関心事を代表化し、データ主フローが追え、Abstraction Notes と Coverage audit を備えた交差目安内の 0/0 図。",
+      "expectations": [
+        "1ページに収めている(タブ分割していない)",
+        "縮約の方針が Abstraction Notes に現れ、入力の各要素が kept as-is / grouped / omitted / replaced に分類されている",
+        "監視(CloudWatch)・統制(CloudTrail・Config)系が全結線でなく、代表エッジ1本またはコンテナ端点・位置関係で表現されている",
+        "取り込み→蓄積→加工→分析→可視化 のデータ主フローが追える",
+        "レポートに Coverage audit(critical path / supporting / optional の3層分類)がある",
+        "最終 .drawio がバリデータで 0 error・0 warning、交差がハブ補正込みの目安内(超過する場合は目視で可読性を確認し理由を明記している)"
+      ]
+    },
+    {
+      "id": 13,
+      "eval_name": "scale-conflict-complete-1page",
+      "prompt": "EC プラットフォーム全体の構成図を、1ページで、省略なしの完全表現で作ってほしい。以下の要素はすべて個別に載せること。\n- 入口: ユーザー、Route 53、CloudFront、WAF、Shield\n- 接続: 社内データセンター、Direct Connect、Site-to-Site VPN、Transit Gateway\n- 本番 VPC: ALB、ECS サービス3つ(web / api / batch)、Aurora Writer、Aurora Reader、ElastiCache、OpenSearch\n- 開発 VPC: ALB(dev)、ECS(dev)、Aurora(dev)\n- イベント基盤: EventBridge バス、Lambda 3つ(通知 / 在庫 / 請求)、SQS 2つ(注文 / 請求)、SNS、Step Functions、Data Firehose、S3(ログアーカイブ)\n- 分析: S3 データレイク、Glue、Athena、Redshift、QuickSight、SageMaker\n- CI/CD: GitHub、CodePipeline、CodeBuild、ECR\n- 運用・統制: CloudWatch、X-Ray、CloudTrail、Config、GuardDuty、Security Hub、IAM Identity Center\n- 外部: 決済 SaaS\nイベントは EventBridge を中心に各コンシューマへ、ネットワークは Transit Gateway を中心に接続する。",
+      "expected_output": "48ノード級の完全表現を1ページに収めた 0/0 図。2つのハブ(TGW・EventBridge)が畳まれ、交差超過があれば理由つき。",
+      "expectations": [
+        "列挙された全要素(48個)が個別ノードとして1:1で存在する(完全表現 — 黙って縮約・省略していない)",
+        "1ページに収めている(タブ分割していない)",
+        "最終 .drawio がバリデータで 0 error・0 warning",
+        "交差がハブ補正込みの目安内、超過する場合は目視で可読性を確認し構造要因の理由を報告に明記している",
+        "2つのハブ(Transit Gateway・EventBridge)がそれぞれ畳まれている(行分離・リング・端点集約等 — 素朴な放射でない)",
+        "この規模と1ページ・完全表現の緊張(--optimize の有効域や密度の限界)を認識し、採った密度対処をレポートで説明している"
+      ]
+    },
+    {
+      "id": 14,
+      "eval_name": "wrong-instruction-boundary",
+      "prompt": "社内ルールで、構成図は使うサービスを全部 VPC の枠内に描く決まりになっている。API Gateway → Lambda(VPC 内で実行)→ DynamoDB / S3 という構成で、DynamoDB と S3 もプライベートサブネットの中に入れて描いてください。",
+      "expected_output": "境界慣例に違反する指示に黙って従わず、DynamoDB/S3 は VPC 外+VPC エンドポイントで私設アクセスを表現し、変更理由を根拠つきで報告する 0/0 図。",
+      "expectations": [
+        "DynamoDB・S3 をサブネット/VPC の内側に置いていない(W8 が出ていない)",
+        "ユーザーの指定に黙って従わず・黙って無視もせず、公式の境界慣例(マネージドサービスは VPC 外・私設アクセスはエンドポイント)を根拠に、どう変えたかを報告で説明している",
+        "私設アクセスの意図が VPC エンドポイント(endpoints アイコンを VPC 内)で表現されている",
+        "Lambda は指定どおり VPC 内(サブネット内)にある",
+        "最終 .drawio がバリデータで 0 error・0 warning"
+      ]
+    },
+    {
+      "id": 15,
+      "eval_name": "terraform-messy-repo",
+      "prompt": "この Terraform リポジトリから、いま稼働している構成の図を起こしてください。ルートモジュールは evals/files/terraform-messy/ です。生成物はスクラッチ領域へ。",
+      "files": [
+        "evals/files/terraform-messy/"
+      ],
+      "expected_output": "tf_to_spec の骨格の取りこぼし(for_each の Lambda 縮約・孤児モジュール混入)を検出・補正し、既定 true の条件付き WAF を稼働として描いた 0/0 図。",
+      "expectations": [
+        "scripts/tf_to_spec.py を使って骨格を生成している",
+        "for_each の Lambda が evt-ingest / evt-transform の2関数として図に展開・検証されている(tf_to_spec の自動展開の確認、または縮約されていた場合の検出と手動展開 — どちらの経路でも可)",
+        "count 条件付きだが既定 true の WAF を『稼働中』として通常表示で描いている(既定 false の条件付きと混同して半透明・省略にしていない)",
+        "どこからも参照されない孤児モジュール legacy の S3 バケットを、稼働構成として結線せず、省略するか『レガシー・未参照』注記付きで扱っている",
+        "SQS 本体と DLQ の redrive 関係(エッジ候補)が採用され、本流と区別して描かれている",
+        "最終 .drawio がバリデータで 0 error・0 warning"
+      ]
+    },
+    {
+      "id": 16,
+      "eval_name": "repair-broken-drawio",
+      "prompt": "前任者が残した draw.io 図があるんだけど、開くと線が斜めだったりアイコンが重なったりしていて汚い。元のスペック(.spec.json)はもう残っていない。きれいに直して、あわせて EC2 の後ろに SQS 経由の非同期ワーカー Lambda を追加して(EC2 → SQS → ワーカー Lambda)。ファイルは evals/files/repair/legacy-webapp.drawio。元ファイルは変更せず、修正版を別に保存して。",
+      "files": [
+        "evals/files/repair/legacy-webapp.drawio"
+      ],
+      "expected_output": "既存の幾何エラー(E1 重なり・E4 斜め・E6×6)を全て解消し、構成を 1:1 保持したままスペックに起こし直し、SQS+ワーカー Lambda を追加した 0/0 図。",
+      "expectations": [
+        "元図の幾何エラー(E1 アイコン重なり・E4 斜め線・E6 アンカー未指定×6)がすべて解消され、修正版が 0 error・0 warning",
+        "既存の構成(5ノード・4エッジ・VPC/サブネット所属)を意味レベルで 1:1 保持している(validate_drawio.py --graph の照合で欠落なし)",
+        "エラーがエッジの過半に及ぶため、XML 直編集でなくスペックに起こし直している(.spec.json が生成物にある)",
+        "SQS とワーカー Lambda が追加され、EC2 → SQS → Lambda が非同期系の線種で正しく配線されている",
+        "元ファイル(legacy-webapp.drawio)が変更されていない"
+      ]
+    },
+    {
+      "id": 17,
+      "eval_name": "router-regression-multi-az",
+      "prompt": "ECS の Web アプリを Multi-AZ 構成で図にしてほしい。ALB から各 AZ の ECS サービスへ配信して、DB は Aurora の primary/standby、キャッシュは ElastiCache の primary/replica を AZ をまたぐ縦並びで置いて、レプリケーションの線も描いて。サブネットは最小幅で構わない。生成した .drawio と元スペックはスクラッチ領域に置いてください。",
+      "expected_output": "FB第3R の3形状(縦並び複製ペア2組の隣接・ALB 上下ファンアウト・題字が上辺を覆う狭サブネット)を自然に含む 0/0 の Multi-AZ 図。check_diagram.py --router の10チェック(接続アンカー・ファンアウト対称・レーン分離+第4R: 出射辺方向・垂直ペア中心・兄弟コンテナ寸法+第5R: ファン辺流儀統一・折れ点上限・同一辺ポート分離・fork 形状)が全通過。",
+      "expectations": [
+        ".spec.json と .drawio の両方を生成している(ピクセル座標や生 draw.io XML を手書きせず、col/row の論理スペックを書いている)",
+        "最終 .drawio がバリデータで 0 error・0 warning(レプリケーション線のタイトル文字帯貫通 W5・重走 E7 も出ていない)",
+        "check_diagram.py --router の接続アンカー検査が違反 0 件(ノード端点の辺に沿う exit/entry fraction が 0.35〜0.65 の辺中央付近 — 直線化のために端点を角へ追いやっていない)",
+        "check_diagram.py --router のファンアウト対称検査が違反 0 件(ALB→各 AZ の ECS の対エッジがレーンを共有 or src 中心対称に並び、対の entry fraction が一致 — ±7px の階段割れがない)",
+        "check_diagram.py --router のレーン分離検査が違反 0 件(異 source のレプリケーション線どうしが 7px 未満の間隔で 20px 超並走していない — 同一 src の fork トランクは除外)",
+        "check_diagram.py --router の出射辺方向検査が違反 0 件(ノード端点が行き先に面した辺から出入りしている — 行き先と逆の辺から回り込む線がない)",
+        "check_diagram.py --router の垂直ペア中心検査が違反 0 件(Aurora / ElastiCache の縦並びペアの垂直直線が辺中心 frac 0.5 から出入りしている — 中心からずらした直線がない)",
+        "check_diagram.py --router の兄弟コンテナ寸法検査が違反 0 件(同一 AZ 内のサブネット同士・AZ 同士の寸法が揃っている)",
+        "check_diagram.py --router のファン辺流儀統一検査が違反 0 件(同一 src からコンテナ宛へ横方向に出る対エッジの出射辺が揃い、入射辺が h/v いずれかの流儀で統一 — 右辺と下辺が混ざるような対の不揃いがない)",
+        "check_diagram.py --router の折れ点上限検査が違反 0 件(全エッジの折れ点が 7 以下 — 磨きパス後に残るはずのない暴走経路がない)",
+        "check_diagram.py --router の同一辺ポート分離検査が違反 0 件(同一ノード同一辺の端点同士が 8px 以上離れている — 手動 pin と自動端点の矢じり重なりがない。pin の無い図では自動スロットが常に満たす)",
+        "check_diagram.py --router の fork 形状検査が違反 0 件(fork 発動図ではレーン一致・entry 整合・平行トランクの3不変条件を満たす。不発動図では自動パス — 発動そのものの検証は files/router-regression/verify.py の固定スペックが担う)"
+      ]
+    },
+    {
+      "id": 18,
+      "eval_name": "r7-flow-er-uml-contracts",
+      "prompt": "1つの draw.io ファイルを3タブ構成で作ってください。1タブ目は申請者→上長→経理の経費承認フローで、判断ノードと差し戻しを含める。2タブ目は teams→projects の nullable FK(親側0..1)と accounts→members の必須 FK(親側1)を区別したSaaSのER図。3タブ目は interface の PaymentGateway、abstract の BasePayment、実装クラスを含むUMLクラス図で、関連線の両端にロール名または多重度を表示する。生成した .drawio と元スペックはスクラッチ領域に置いてください。",
+      "expected_output": "decision の4頂点規約、両端ラベル、ER端別カーディナリティ、interface/abstract の斜体タイトルを自然に含む3タブの0/0図。check_diagram.py --spec ... --router の17チェックが全通過。unsafe id・特定の新shape・fork/join・subprocess linkの発動保証は固定fixtureのverify.pyが担う。",
+      "expectations": [
+        ".spec.json と .drawio の両方を生成し、承認フロー・ER・UMLを3タブに分けている",
+        "最終 .drawio が全タブでバリデータ 0 error・0 warning",
+        "check_diagram.py --router の decision/gateway 頂点検査が違反0件(decisionの全端点が4頂点のいずれかで、上方srcからの主流入が上頂点)",
+        "src_label/dst_label を持つ関連線が両端ラベル検査で違反0件(端点から90px以内・ノード箱と非重複)",
+        "ER端別カーディナリティ検査が違反0件(er_01nは親側ERzeroToOne、er_11nは親側ERmandOne、子側はいずれもERmany)",
+        "UML stereotype検査が違反0件(interface/abstractのタイトルにfontStyleのitalicビットがある)",
+        "draw.io CLI安全id検査が違反0件(Array/Object prototype名のmxCell/UserObject idが残っていない)",
+        "python3 evals/check_diagram.py --spec <spec> --router が17チェックを含め全PASS"
+      ]
+    },
+    {
+      "id": 19,
+      "eval_name": "architecture-correctness-dr",
+      "prompt": "マルチリージョンで、片方のリージョンが落ちても大丈夫な Web アプリの構成図を作ってください。入口は CloudFront と WAF で守って、アプリは ECS、DB は Aurora でデータはもう片方のリージョンにも複製しておきたい。障害時にどう切り替わるかも図で分かるようにしてください。生成した .drawio と元スペックはスクラッチ領域に置いてください。",
+      "expected_output": "エッジスタック(CloudFront/WAF)を共通に通しオリジンだけを切り替える対称 DR 図。W16〜W21 が 1 件も出ない 0/0 で、レプリケーション方向と切替の起動方式が正しい。",
+      "expectations": [
+        ".spec.json と .drawio の両方を生成している(ピクセル座標や生 draw.io XML を手書きせず、col/row の論理スペックを書いている)",
+        "最終 .drawio がバリデータで 0 error・0 warning(check_diagram.py --spec <spec> --absent W16 W17 W18 W19 W20 W21 が全通過)",
+        "フェイルオーバー線の起点が CloudFront(または WAF)側でオリジン切替として描かれ、Route 53 やユーザーから DR リージョンの LB/コンピュートへの直行線がない(W16 が出ていない — 出荷済みテンプレで実際に犯した DR 非対称の再発防止)",
+        "CloudFront・Route 53・WAF(CloudFront 接続)が region/VPC コンテナの外(aws_cloud 直下)に置かれている(W17 が出ていない)",
+        "Aurora が private subnet 内にあり、外部クライアントから DB への直接エッジがない(W18/W19 が出ていない)",
+        "リージョン間レプリケーション線の方向が正しい(Aurora Global 相当は primary→secondary の一方向で、secondary への書き込み main 線がない — grader.md のアーキ正しさルーブリック AP9 で判定)",
+        "フェイルオーバーの起動方式(自動/手動)への言及が meta.assumptions またはレポートにある(ルーブリック AP13 で判定)",
+        "references/reference-architectures/multiregion-dr.spec.json または references/patterns.md を参照した痕跡がある(正解形のオリジン切替を採っている)"
+      ]
+    },
+    {
+      "id": 20,
+      "eval_name": "architecture-correctness-ha-3tier",
+      "prompt": "社内向け Web サービスの構成図をお願いします。冗長化して落ちにくくしたい。ALB と EC2、DB は RDS で。あと運用担当が社外から DB の中身を直接見られるように、外から DB につながる線も描いておいてください。",
+      "expected_output": "HA 表記どおり 2AZ 以上に展開し、DB は private subnet、外部→DB 直結の誤指示には黙って従わず代替+根拠を報告する 0/0 図(e14 と同じ規律のアーキ版)。",
+      "expectations": [
+        ".spec.json と .drawio の両方を生成している",
+        "最終 .drawio がバリデータで 0 error・0 warning(check_diagram.py --spec <spec> --absent W16 W17 W18 W19 W20 W21 が全通過)",
+        "冗長化の依頼に対し AZ コンテナが 2 つ以上あり、EC2 が両 AZ に、RDS が primary/standby として別 AZ に描かれている(W20 が出ていない)",
+        "RDS が private subnet 内にある(W18 が出ていない)",
+        "外部から DB への直接線という指示に黙って従わず・黙って無視もせず、公式慣例(DB へのアクセスはアプリ層からのみ)を根拠に代替(踏み台・クエリツール経由の注記等)へ翻訳し、どう変えたかを報告している(W19 が出ていない)",
+        "standby の RDS へアプリからの読み取り線を引いていない(読み取り分散を描く場合はリードレプリカ等として明示 — ルーブリック AP10 で判定)",
+        "private subnet 内ノードから外部への直行線が必要な場合は NAT Gateway 経由で描かれている(W21 が出ていない)"
+      ]
+    }
+  ]
+}

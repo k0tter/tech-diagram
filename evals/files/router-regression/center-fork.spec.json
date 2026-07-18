@@ -1,0 +1,23 @@
+{
+  "name": "center-fork", "meta": {"purpose": "router regression fixture: R5-B center fork"},
+  "containers": [
+    {"id": "vpc", "label": "VPC", "type": "vpc"},
+    {"id": "azA", "label": "AZ A", "type": "az", "parent": "vpc"},
+    {"id": "azA_app", "label": "Private subnet (App)", "type": "private_subnet", "parent": "azA"},
+    {"id": "azA_db", "label": "Isolated subnet (DB)", "type": "private_subnet", "parent": "azA"},
+    {"id": "azC", "label": "AZ C", "type": "az", "parent": "vpc"},
+    {"id": "azC_app", "label": "Private subnet (App)", "type": "private_subnet", "parent": "azC"},
+    {"id": "azC_db", "label": "Isolated subnet (DB)", "type": "private_subnet", "parent": "azC"}
+  ],
+  "nodes": [
+    {"id": "alb", "icon": "application_load_balancer", "label": "ALB", "col": 0, "row": 1, "parent": "vpc"},
+    {"id": "svcA", "icon": "ecs", "label": "ECS Service A", "col": 1, "row": 0, "parent": "azA_app"},
+    {"id": "dbA", "icon": "aurora", "label": "Aurora A", "col": 2, "row": 0, "parent": "azA_db"},
+    {"id": "svcC", "icon": "ecs", "label": "ECS Service C", "col": 1, "row": 2, "parent": "azC_app"},
+    {"id": "dbC", "icon": "aurora", "label": "Aurora C", "col": 2, "row": 2, "parent": "azC_db"}
+  ],
+  "edges": [
+    {"id": "f_up", "src": "alb", "dst": "azA", "kind": "main"},
+    {"id": "f_dn", "src": "alb", "dst": "azC", "kind": "main"}
+  ]
+}

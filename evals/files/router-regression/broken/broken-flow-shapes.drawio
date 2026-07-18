@@ -1,0 +1,69 @@
+<mxfile host="app.diagrams.net" agent="claude tech-diagram" version="24.0.0">
+  <diagram id="d0" name="r7-flow-shapes">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="903" pageHeight="943" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="_meta" value="目的: R7 C flow shapes and fork/join regression&lt;br&gt;更新日: 2026-07-18" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontFamily=Arial;fontColor=#5A6C86;" vertex="1" parent="1">
+          <mxGeometry x="30" y="26" width="327.3" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="start" value="Start" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fontFamily=Arial;fillColor=#232F3E;fontColor=#FFFFFF;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="384" y="117" width="100" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="fork" value="" style="shape=mxgraph.bpmn.gateway2;gwType=parallel;whiteSpace=wrap;html=1;fontFamily=Arial;fillColor=#FFFFFF;strokeColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="402" y="237" width="64" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="delay" value="Wait" style="shape=delay;whiteSpace=wrap;html=1;fontFamily=Arial;fillColor=#FFFFFF;strokeColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="194" y="375" width="120" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="preparation" value="Prepare" style="shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;whiteSpace=wrap;html=1;fontFamily=Arial;fillColor=#FFFFFF;strokeColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="554" y="375" width="140" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="join_gate" value="" style="shape=mxgraph.bpmn.gateway2;gwType=exclusive;whiteSpace=wrap;html=1;fontFamily=Arial;fillColor=#FFFFFF;strokeColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="402" y="505" width="64" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="junction" value="" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontFamily=Arial;fillColor=#FFFFFF;strokeColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="72" y="523" width="28" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="connector" value="A" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;fontFamily=Arial;fillColor=#FFFFFF;strokeColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="781" y="516" width="42" height="42" as="geometry" />
+        </mxCell>
+        <UserObject id="detail" label="Detail" link="detail-flow.drawio">
+          <mxCell style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontFamily=Arial;fillColor=#FFFFFF;strokeColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="374" y="649" width="120" height="44" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="end" value="End" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fontFamily=Arial;fillColor=#232F3E;fontColor=#FFFFFF;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="384" y="787" width="100" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=1;" edge="1" parent="1" source="start" target="fork">
+          <mxGeometry x="0" relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="fork" target="delay">
+          <mxGeometry x="0" relative="1" as="geometry">
+            <Array as="points"><mxPoint x="254" y="269" /></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=1;" edge="1" parent="1" source="delay" target="join_gate">
+          <mxGeometry x="0" relative="1" as="geometry">
+            <Array as="points"><mxPoint x="434" y="403" /></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=1;" edge="1" parent="1" source="preparation" target="join_gate">
+          <mxGeometry x="0" relative="1" as="geometry">
+            <Array as="points"><mxPoint x="624" y="537" /></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=0.5;exitY=0.72;exitDx=0;exitDy=0;exitPerimeter=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="join_gate" target="detail">
+          <mxGeometry x="0" relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="detail" target="end">
+          <mxGeometry x="0" relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

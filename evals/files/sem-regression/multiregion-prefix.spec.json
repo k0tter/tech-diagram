@@ -1,0 +1,61 @@
+{
+ "diagrams": [
+  {
+   "name": "マルチリージョン・マルチVPC(中密度)",
+   "legend": {"main": "リクエスト(同期)", "sub": "非同期・補助", "repl": "レプリケーション", "failover": "フェイルオーバー", "obs": "監視"},
+   "kinds": {"repl": {"base": "sub", "color": "#2E8B57"}, "failover": {"base": "sub", "color": "#E8730C"}, "obs": {"base": "ops", "color": "#0FA3A6"}},
+   "containers": [
+     {"id": "cloud", "label": "AWS Cloud", "type": "aws_cloud"},
+     {"id": "regionA", "label": "リージョン A (東京・Primary)", "type": "region", "parent": "cloud"},
+     {"id": "vpcA", "label": "VPC A (10.0.0.0/16)", "type": "vpc", "parent": "regionA"},
+     {"id": "pubA", "label": "Public subnet", "type": "public_subnet", "parent": "vpcA"},
+     {"id": "appA", "label": "Private subnet (App)", "type": "private_subnet", "parent": "vpcA"},
+     {"id": "dataA", "label": "Private subnet (Data)", "type": "private_subnet", "parent": "vpcA"},
+     {"id": "regionB", "label": "リージョン B (大阪・DR)", "type": "region", "parent": "cloud"},
+     {"id": "vpcB", "label": "VPC B (10.1.0.0/16)", "type": "vpc", "parent": "regionB"},
+     {"id": "pubB", "label": "Public subnet", "type": "public_subnet", "parent": "vpcB"},
+     {"id": "appB", "label": "Private subnet (App)", "type": "private_subnet", "parent": "vpcB"},
+     {"id": "dataB", "label": "Private subnet (Data)", "type": "private_subnet", "parent": "vpcB"}
+   ],
+   "nodes": [
+     {"id": "users", "label": "ユーザー", "icon": "users", "col": 0, "row": 2},
+     {"id": "r53", "label": "Route 53", "icon": "route_53", "parent": "cloud", "col": 1, "row": 0},
+     {"id": "cf", "label": "CloudFront", "icon": "cloudfront", "parent": "cloud", "col": 1, "row": 1},
+     {"id": "waf", "label": "WAF", "icon": "waf", "parent": "cloud", "col": 1, "row": 2},
+     {"id": "eb", "label": "EventBridge", "icon": "eventbridge", "parent": "cloud", "col": 1, "row": 4},
+     {"id": "lam", "label": "非同期処理", "icon": "lambda", "parent": "cloud", "col": 1, "row": 5},
+     {"id": "albA", "label": "ALB", "icon": "application_load_balancer", "parent": "pubA", "col": 2, "row": 1},
+     {"id": "svcA1", "label": "注文サービス", "icon": "fargate", "parent": "appA", "col": 3, "row": 0},
+     {"id": "svcA2", "label": "在庫サービス", "icon": "fargate", "parent": "appA", "col": 3, "row": 2},
+     {"id": "auroraA", "label": "Aurora Primary", "icon": "aurora", "parent": "dataA", "col": 4, "row": 1},
+     {"id": "s3A", "label": "S3 (静的資産)", "icon": "s3", "parent": "regionA", "col": 3, "row": 3},
+     {"id": "albB", "label": "ALB (DR)", "icon": "application_load_balancer", "parent": "pubB", "col": 6, "row": 1},
+     {"id": "svcB1", "label": "注文サービス", "icon": "fargate", "parent": "appB", "col": 7, "row": 1},
+     {"id": "auroraB", "label": "Aurora Replica", "icon": "aurora", "parent": "dataB", "col": 8, "row": 1},
+     {"id": "s3B", "label": "S3 (DRコピー)", "icon": "s3", "parent": "regionB", "col": 7, "row": 3},
+     {"id": "cw", "label": "CloudWatch", "icon": "cloudwatch_2", "parent": "cloud", "col": 5, "row": 5}
+   ],
+   "edges": [
+     {"id": "e1", "src": "users", "dst": "cf", "kind": "main", "label": "HTTPS"},
+     {"id": "e2", "src": "users", "dst": "r53", "kind": "sub", "label": "DNS"},
+     {"id": "e3", "src": "waf", "dst": "cf", "kind": "sub"},
+     {"id": "e4", "src": "cf", "dst": "albA", "kind": "main"},
+     {"id": "e5", "src": "r53", "dst": "albB", "kind": "failover", "label": "フェイルオーバー"},
+     {"id": "e6", "src": "cf", "dst": "s3A", "kind": "sub", "label": "静的配信"},
+     {"id": "e7", "src": "albA", "dst": "svcA1", "kind": "main"},
+     {"id": "e8", "src": "albA", "dst": "svcA2", "kind": "main"},
+     {"id": "e9", "src": "svcA1", "dst": "auroraA", "kind": "main"},
+     {"id": "e10", "src": "svcA2", "dst": "auroraA", "kind": "main"},
+     {"id": "e11", "src": "auroraA", "dst": "auroraB", "kind": "repl", "label": "非同期レプリケーション"},
+     {"id": "e12", "src": "s3A", "dst": "s3B", "kind": "repl", "label": "CRR"},
+     {"id": "e13", "src": "albB", "dst": "svcB1", "kind": "main"},
+     {"id": "e14", "src": "svcB1", "dst": "auroraB", "kind": "main"},
+     {"id": "e15", "src": "svcA2", "dst": "eb", "kind": "sub", "label": "イベント発行"},
+     {"id": "e16", "src": "eb", "dst": "lam", "kind": "main"},
+     {"id": "e17", "src": "lam", "dst": "auroraB", "kind": "sub", "label": "集計書き込み"},
+     {"id": "e18", "src": "vpcA", "dst": "cw", "kind": "obs", "label": "メトリクス"}
+   ],
+   "meta": {"updated": "2026-07-09", "purpose": "マルチリージョン・マルチVPC 構成の全体像とDR・レプリケーション経路の可視化", "audience": "インフラチーム・アーキテクトレビュー", "scope": "Primary(東京)+ DR(大阪)+ グローバル入口 + イベント基盤", "abstraction": "概要(監視系は代表ノードに集約)", "assumptions": "品質調査用のテスト構成(架空)。個別キュー・関数単位は省略"}
+  }
+ ]
+}

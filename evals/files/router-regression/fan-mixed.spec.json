@@ -1,0 +1,16 @@
+{
+  "name": "fan-mixed", "meta": {"purpose": "router regression fixture: A-1 fan exit/entry style mix"},
+  "containers": [
+    {"id": "grpA", "type": "generic", "label": "ECS Service A"},
+    {"id": "grpB", "type": "generic", "label": "ECS Service B"}
+  ],
+  "nodes": [
+    {"id": "lb", "icon": "application_load_balancer", "label": "ALB", "col": 0, "row": 2},
+    {"id": "taskA", "icon": "ecs", "label": "Task A", "parent": "grpA", "col": 2, "row": 1},
+    {"id": "taskB", "icon": "ecs", "label": "Task B", "parent": "grpB", "col": 2, "row": 3}
+  ],
+  "edges": [
+    {"id": "m1", "src": "lb", "dst": "grpA", "kind": "main"},
+    {"id": "m2", "src": "lb", "dst": "grpB", "kind": "main"}
+  ]
+}

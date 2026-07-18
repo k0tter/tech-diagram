@@ -1,0 +1,17 @@
+{"name": "global-edge-outside", "meta": {"purpose": "SEM-4 正解形: CloudFront/Route 53 は aws_cloud 直下、リージョナル WAF(CF 非接続)は region 内が正当"},
+ "legend": {"main": "リクエスト", "sub": "補助"},
+ "containers": [
+   {"id": "cloud", "label": "AWS Cloud", "type": "aws_cloud"},
+   {"id": "regA", "label": "Region A", "type": "region", "parent": "cloud"},
+   {"id": "vpcA", "label": "VPC A", "type": "vpc", "parent": "regA"},
+   {"id": "pubA", "label": "Public subnet", "type": "public_subnet", "parent": "vpcA"}],
+ "nodes": [
+   {"id": "users", "label": "ユーザー", "icon": "users", "col": 0, "row": 1},
+   {"id": "r53", "label": "Route 53", "icon": "route_53", "parent": "cloud", "col": 1, "row": 2},
+   {"id": "cf", "label": "CloudFront", "icon": "cloudfront", "parent": "cloud", "col": 1, "row": 0},
+   {"id": "wafr", "label": "WAF (regional)", "icon": "waf", "parent": "regA", "col": 2, "row": 0},
+   {"id": "albA", "label": "ALB", "icon": "alb", "parent": "pubA", "col": 3, "row": 1}],
+ "edges": [
+   {"id": "e1", "src": "users", "dst": "cf", "kind": "main"},
+   {"id": "e2", "src": "cf", "dst": "albA", "kind": "main"},
+   {"id": "e3", "src": "wafr", "dst": "albA", "kind": "sub", "label": "WAF 検査"}]}

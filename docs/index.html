@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tech-diagram gallery — draw.io diagrams generated from a JSON grid</title>
+<meta name="description" content="Output gallery of the tech-diagram skill: 12 template images, 3 samples and 4 wiring Before/After images — all unmodified generated results. / tech-diagram スキルの生成結果ギャラリー。">
+<style>
+  :root {
+    --bg: #f6f4ef;
+    --fg: #24211c;
+    --muted: #6f6a60;
+    --card: #ffffff;
+    --line: #dcd7cc;
+    --accent: #b5541c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1a17;
+      --fg: #e8e4dc;
+      --muted: #9a948a;
+      --card: #262320;
+      --line: #3a362f;
+      --accent: #e08a4f;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  /* 言語切替: html[lang] に応じて .l スパンを出し分ける */
+  .l { display: none; }
+  html[lang="en"] .l.en { display: inline; }
+  html[lang="ja"] .l.ja { display: inline; }
+  html[lang="id"] .l.id { display: inline; }
+  header {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 1rem;
+  }
+  header h1 {
+    font-size: 1.7rem;
+    letter-spacing: .01em;
+    margin: 0 0 .4rem;
+  }
+  header h1 span.brand { color: var(--accent); }
+  header p { color: var(--muted); max-width: 46em; margin: .2rem 0; }
+  header nav { margin-top: .8rem; font-size: .92rem; }
+  header nav a { color: var(--accent); text-decoration: none; margin-right: 1.2em; }
+  header nav a:hover { text-decoration: underline; }
+  .lang-switch {
+    margin-top: .5rem;
+    font-size: .88rem;
+    color: var(--muted);
+  }
+  .lang-switch button {
+    font: inherit;
+    color: var(--accent);
+    background: none;
+    border: none;
+    padding: 0;
+    margin-right: 1em;
+    cursor: pointer;
+  }
+  .lang-switch button:hover { text-decoration: underline; }
+  .lang-switch button.active { font-weight: 700; text-decoration: underline; }
+  main { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+  h2 {
+    font-size: 1.15rem;
+    margin: 2.6rem 0 .3rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+  }
+  .lead { color: var(--muted); margin: 0 0 1.2rem; font-size: .92rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.1rem;
+  }
+  .grid.pairs { grid-template-columns: repeat(2, minmax(0, 1fr)); }  /* Before/After の対を崩さない */
+  @media (max-width: 720px) {
+    .grid.pairs { grid-template-columns: 1fr; }
+  }
+  figure.card {
+    margin: 0;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  figure.card a.thumb {
+    display: block;
+    background: #ffffff;   /* 図面は白地前提。ダークでも画像部は白のまま */
+    padding: 8px;
+  }
+  figure.card img {
+    display: block;
+    width: 100%;
+    height: 230px;
+    object-fit: contain;
+  }
+  figure.card figcaption {
+    padding: .55rem .8rem .65rem;
+    border-top: 1px solid var(--line);
+    font-size: .86rem;
+  }
+  figure.card figcaption code {
+    display: block;
+    color: var(--muted);
+    font-size: .78rem;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  .tag {
+    display: inline-block;
+    font-size: .72rem;
+    padding: 0 .5em;
+    border-radius: 3px;
+    margin-right: .4em;
+    border: 1px solid var(--line);
+    color: var(--muted);
+  }
+  .tag.before { color: #a33; border-color: #a33; }
+  .tag.after  { color: #2a7; border-color: #2a7; }
+  footer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.2rem 1.5rem 3rem;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: .84rem;
+  }
+  footer a { color: var(--accent); }
+  /* 原寸表示ダイアログ */
+  dialog#viewer {
+    max-width: min(96vw, 1600px);
+    max-height: 94vh;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: #ffffff;
+  }
+  dialog#viewer::backdrop { background: rgba(0, 0, 0, .72); }
+  dialog#viewer .bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: .45rem .8rem;
+    border-bottom: 1px solid #dcd7cc;
+    font-size: .85rem;
+    color: #24211c;
+    background: #f6f4ef;
+  }
+  dialog#viewer .bar a { color: #b5541c; }
+  dialog#viewer .bar button {
+    font: inherit;
+    border: 1px solid #dcd7cc;
+    background: #fff;
+    border-radius: 4px;
+    padding: .1rem .7rem;
+    cursor: pointer;
+  }
+  dialog#viewer .body { overflow: auto; max-height: calc(94vh - 3rem); }
+  dialog#viewer .body img { display: block; }  /* 原寸(縮小しない) */
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="brand">tech-diagram</span><span class="l en"> gallery</span><span class="l ja"> ギャラリー</span><span class="l id"> — galeri</span></h1>
+  <p>
+    <span class="l en">Diagrams generated automatically by the layout engine from JSON specs
+       that assign grid cells (col/row) to nodes. Everything is the
+       <strong>unmodified generated output</strong> from the bundled templates and
+       production-grade specs (click for full size).</span>
+    <span class="l ja">ノードにマス目(col/row)を割り当てた JSON から、レイアウトエンジンが
+       draw.io 図を自動生成した結果です。すべて同梱テンプレートと実案件スペックからの
+       <strong>無修正の生成結果</strong>(クリックで原寸表示)。</span>
+    <span class="l id">Diagram yang dihasilkan otomatis oleh mesin tata letak dari spesifikasi
+       JSON yang menetapkan sel grid (col/row) untuk setiap node. Semuanya adalah
+       <strong>hasil generate tanpa suntingan</strong> dari templat bawaan dan
+       spesifikasi setara proyek nyata (klik untuk ukuran penuh).</span>
+  </p>
+  <nav>
+    <a href="https://github.com/k0tter/tech-diagram"><span class="l en">GitHub repository</span><span class="l ja">GitHub リポジトリ</span><span class="l id">Repositori GitHub</span></a>
+    <a href="#samples"><span class="l en">Samples</span><span class="l ja">作例</span><span class="l id">Contoh</span></a>
+    <a href="#templates"><span class="l en">Templates</span><span class="l ja">テンプレート</span><span class="l id">Templat</span></a>
+    <a href="#before-after"><span class="l en">Wiring Before / After</span><span class="l ja">配線改善 Before / After</span><span class="l id">Perutean Before / After</span></a>
+  </nav>
+  <div class="lang-switch" role="group" aria-label="Language">
+    <button type="button" data-lang="en">English</button>
+    <button type="button" data-lang="ja">日本語</button>
+    <button type="button" data-lang="id">Bahasa Indonesia</button>
+  </div>
+</header>
+<main>
+
+  <h2 id="samples"><span class="l en">Samples</span><span class="l ja">作例</span><span class="l id">Contoh</span></h2>
+  <p class="lead">
+    <span class="l en">Generated from production-grade specs.</span>
+    <span class="l ja">実案件相当のスペックからの生成結果。</span>
+    <span class="l id">Dihasilkan dari spesifikasi setara proyek nyata.</span>
+  </p>
+  <div class="grid">
+    <figure class="card">
+      <a class="thumb" href="images/samples/03-ecs-multiaz.png"><img loading="lazy" src="images/samples/03-ecs-multiaz.png" alt="ECS web app with Multi-AZ redundancy"></a>
+      <figcaption>
+        <span class="l en">ECS web app with Multi-AZ redundancy</span>
+        <span class="l ja">ECS Web アプリの Multi-AZ 冗長構成</span>
+        <span class="l id">Aplikasi web ECS dengan redundansi Multi-AZ</span>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <a class="thumb" href="images/samples/04-multiaccount-tgw.png"><img loading="lazy" src="images/samples/04-multiaccount-tgw.png" alt="Multi-account + Transit Gateway"></a>
+      <figcaption>
+        <span class="l en">Multi-account + Transit Gateway</span>
+        <span class="l ja">マルチアカウント+Transit Gateway</span>
+        <span class="l id">Multi-akun + Transit Gateway</span>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <a class="thumb" href="images/samples/06-reference-event-driven.png"><img loading="lazy" src="images/samples/06-reference-event-driven.png" alt="Event-driven reference architecture (numbered badges)"></a>
+      <figcaption>
+        <span class="l en">Event-driven reference (numbered badges)</span>
+        <span class="l ja">イベント駆動リファレンス(番号バッジ)</span>
+        <span class="l id">Referensi event-driven (lencana bernomor)</span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <h2 id="templates"><span class="l en">10 templates (12 images)</span><span class="l ja">テンプレート 10 種(12 枚)</span><span class="l id">10 templat (12 gambar)</span></h2>
+  <p class="lead">
+    <span class="l en">Generated from the bundled templates
+      (<a href="https://github.com/k0tter/tech-diagram/tree/main/templates">templates/</a>).
+      Multi-account and ER &amp; UML have multiple tabs.</span>
+    <span class="l ja">同梱テンプレート(<a href="https://github.com/k0tter/tech-diagram/tree/main/templates">templates/</a>)の生成結果。マルチアカウントと ER・UML は複数タブ構成。</span>
+    <span class="l id">Dihasilkan dari templat bawaan
+      (<a href="https://github.com/k0tter/tech-diagram/tree/main/templates">templates/</a>).
+      Multi-akun serta ER &amp; UML memiliki beberapa tab.</span>
+  </p>
+  <div class="grid">
+    <figure class="card">
+      <a class="thumb" href="images/templates/example-3tier.png"><img loading="lazy" src="images/templates/example-3tier.png" alt="3-tier web architecture"></a>
+      <figcaption>
+        <span class="l en">3-tier web</span><span class="l ja">3層 Web</span><span class="l id">Web 3-tier</span>
+        <code>example-3tier</code>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <a class="thumb" href="images/templates/example-complex.png"><img loading="lazy" src="images/templates/example-complex.png" alt="Complex system architecture"></a>
+      <figcaption>
+        <span class="l en">Complex system</span><span class="l ja">複雑系</span><span class="l id">Sistem kompleks</span>
+        <code>example-complex</code>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <a class="thumb" href="images/templates/example-dense-1page.png"><img loading="lazy" src="images/templates/example-dense-1page.png" alt="Dense 42 nodes on one page"></a>
+      <figcaption>
+        <span class="l en">Dense 42 nodes on 1 page</span><span class="l ja">高密度 42 ノード 1 ページ</span><span class="l id">Padat 42 node dalam 1 halaman</span>
+        <code>example-dense-1page</code>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <a class="thumb" href="images/templates/example-multiaccount-main.png"><img loading="lazy" src="images/templates/example-multiaccount-main.png" alt="Multi-account architecture (main tab)"></a>
+      <figcaption>
+        <span class="l en">Multi-account (main tab)</span><span class="l ja">マルチアカウント(メインタブ)</span><span class="l id">Multi-akun (tab utama)</span>
+        <code>example-multiaccount</code>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <a class="thumb" href="images/templates/example-multiaccount-cicd.png"><img loading="lazy" src="images/templates/example-multiaccount-cicd.png" alt="Multi-account architecture (CI/CD tab)"></a>
+      <figcaption>
+        <span class="l en">Multi-account (CI/CD tab)</span><span class="l ja">マルチアカウント(CI/CD タブ)</span><span class="l id">Multi-akun (tab CI/CD)</span>
+        <code>example-multiaccount</code>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <a class="thumb" href="images/templates/example-multicloud.png"><img loading="lazy" src="images/templates/example-multicloud.png" alt="Multi-cloud AWS/Azure/GCP architecture"></a>
+      <figcaption>
+        <span class="l en">Multi-cloud AWS / Azure / GCP</span><span class="l ja">マルチクラウド AWS / Azure / GCP</span><span class="l id">Multi-cloud AWS / Azure / GCP</span>
+        <code>example-multicloud</code>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <a class="thumb" href="images/templates/example-multiregion.png"><img loading="lazy" src="images/templates/example-multiregion.png" alt="Multi-region DR architecture"></a>
+      <figcaption>
+        <span class="l en">Multi-region DR</span><span class="l ja">マルチリージョン DR</span><span class="l id">DR multi-region</span>
+        <code>example-multiregion</code>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <a class="thumb" href="images/templates/example-hub-star.png"><img loading="lazy" src="images/templates/example-hub-star.png" alt="High-degree hub and star architecture"></a>
+      <figcaption>
+        <span class="l en">High-degree hub &amp; star</span><span class="l ja">高次数ハブ&amp;スター</span><span class="l id">Hub &amp; star berderajat tinggi</span>
+        <code>example-hub-star</code>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <a class="thumb" href="images/templates/example-reference.png"><img loading="lazy" src="images/templates/example-reference.png" alt="Reference architecture diagram"></a>
+      <figcaption>
+        <span class="l en">Reference architecture</span><span class="l ja">リファレンスアーキテクチャ</span><span class="l id">Arsitektur referensi</span>
+        <code>example-reference</code>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <a class="thumb" href="images/templates/example-flowchart.png"><img loading="lazy" src="images/templates/example-flowchart.png" alt="Approval flow with swimlanes"></a>
+      <figcaption>
+        <span class="l en">Approval flow with swimlanes</span><span class="l ja">承認フロー・スイムレーン</span><span class="l id">Alur persetujuan dengan swimlane</span>
+        <code>example-flowchart</code>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <a class="thumb" href="images/templates/example-er-uml-er.png"><img loading="lazy" src="images/templates/example-er-uml-er.png" alt="ER diagram"></a>
+      <figcaption>
+        <span class="l en">ER diagram</span><span class="l ja">ER 図</span><span class="l id">Diagram ER</span>
+        <code>example-er-uml<span class="l en"> (tab 1)</span><span class="l ja">(タブ1)</span><span class="l id"> (tab 1)</span></code>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <a class="thumb" href="images/templates/example-er-uml-uml.png"><img loading="lazy" src="images/templates/example-er-uml-uml.png" alt="UML class diagram"></a>
+      <figcaption>
+        <span class="l en">UML class diagram</span><span class="l ja">UML クラス図</span><span class="l id">Diagram kelas UML</span>
+        <code>example-er-uml<span class="l en"> (tab 2)</span><span class="l ja">(タブ2)</span><span class="l id"> (tab 2)</span></code>
+      </figcaption>
+    </figure>
+  </div>
+
+  <h2 id="before-after"><span class="l en">Wiring improvements Before / After</span><span class="l ja">配線改善 Before / After</span><span class="l id">Peningkatan perutean Before / After</span></h2>
+  <p class="lead">
+    <span class="l en">Measured comparison of routing-engine improvements driven by external
+      feedback. Same spec, same validator: only the earlier engine snapshot fails the
+      check (verified with the fail-before method).</span>
+    <span class="l ja">外部フィードバックを受けた配線エンジン改善の実測比較。同一スペック・同一バリデータで、
+      旧世代エンジンのスナップショットだけが検査に落ちることを fail-before 方式で確認済み。</span>
+    <span class="l id">Perbandingan terukur dari peningkatan mesin perutean yang didorong umpan
+      balik eksternal. Spesifikasi sama, validator sama: hanya snapshot mesin generasi
+      lama yang gagal pada pemeriksaan (diverifikasi dengan metode fail-before).</span>
+  </p>
+  <div class="grid pairs">
+    <figure class="card">
+      <a class="thumb" href="images/before-after/pairs-anchor-before.png"><img loading="lazy" src="images/before-after/pairs-anchor-before.png" alt="Vertical line off-center at the endpoints (before)"></a>
+      <figcaption><span class="tag before">Before</span>
+        <span class="l en">Vertical line of a duplicated pair enters/exits off-center (frac 0.65)</span>
+        <span class="l ja">垂直複製ペアの縦線が中心からずれた位置(frac 0.65)から出入り</span>
+        <span class="l id">Garis vertikal pasangan duplikat keluar/masuk tidak di pusat (frac 0.65)</span>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <a class="thumb" href="images/before-after/pairs-anchor-after.png"><img loading="lazy" src="images/before-after/pairs-anchor-after.png" alt="Vertical line entering and exiting at edge centers (after)"></a>
+      <figcaption><span class="tag after">After (v1.0.0)</span>
+        <span class="l en">Column widening secures the edge center (frac 0.5); a straight line through the icon centers</span>
+        <span class="l ja">列幅拡張で辺中央(frac 0.5)を確保し、アイコン中心を貫く直線に</span>
+        <span class="l id">Pelebaran kolom mengamankan pusat sisi (frac 0.5); garis lurus menembus pusat ikon</span>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <a class="thumb" href="images/before-after/fan-mixed-before.png"><img loading="lazy" src="images/before-after/fan-mixed-before.png" alt="Fan with mixed exit and entry sides (before)"></a>
+      <figcaption><span class="tag before">Before</span>
+        <span class="l en">Paired edges from the same ALB split between the right and bottom sides, with mixed entry sides</span>
+        <span class="l ja">同一 ALB からの対エッジが右辺と下辺に割れ、入射辺も混在</span>
+        <span class="l id">Garis berpasangan dari ALB yang sama terpecah ke sisi kanan dan bawah, sisi masuk pun campur aduk</span>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <a class="thumb" href="images/before-after/fan-mixed-after.png"><img loading="lazy" src="images/before-after/fan-mixed-after.png" alt="Fan unified to symmetric slots and mirrored entries (after)"></a>
+      <figcaption><span class="tag after">After (v1.0.0)</span>
+        <span class="l en">Exits from symmetric right-side slots (0.35 / 0.65), mirrored entries on facing top/bottom sides</span>
+        <span class="l ja">右辺の対称スロット(0.35 / 0.65)から出て上下対面辺へ鏡映入射に統一</span>
+        <span class="l id">Keluar dari slot simetris sisi kanan (0.35 / 0.65), masuk tercermin pada sisi atas/bawah yang berhadapan</span>
+      </figcaption>
+    </figure>
+  </div>
+
+</main>
+<footer>
+  <a href="https://github.com/k0tter/tech-diagram">tech-diagram</a>
+  <span class="l en">— MIT License. AWS / Microsoft Azure / Google Cloud names and icons are trademarks of their respective owners.</span>
+  <span class="l ja">— MIT License。AWS / Microsoft Azure / Google Cloud の名称・アイコンは各社の商標です。</span>
+  <span class="l id">— MIT License. Nama dan ikon AWS / Microsoft Azure / Google Cloud adalah merek dagang pemiliknya masing-masing.</span>
+</footer>
+
+<dialog id="viewer">
+  <div class="bar">
+    <span id="viewer-title"></span>
+    <span>
+      <a id="viewer-link" href="#" target="_blank" rel="noopener"><span class="l en">Open image only</span><span class="l ja">画像だけ開く</span><span class="l id">Buka gambar saja</span></a>
+      <button type="button" id="viewer-close"><span class="l en">Close (Esc)</span><span class="l ja">閉じる (Esc)</span><span class="l id">Tutup (Esc)</span></button>
+    </span>
+  </div>
+  <div class="body"><img id="viewer-img" src="" alt=""></div>
+</dialog>
+<script>
+  // 言語切替(依存ゼロ)。既定は localStorage → ブラウザ言語 → 英語。
+  (function () {
+    var TITLES = {
+      en: "tech-diagram gallery — draw.io diagrams generated from a JSON grid",
+      ja: "tech-diagram ギャラリー — JSON グリッドから draw.io 図を自動生成",
+      id: "Galeri tech-diagram — diagram draw.io yang dihasilkan dari grid JSON"
+    };
+    var buttons = document.querySelectorAll(".lang-switch button");
+    function setLang(lang) {
+      if (!TITLES[lang]) lang = "en";
+      document.documentElement.lang = lang;
+      document.title = TITLES[lang];
+      buttons.forEach(function (b) {
+        b.classList.toggle("active", b.getAttribute("data-lang") === lang);
+      });
+      try { localStorage.setItem("tech-diagram-lang", lang); } catch (e) {}
+    }
+    var stored = null;
+    try { stored = localStorage.getItem("tech-diagram-lang"); } catch (e) {}
+    var nav = (navigator.language || "en").toLowerCase();
+    setLang(stored || (nav.indexOf("ja") === 0 ? "ja" : nav.indexOf("id") === 0 ? "id" : "en"));
+    buttons.forEach(function (b) {
+      b.addEventListener("click", function () { setLang(b.getAttribute("data-lang")); });
+    });
+  })();
+
+  // 依存ゼロの原寸ビューア。<dialog> 非対応環境ではリンク遷移にフォールバック。
+  (function () {
+    var dlg = document.getElementById("viewer");
+    if (!dlg || typeof dlg.showModal !== "function") return;
+    var img = document.getElementById("viewer-img");
+    var title = document.getElementById("viewer-title");
+    var link = document.getElementById("viewer-link");
+    document.querySelectorAll("a.thumb").forEach(function (a) {
+      a.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        img.src = a.href;
+        img.alt = a.querySelector("img").alt;
+        title.textContent = img.alt;
+        link.href = a.href;
+        dlg.showModal();
+      });
+    });
+    document.getElementById("viewer-close").addEventListener("click", function () { dlg.close(); });
+    dlg.addEventListener("click", function (ev) {          // 背景クリックで閉じる
+      if (ev.target === dlg) dlg.close();
+    });
+    dlg.addEventListener("close", function () { img.src = ""; });
+  })();
+</script>
+</body>
+</html>

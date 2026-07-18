@@ -1,0 +1,54 @@
+<mxfile host="app.diagrams.net" agent="claude tech-diagram" version="24.0.0">
+  <diagram id="d0" name="r7-er-cardinality">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="458" pageHeight="579" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="_legend" value="凡例" style="fillColor=none;strokeColor=#5A6C86;dashed=1;fontColor=#5A6C86;spacingLeft=10;verticalAlign=top;fontStyle=0;whiteSpace=wrap;html=1;container=1;fontFamily=Arial;pointerEvents=0;collapsible=0;recursiveResize=0;" vertex="1" parent="1">
+          <mxGeometry x="30" y="334.5" width="221" height="125" as="geometry" />
+        </mxCell>
+        <mxCell id="_meta" value="目的: R7 B endpoint-specific ER cardinality regression&lt;br&gt;更新日: 2026-07-18" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontFamily=Arial;fontColor=#5A6C86;" vertex="1" parent="1">
+          <mxGeometry x="30" y="26" width="375" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="team" value="&lt;b&gt;teams&lt;/b&gt;&lt;hr size='1'&gt;PK id" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#FFFFFF;strokeColor=#232F3E;spacing=6;spacingTop=2;fontSize=12;fontFamily=Arial;" vertex="1" parent="1">
+          <mxGeometry x="38" y="111.5" width="140" height="47" as="geometry" />
+        </mxCell>
+        <mxCell id="project" value="&lt;b&gt;projects&lt;/b&gt;&lt;hr size='1'&gt;FK team_id" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#FFFFFF;strokeColor=#232F3E;spacing=6;spacingTop=2;fontSize=12;fontFamily=Arial;" vertex="1" parent="1">
+          <mxGeometry x="238" y="111.5" width="140" height="47" as="geometry" />
+        </mxCell>
+        <mxCell id="account" value="&lt;b&gt;accounts&lt;/b&gt;&lt;hr size='1'&gt;PK id" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#FFFFFF;strokeColor=#232F3E;spacing=6;spacingTop=2;fontSize=12;fontFamily=Arial;" vertex="1" parent="1">
+          <mxGeometry x="38" y="257.5" width="140" height="47" as="geometry" />
+        </mxCell>
+        <mxCell id="member" value="&lt;b&gt;members&lt;/b&gt;&lt;hr size='1'&gt;FK account_id" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#FFFFFF;strokeColor=#232F3E;spacing=6;spacingTop=2;fontSize=12;fontFamily=Arial;" vertex="1" parent="1">
+          <mxGeometry x="238" y="257.5" width="140" height="47" as="geometry" />
+        </mxCell>
+        <mxCell id="_lg_t0" value="nullable FK" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontFamily=Arial;fontColor=#5A6C86;" vertex="1" parent="_legend">
+          <mxGeometry x="95" y="45" width="85" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="_lg_t1" value="required FK" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontFamily=Arial;fontColor=#5A6C86;" vertex="1" parent="_legend">
+          <mxGeometry x="95" y="85" width="85" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="nullable" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=ERmany;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;startArrow=ERzeroToOne;startFill=0;startSize=14;endSize=14;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="team" target="project">
+          <mxGeometry x="0" relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="required" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;startArrow=ERmandOne;startFill=0;startSize=12;endSize=14;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="account" target="member">
+          <mxGeometry x="0" relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_lg_e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=ERmany;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;startArrow=ERzeroToOne;startFill=0;startSize=14;endSize=14;" edge="1" parent="1">
+          <mxGeometry x="0" relative="1" as="geometry">
+            <mxPoint x="45" y="389.5" as="sourcePoint" />
+            <mxPoint x="105" y="389.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_lg_e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=ERmany;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;startArrow=ERmandOne;startFill=0;startSize=12;endSize=14;" edge="1" parent="1">
+          <mxGeometry x="0" relative="1" as="geometry">
+            <mxPoint x="45" y="429.5" as="sourcePoint" />
+            <mxPoint x="105" y="429.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

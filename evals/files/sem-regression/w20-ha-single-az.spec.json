@@ -1,0 +1,1 @@
+{"name": "t", "meta": {"purpose": "test"}, "containers": [{"id": "vpc", "label": "VPC", "type": "vpc"}, {"id": "priv", "label": "Private subnet", "type": "private_subnet", "parent": "vpc"}], "nodes": [{"id": "db", "label": "RDS (Multi-AZ)", "icon": "rds", "parent": "priv", "col": 1, "row": 1}], "edges": []}

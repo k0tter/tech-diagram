@@ -1,0 +1,961 @@
+kind	name	fillColor	label	w	h	category
+service	activate	#C925D1	Activate	78	78	CustomerEnablement
+service	alexa_for_business	#DD344C	Alexa for Business	78	78	BusinessApplications
+service	amplify	#DD344C	Amplify	78	78	FrontEndWebMobile
+service	analytics	#8C4FFF	Analytics	78	78	Analytics
+service	apache_mxnet_on_aws	#01A88D	Apache MXNet on AWS	78	78	ArtificialIntelligence
+service	api_gateway	#E7157B	API Gateway	78	78	ApplicationIntegration
+service	app_config	#E7157B	App Config	78	78	ManagementGovernance
+service	app_mesh	#8C4FFF	App Mesh	78	78	NetworkContentDelivery
+service	app_runner	#ED7100	App Runner	78	78	Compute
+service	app_studio	#01A88D	App Studio	78	78	ArtificialIntelligence
+service	app_wizard	#E7157B	Launch Wizard	78	78	ManagementGovernance
+service	appfabric	#DD344C	AppFabric	78	78	BusinessApplications
+service	appflow	#E7157B	AppFlow	78	78	ApplicationIntegration
+service	application_auto_scaling	#E7157B	Application Auto Scaling	78	78	ManagementGovernance
+service	application_composer	#C925D1	Infrastructure Composer	78	78	DeveloperTools
+service	application_cost_profiler	#7AA116	Application Cost Profiler	78	78	CloudFinancialManagement
+service	application_discovery_service	#01A88D	Application Discovery Service	78	78	MigrationModernization
+service	application_integration	#E7157B	Application Integration	78	78	ApplicationIntegration
+service	application_recovery_controller	#8C4FFF	Application Recovery Controller	78	78	NetworkContentDelivery
+service	appstream_20	#01A88D	Appstream 2.0	78	78	EndUserComputing
+service	appsync	#E7157B	AppSync	78	78	ApplicationIntegration
+service	ar_vr	#BC1356	AR & VR	78	78	ARVR
+service	artifact	#DD344C	Artifact	78	78	SecurityIdentityCompliance
+service	athena	#8C4FFF	Athena	78	78	Analytics
+service	audit_manager	#DD344C	Audit Manager	78	78	SecurityIdentityCompliance
+service	augmented_ai	#01A88D	Augmented AI	78	78	ArtificialIntelligence
+service	aurora	#C925D1	Aurora	78	78	Database
+service	auto_scaling2	#ED7100	EC2 Auto Scaling	78	78	Compute
+service	auto_scaling3	#ED7100	Auto Scaling	78	78	Compute
+service	autoscaling	#E7157B	Auto Scaling	78	78	ManagementGovernance
+service	b2b_data_interchange	#E7157B	B2B Data Interchange	78	78	ApplicationIntegration
+service	backint_agent	#E7157B	Backint Agent	78	78	ManagementGovernance
+service	backup	#7AA116	Backup	78	78	Storage
+service	batch	#ED7100	Batch	78	78	Compute
+service	bedrock	#01A88D	Bedrock	78	78	ArtificialIntelligence
+service	bedrock_agentcore	#01A88D	Bedrock AgentCore	78	78	ArtificialIntelligence
+service	blockchain	#ED7100	Blockchain	78	78	Blockchain
+service	bottlerocket	#ED7100	Bottlerocket	78	78	Compute
+service	braket	#ED7100	Braket	78	78	QuantumTechnologies
+service	budgets_2	#7AA116	Budgets	78	78	CloudFinancialManagement
+service	business_application	#DD344C	Business Application	78	78	BusinessApplications
+service	certificate_manager_3	#DD344C	Certificate Manager	78	78	SecurityIdentityCompliance
+service	chatbot	#E7157B	Chatbot	78	78	ManagementGovernance
+service	chime	#DD344C	Chime	78	78	BusinessApplications
+service	chime_sdk	#DD344C	Chime SDK	78	78	BusinessApplications
+service	clean_rooms	#8C4FFF	Clean Rooms	78	78	Analytics
+service	client_vpn	#8C4FFF	Client VPN	78	78	NetworkContentDelivery
+service	cloud9	#C925D1	Cloud9	78	78	DeveloperTools
+service	cloud_control_api	#C925D1	Cloud Control API	78	78	DeveloperTools
+service	cloud_development_kit	#C925D1	Cloud Development Kit	78	78	DeveloperTools
+service	cloud_directory	#8C4FFF	Cloud Directory	78	78	NetworkContentDelivery
+service	cloud_map	#8C4FFF	Cloud Map	78	78	NetworkContentDelivery
+service	cloud_wan	#8C4FFF	Cloud WAN	78	78	NetworkContentDelivery
+service	cloudendure_disaster_recovery	#7AA116	Elastic Disaster Recovery	78	78	Storage
+service	cloudendure_migration	#01A88D	Application Migration Service	78	78	MigrationModernization
+service	cloudformation	#E7157B	CloudFormation	78	78	ManagementGovernance
+service	cloudfront	#8C4FFF	CloudFront	78	78	NetworkContentDelivery
+service	cloudhsm	#DD344C	CloudHSM	78	78	SecurityIdentityCompliance
+service	cloudsearch2	#8C4FFF	CloudSearch	78	78	Analytics
+service	cloudshell	#C925D1	CloudShell	78	78	DeveloperTools
+service	cloudtrail	#E7157B	CloudTrail	78	78	ManagementGovernance
+service	cloudwatch_2	#E7157B	CloudWatch	78	78	ManagementGovernance
+service	codeartifact	#C925D1	CodeArtifact	78	78	DeveloperTools
+service	codebuild	#C925D1	CodeBuild	78	78	DeveloperTools
+service	codecatalyst	#C925D1	CodeCatalyst	78	78	DeveloperTools
+service	codecommit	#C925D1	CodeCommit	78	78	DeveloperTools
+service	codedeploy	#C925D1	CodeDeploy	78	78	DeveloperTools
+service	codeguru	#E7157B	CodeGuru	78	78	ManagementGovernance
+service	codeguru_2	#01A88D	CodeGuru	78	78	ArtificialIntelligence
+service	codepipeline	#C925D1	CodePipeline	78	78	DeveloperTools
+service	codestar	#C925D1	CodeStar	78	78	DeveloperTools
+service	codewhisperer	#01A88D	CodeWhisperer	78	78	ArtificialIntelligence
+service	cognito	#DD344C	Cognito	78	78	SecurityIdentityCompliance
+service	command_line_interface	#C925D1	Command Line Interface	78	78	DeveloperTools
+service	comprehend	#01A88D	Comprehend	78	78	ArtificialIntelligence
+service	comprehend_medical	#01A88D	Comprehend Medical	78	78	ArtificialIntelligence
+service	compute	#ED7100	Compute	78	78	Compute
+service	compute_optimizer	#ED7100	Compute Optimizer	78	78	Compute
+service	config	#E7157B	Config	78	78	ManagementGovernance
+service	connect	#DD344C	Connect	78	78	BusinessApplications
+service	contact_center	#DD344C	Contact Center	78	78	ContactCenter
+service	containers	#ED7100	Containers	78	78	Containers
+service	control_tower	#E7157B	Control Tower	78	78	ManagementGovernance
+service	corretto	#C925D1	Corretto	78	78	DeveloperTools
+service	cost_and_usage_report	#7AA116	Cost & Usage Report	78	78	CloudFinancialManagement
+service	cost_explorer	#7AA116	Cost Explorer	78	78	CloudFinancialManagement
+service	cost_management	#7AA116	Cost Management	78	78	CloudFinancialManagement
+service	custom_billing_manager	#7AA116	Billing Conductor	78	78	CloudFinancialManagement
+service	customer_enablement	#C925D1	Customer Enablement	78	78	CustomerEnablement
+service	customer_engagement	#3334B9	Customer Engagement	78	78	CustomerEngagement
+service	data_exchange	#8C4FFF	Data Exchange	78	78	Analytics
+service	data_pipeline	#8C4FFF	Data Pipeline	78	78	Analytics
+service	data_transfer_terminal	#01A88D	Data Transfer Terminal	78	78	MigrationModernization
+service	database	#C925D1	Database	78	78	Database
+service	database_migration_service	#C925D1	Database Migration Service	78	78	Database
+service	datasync	#01A88D	DataSync	78	78	MigrationModernization
+service	datazone	#8C4FFF	DataZone	78	78	Analytics
+service	deadline_cloud	#ED7100	Deadline Cloud	78	78	MediaServices
+service	deep_learning_amis	#01A88D	Deep Learning AMIs	78	78	ArtificialIntelligence
+service	deep_learning_containers	#01A88D	Deep Learning Containers	78	78	ArtificialIntelligence
+service	deepcomposer	#01A88D	DeepComposer	78	78	ArtificialIntelligence
+service	deeplens	#01A88D	DeepLens	78	78	ArtificialIntelligence
+service	deepracer	#01A88D	DeepRacer	78	78	ArtificialIntelligence
+service	desktop_and_app_streaming	#01A88D	End User Computing	78	78	EndUserComputing
+service	detective	#DD344C	Detective	78	78	SecurityIdentityCompliance
+service	developer_tools	#C925D1	Developer Tools	78	78	DeveloperTools
+service	device_farm	#DD344C	Device Farm	78	78	FrontEndWebMobile
+service	devops_agent	#E7157B	DevOps Agent	78	78	ManagementGovernance
+service	devops_guru	#01A88D	DevOps Guru	78	78	ArtificialIntelligence
+service	direct_connect	#8C4FFF	Direct Connect	78	78	NetworkContentDelivery
+service	directory_service	#DD344C	Directory Service	78	78	SecurityIdentityCompliance
+service	distro_for_opentelemetry	#E7157B	Distro for OpenTelemetry	78	78	ManagementGovernance
+service	documentdb_with_mongodb_compatibility	#C925D1	DocumentDB	78	78	Database
+service	dynamodb	#C925D1	DynamoDB	78	78	Database
+service	ec2	#ED7100	EC2	78	78	Compute
+service	ec2_image_builder	#ED7100	EC2 Image Builder	78	78	Compute
+service	ecr	#ED7100	Elastic Container Registry	78	78	Containers
+service	ecs	#ED7100	Elastic Container Service	78	78	Containers
+service	ecs_anywhere	#ED7100	ECS Anywhere	78	78	Containers
+service	efs_infrequentaccess	#7AA116	EFS InfrequentAccess	78	78	Storage
+service	efs_standard	#7AA116	EFS Standard	78	78	Storage
+service	eks	#ED7100	Elastic Kubernetes Service	78	78	Containers
+service	eks_anywhere	#ED7100	EKS Anywhere	78	78	Containers
+service	eks_cloud	#ED7100	EKS Cloud	78	78	Containers
+service	eks_distro	#ED7100	EKS Distro	78	78	Containers
+service	elastic_beanstalk	#ED7100	Elastic Beanstalk	78	78	Compute
+service	elastic_block_store	#7AA116	Elastic Block Store	78	78	Storage
+service	elastic_fabric_adapter	#ED7100	Elastic Fabric Adapter	78	78	Compute
+service	elastic_file_system	#7AA116	Elastic File System	78	78	Storage
+service	elastic_inference_2	#01A88D	Elastic Inference	78	78	ArtificialIntelligence
+service	elastic_load_balancing	#ED7100	Elastic Load Balancing	78	78	Compute
+service	elastic_transcoder	#ED7100	Elastic Transcoder	78	78	MediaServices
+service	elastic_vmware_service	#ED7100	Elastic VMware Service	78	78	Compute
+service	elasticache	#C925D1	ElastiCache	78	78	Database
+service	elasticsearch_service	#8C4FFF	OpenSearch Service	78	78	Analytics
+service	elemental	#ED7100	Elemental Appliances & Software	78	78	MediaServices
+service	elemental_link	#ED7100	Elemental Link	78	78	MediaServices
+service	elemental_mediaconnect	#ED7100	Elemental MediaConnect	78	78	MediaServices
+service	elemental_mediaconvert	#ED7100	Elemental MediaConvert	78	78	MediaServices
+service	elemental_medialive	#ED7100	Elemental MediaLive	78	78	MediaServices
+service	elemental_mediapackage	#ED7100	Elemental MediaPackage	78	78	MediaServices
+service	elemental_mediastore	#ED7100	Elemental MediaStore	78	78	MediaServices
+service	elemental_mediatailor	#ED7100	Elemental MediaTailor	78	78	MediaServices
+service	emr	#8C4FFF	EMR	78	78	Analytics
+service	end_user_messaging	#DD344C	End User Messaging	78	78	BusinessApplications
+service	entity_resolution	#8C4FFF	Entity Resolution	78	78	Analytics
+service	eventbridge	#E7157B	EventBridge	78	78	ApplicationIntegration
+service	express_workflow	#E7157B	Express Workflows	78	78	ApplicationIntegration
+service	fargate	#ED7100	Fargate	78	78	Compute
+service	fault_injection_simulator	#C925D1	Fault Injection Service	78	78	DeveloperTools
+service	file_cache	#7AA116	File Cache	78	78	Storage
+service	finspace	#8C4FFF	FinSpace	78	78	Analytics
+service	firewall_manager	#DD344C	Firewall Manager	78	78	SecurityIdentityCompliance
+service	forecast	#01A88D	Forecast	78	78	ArtificialIntelligence
+service	fraud_detector	#01A88D	Fraud Detector	78	78	ArtificialIntelligence
+service	freertos	#7AA116	FreeRTOS	78	78	InternetOfThings
+service	fsx	#7AA116	FSx	78	78	Storage
+service	fsx_for_lustre	#7AA116	FSx for Lustre	78	78	Storage
+service	fsx_for_netapp_ontap	#7AA116	FSx for NetApp ONTAP	78	78	Storage
+service	fsx_for_openzfs	#7AA116	FSx for OpenZFS	78	78	Storage
+service	fsx_for_windows_file_server	#7AA116	FSx for Windows File Server	78	78	Storage
+service	gamekit	#8C4FFF	GameKit	78	78	Games
+service	gamelift_2	#8C4FFF	GameLift	78	78	Games
+service	gamelift_streams	#8C4FFF	GameLift Streams	78	78	Games
+service	games	#8C4FFF	Game Tech	78	78	Games
+service	gamesparks	#8C4FFF	GameSparks	78	78	Games
+service	genomics_cli	#ED7100	Genomics CLI	78	78	Compute
+service	glacier	#7AA116	S3 Glacier	78	78	Storage
+service	global_accelerator	#8C4FFF	Global Accelerator	78	78	NetworkContentDelivery
+service	glue	#8C4FFF	Glue	78	78	Analytics
+service	glue_databrew	#8C4FFF	Glue DataBrew	78	78	Analytics
+service	glue_elastic_views	#8C4FFF	Glue Elastic Views	78	78	Analytics
+service	greengrass	#7AA116	Greengrass	78	78	InternetOfThings
+service	ground_station	#C925D1	Ground Station	78	78	Satellite
+service	guardduty	#DD344C	GuardDuty	78	78	SecurityIdentityCompliance
+service	healthimaging	#01A88D	HealthImaging	78	78	ArtificialIntelligence
+service	healthlake	#01A88D	HealthLake	78	78	ArtificialIntelligence
+service	healthscribe	#01A88D	HealthScribe	78	78	ArtificialIntelligence
+service	honeycode	#DD344C	Honeycode	78	78	BusinessApplications
+service	identity_and_access_management	#DD344C	Identity & Access Management	78	78	SecurityIdentityCompliance
+service	infrequent_access_storage_class	#7AA116	Infrequent Access Storage Class	78	78	Storage
+service	inspector	#DD344C	Inspector	78	78	SecurityIdentityCompliance
+service	interactive_video	#ED7100	Interactive Video Service	78	78	MediaServices
+service	internet_of_things	#7AA116	Internet of Things	78	78	InternetOfThings
+service	iot_1click	#7AA116	1Click	78	78	InternetOfThings
+service	iot_analytics	#7AA116	Analytics	78	78	InternetOfThings
+service	iot_button	#7AA116	Button	78	78	InternetOfThings
+service	iot_core	#7AA116	Core	78	78	InternetOfThings
+service	iot_device_defender	#7AA116	Device Defender	78	78	InternetOfThings
+service	iot_device_management	#7AA116	Device Management	78	78	InternetOfThings
+service	iot_edukit	#7AA116	EduKit	78	78	InternetOfThings
+service	iot_events	#7AA116	Events	78	78	InternetOfThings
+service	iot_expresslink	#7AA116	ExpressLink	78	78	InternetOfThings
+service	iot_fleetwise	#7AA116	FleetWise	78	78	InternetOfThings
+service	iot_roborunner	#7AA116	RoboRunner	78	78	InternetOfThings
+service	iot_sitewise	#7AA116	SiteWise	78	78	InternetOfThings
+service	iot_things_graph	#7AA116	Graph	78	78	InternetOfThings
+service	iot_twinmaker	#7AA116	TwinMaker	78	78	InternetOfThings
+service	iq	#C925D1	IQ	78	78	CustomerEnablement
+service	kendra	#01A88D	Kendra	78	78	ArtificialIntelligence
+service	key_management_service	#DD344C	Key Management Service	78	78	SecurityIdentityCompliance
+service	keyspaces	#C925D1	Keyspaces	78	78	Database
+service	kinesis	#8C4FFF	Kinesis	78	78	Analytics
+service	kinesis_data_analytics	#8C4FFF	Kinesis Data Analytics	78	78	Analytics
+service	kinesis_data_firehose	#8C4FFF	Data Firehose	78	78	Analytics
+service	kinesis_data_streams	#8C4FFF	Kinesis Data Streams	78	78	Analytics
+service	kinesis_video_streams	#8C4FFF	Kinesis Video Streams	78	78	Analytics
+service	lake_formation	#8C4FFF	Lake Formation	78	78	Analytics
+service	lambda	#ED7100	Lambda	78	78	Compute
+service	lex	#01A88D	Lex	78	78	ArtificialIntelligence
+service	license_manager	#E7157B	License Manager	78	78	ManagementGovernance
+service	lightsail	#ED7100	Lightsail	78	78	Compute
+service	lightsail_for_research	#ED7100	 Lightsail for Research	78	78	Compute
+service	local_zones	#ED7100	Local Zones	78	78	Compute
+service	location_service	#DD344C	Location Service	78	78	FrontEndWebMobile
+service	lookout_for_equipment	#01A88D	Lookout for Equipment	78	78	ArtificialIntelligence
+service	lookout_for_metrics	#01A88D	Lookout for Metrics	78	78	ArtificialIntelligence
+service	lookout_for_vision	#01A88D	Lookout for Vision	78	78	ArtificialIntelligence
+service	lumberyard	#8C4FFF	Lumberyard	78	78	Games
+service	machine_learning	#01A88D	Machine Learning	78	78	ArtificialIntelligence
+service	macie	#DD344C	Macie	78	78	SecurityIdentityCompliance
+service	mainframe_modernization	#01A88D	Mainframe Modernization	78	78	MigrationModernization
+service	managed_apache_cassandra_service	#C925D1	Managed Apache Cassandra Service	78	78	Database
+service	managed_blockchain	#ED7100	Managed Blockchain	78	78	Blockchain
+service	managed_service_for_apache_flink	#8C4FFF	Managed Service for Apache Flink	78	78	Analytics
+service	managed_service_for_grafana	#E7157B	Managed Grafana	78	78	ManagementGovernance
+service	managed_service_for_prometheus	#E7157B	Managed Service for Prometheus	78	78	ManagementGovernance
+service	managed_services	#C925D1	Managed Services	78	78	CustomerEnablement
+service	managed_streaming_for_kafka	#8C4FFF	Managed Streaming for Apache Kafka	78	78	Analytics
+service	managed_workflows_for_apache_airflow	#E7157B	Managed Workflows for Apache Airflow	78	78	ApplicationIntegration
+service	management_and_governance	#E7157B	Management & Governance	78	78	ManagementGovernance
+service	management_console	#E7157B	Management Console	78	78	ManagementGovernance
+service	media_services	#ED7100	Media Services	78	78	MediaServices
+service	memorydb_for_redis	#C925D1	MemoryDB	78	78	Database
+service	migration_and_transfer	#01A88D	Migration & Transfer	78	78	MigrationModernization
+service	migration_evaluator	#01A88D	Migration Evaluator	78	78	MigrationModernization
+service	migration_hub	#01A88D	Migration Hub	78	78	MigrationModernization
+service	mobile	#DD344C	Mobile	78	78	FrontEndWebMobile
+service	mobile_application	#E7157B	Console Mobile Application	78	78	ApplicationIntegration
+service	monitron	#01A88D	Monitron	78	78	ArtificialIntelligence
+service	mq	#E7157B	MQ	78	78	ApplicationIntegration
+service	neptune	#C925D1	Neptune	78	78	Database
+service	network_firewall	#DD344C	Network Firewall	78	78	SecurityIdentityCompliance
+service	networking_and_content_delivery	#8C4FFF	Networking and Content Delivery	78	78	NetworkContentDelivery
+service	neuron_ml_sdk	#01A88D	Neuron	78	78	ArtificialIntelligence
+service	nice_dcv	#ED7100	DCV	78	78	Compute
+service	nice_enginframe	#ED7100	Nice EnginFrame	78	78	Compute
+service	nimble_studio	#ED7100	Nimble Studio	78	78	MediaServices
+service	nitro_enclaves	#ED7100	Nitro Enclaves	78	78	Compute
+service	nova2	#01A88D	Nova	78	78	ArtificialIntelligence
+service	omics	#01A88D	HealthOmics	78	78	ArtificialIntelligence
+service	open_3d_engine_2	#8C4FFF	Open 3D Engine	78	78	Games
+service	opsworks	#E7157B	OpsWorks	78	78	ManagementGovernance
+service	oracle_database_at_aws	#C925D1	Oracle Database at AWS	78	78	Database
+service	organizations	#E7157B	Organizations	78	78	ManagementGovernance
+service	outposts	#ED7100	Outposts rack	78	78	Compute
+service	outposts_1u_and_2u_servers	#ED7100	Outposts Servers	78	78	Compute
+service	outposts_family	#ED7100	Outposts Family	78	78	Compute
+service	panorama	#01A88D	Panorama	78	78	ArtificialIntelligence
+service	parallel_cluster	#ED7100	Parallel Cluster	78	78	Compute
+service	parallel_computing_service	#ED7100	Parallel Computing Service	78	78	Compute
+service	partner_central	#E7157B	Partner Central	78	78	ManagementGovernance
+service	payment_cryptography	#DD344C	Payment Cryptography	78	78	SecurityIdentityCompliance
+service	personal_health_dashboard	#E7157B	Health Dashboard	78	78	ManagementGovernance
+service	personalize	#01A88D	Personalize	78	78	ArtificialIntelligence
+service	pinpoint	#DD344C	Pinpoint	78	78	BusinessApplications
+service	polly	#01A88D	Polly	78	78	ArtificialIntelligence
+service	private_5g	#8C4FFF	Private 5G	78	78	NetworkContentDelivery
+service	private_certificate_authority	#DD344C	Private Certificate Authority	78	78	SecurityIdentityCompliance
+service	professional_services	#C925D1	Professional Services	78	78	CustomerEnablement
+service	proton	#E7157B	Proton	78	78	ManagementGovernance
+service	q	#01A88D	Q	78	78	ArtificialIntelligence
+service	quantum_ledger_database	#ED7100	Quantum Ledger Database	78	78	Blockchain
+service	quantum_technologies	#ED7100	Quantum Technologies	78	78	QuantumTechnologies
+service	quick_suite	#DD344C	Quick Suite	78	78	BusinessApplications
+service	quicksight	#8C4FFF	QuickSight	78	78	Analytics
+service	rds	#C925D1	RDS	78	78	Database
+service	rds_on_vmware	#C925D1	RDS on VMware	78	78	Database
+service	red_hat_openshift	#ED7100	Red Hat OpenShift Service on AWS	78	78	Containers
+service	redshift	#8C4FFF	Redshift	78	78	Analytics
+service	rekognition_2	#01A88D	Rekognition	78	78	ArtificialIntelligence
+service	repost	#C925D1	rePost	78	78	CustomerEnablement
+service	repost_private	#C925D1	rePost Private	78	78	CustomerEnablement
+service	reserved_instance_reporting	#7AA116	Reserved Instance Reporting	78	78	CloudFinancialManagement
+service	resilience_hub	#E7157B	Resilience Hub	78	78	ManagementGovernance
+service	resource_access_manager	#DD344C	Resource Access Manager	78	78	SecurityIdentityCompliance
+service	resource_explorer	#E7157B	Resource Explorer	78	78	ManagementGovernance
+service	robomaker	#DD344C	RoboMaker	78	78	Robotics
+service	robotics	#DD344C	Robotics	78	78	Robotics
+service	route_53	#8C4FFF	Route 53	78	78	NetworkContentDelivery
+service	rtb_fabric	#8C4FFF	RTB Fabric	78	78	NetworkContentDelivery
+service	s3	#7AA116	Simple Storage Service (S3)	78	78	Storage
+service	s3_on_outposts_storage	#7AA116	S3 on Outposts	78	78	Storage
+service	sagemaker	#01A88D	SageMaker AI	78	78	ArtificialIntelligence
+service	sagemaker_2	#8C4FFF	Sagemaker	78	78	Analytics
+service	sagemaker_ground_truth	#01A88D	SageMaker Ground Truth	78	78	ArtificialIntelligence
+service	sagemaker_studio_lab	#01A88D	SageMaker Studio Lab	78	78	ArtificialIntelligence
+service	satellite	#C925D1	Satellite	78	78	Satellite
+service	savings_plans	#7AA116	Savings Plans	78	78	CloudFinancialManagement
+service	secrets_manager	#DD344C	Secrets Manager	78	78	SecurityIdentityCompliance
+service	security_agent	#DD344C	Security Agent	78	78	SecurityIdentityCompliance
+service	security_hub	#DD344C	Security Hub	78	78	SecurityIdentityCompliance
+service	security_identity_and_compliance	#DD344C	Security Identity and Compliance	78	78	SecurityIdentityCompliance
+service	security_incident_response	#DD344C	Security Incident Response	78	78	SecurityIdentityCompliance
+service	security_lake	#DD344C	Security Lake	78	78	SecurityIdentityCompliance
+service	server_migration_service	#01A88D	Server Migration Service	78	78	MigrationModernization
+service	serverless	#8C4FFF	Serverless	78	78	Serverless
+service	serverless_application_repository	#ED7100	Serverless Application Repository	78	78	Compute
+service	service_catalog	#E7157B	Service Catalog	78	78	ManagementGovernance
+service	service_management_connector	#E7157B	Service Management Connector	78	78	ManagementGovernance
+service	shield	#DD344C	Shield	78	78	SecurityIdentityCompliance
+service	signer	#DD344C	Signer	78	78	SecurityIdentityCompliance
+service	simple_email_service	#DD344C	Simple Email Service	78	78	BusinessApplications
+service	simspace_weaver	#ED7100	SimSpace Weaver	78	78	Compute
+service	single_sign_on	#DD344C	Identity Center	78	78	SecurityIdentityCompliance
+service	site_to_site_vpn	#8C4FFF	Site-to-Site VPN	78	78	NetworkContentDelivery
+service	snowball	#01A88D	Snowball	78	78	MigrationModernization
+service	snowball_edge	#01A88D	Snowball Edge	78	78	MigrationModernization
+service	snowcone	#7AA116	Snowcone	78	78	Storage
+service	snowmobile	#01A88D	Snowmobile	78	78	MigrationModernization
+service	sns	#E7157B	Simple Notification Service	78	78	ApplicationIntegration
+service	sql_workbench	#8C4FFF	SQL Workbench	78	78	Analytics
+service	sqs	#E7157B	Simple Queue Service	78	78	ApplicationIntegration
+service	step_functions	#E7157B	Step Functions	78	78	ApplicationIntegration
+service	storage	#7AA116	Storage	78	78	Storage
+service	storage_gateway	#7AA116	Storage Gateway	78	78	Storage
+service	sumerian	#BC1356	Sumerian	78	78	ARVR
+service	supply_chain	#DD344C	Supply Chain	78	78	BusinessApplications
+service	support	#C925D1	Support	78	78	CustomerEnablement
+service	systems_manager	#E7157B	Systems Manager	78	78	ManagementGovernance
+service	systems_manager_incident_manager	#E7157B	Systems Manager - Incident Manager	78	78	ManagementGovernance
+service	telco_network_builder	#E7157B	Telco Network Builder	78	78	ManagementGovernance
+service	tensorflow_on_aws	#01A88D	TensorFlow on AWS	78	78	ArtificialIntelligence
+service	textract	#01A88D	Textract	78	78	ArtificialIntelligence
+service	thinkbox_deadline	#ED7100	Thinkbox Deadline	78	78	MediaServices
+service	thinkbox_draft	#ED7100	Thinkbox Draft	78	78	MediaServices
+service	thinkbox_frost	#ED7100	Thinkbox Frost	78	78	MediaServices
+service	thinkbox_krakatoa	#ED7100	Thinkbox Krakatoa	78	78	MediaServices
+service	thinkbox_sequoia	#ED7100	Thinkbox Sequoia	78	78	MediaServices
+service	thinkbox_stoke	#ED7100	Thinkbox Stoke	78	78	MediaServices
+service	thinkbox_xmesh	#ED7100	Thinkbox XMesh	78	78	MediaServices
+service	timestream	#C925D1	Timestream	78	78	Database
+service	tools_and_sdks	#C925D1	Tools and SDKs	78	78	DeveloperTools
+service	torchserve	#01A88D	PyTorch on AWS	78	78	ArtificialIntelligence
+service	training_certification	#C925D1	Training Certification	78	78	CustomerEnablement
+service	transcribe	#01A88D	Transcribe	78	78	ArtificialIntelligence
+service	transfer_family	#01A88D	Transfer Family	78	78	MigrationModernization
+service	transfer_for_sftp	#01A88D	Transfer for SFTP	78	78	MigrationModernization
+service	transform	#01A88D	Transform	78	78	MigrationModernization
+service	transit_gateway	#8C4FFF	Transit Gateway	78	78	NetworkContentDelivery
+service	translate	#01A88D	Translate	78	78	ArtificialIntelligence
+service	trusted_advisor	#E7157B	Trusted Advisor	78	78	ManagementGovernance
+service	user_notifications	#E7157B	User Notifications	78	78	ManagementGovernance
+service	verified_access	#8C4FFF	Verified Access	78	78	NetworkContentDelivery
+service	verified_permissions	#DD344C	Verified Permissions	78	78	SecurityIdentityCompliance
+service	vmware_cloud_on_aws	#ED7100	VMware Cloud on AWS	78	78	Compute
+service	vpc	#8C4FFF	VPC	78	78	NetworkContentDelivery
+service	vpc_lattice	#8C4FFF	VPC Lattice	78	78	NetworkContentDelivery
+service	vpc_privatelink	#8C4FFF	PrivateLink	78	78	NetworkContentDelivery
+service	waf	#DD344C	WAF	78	78	SecurityIdentityCompliance
+service	wavelength	#ED7100	Wavelength	78	78	Compute
+service	well_architect_tool	#E7157B	Well-Architected Tool	78	78	ManagementGovernance
+service	wickr	#DD344C	Wickr	78	78	BusinessApplications
+service	workdocs	#DD344C	WorkDocs	78	78	BusinessApplications
+service	worklink	#01A88D	WorkLink	78	78	EndUserComputing
+service	workmail	#DD344C	WorkMail	78	78	BusinessApplications
+service	workspaces	#01A88D	WorkSpaces	78	78	EndUserComputing
+service	workspaces_family	#01A88D	WorkSpaces Family	78	78	EndUserComputing
+service	workspaces_thin_client	#01A88D	WorkSpaces Thin Client	78	78	EndUserComputing
+service	xray	#C925D1	X-Ray	78	78	DeveloperTools
+resource	a1_instance	#ED7100	A1 Instance	48	48	Compute
+resource	access_analyzer	#DD344C	IAM Access Analyzer	78	77	SecurityIdentityCompliance
+resource	action	#7AA116	Action	78	78	InternetOfThings
+resource	actuator	#7AA116	Actuator	72	78	InternetOfThings
+resource	ad_connector	#DD344C	AD Connector	78	73	SecurityIdentityCompliance
+resource	addon	#DD344C	Add-on	78	40	SecurityIdentityCompliance
+resource	agent	#DD344C	Agent	78	74	SecurityIdentityCompliance
+resource	agent2	#01A88D	Agent	78	78	MigrationModernization
+resource	alarm	#E7157B	Alarm	78	78	ManagementGovernance
+resource	alert	#232F3D	Alert	78	69	GeneralResources
+resource	alexa_enabled_device	#7AA116	Alexa Voice Service	72	78	InternetOfThings
+resource	alexa_skill	#7AA116	Alexa Skill	78	78	InternetOfThings
+resource	all_products	#232F3D	All Products	78	78	GeneralResources
+resource	ami	#ED7100	AMI Resource	48	48	Compute
+resource	amplify_aws_amplify_studio	#DD344C	Amplify Studio	48	44	FrontEndWebMobile
+resource	application	#ED7100	Elastic Beanstalk Application	31	48	Compute
+resource	application_discovery_service_aws_agentless_collector	#01A88D	Agentless Collector	78	78	MigrationModernization
+resource	application_discovery_service_aws_discovery_agent	#01A88D	Discovery Agent	78	63	MigrationModernization
+resource	application_discovery_service_migration_evaluator_collector	#01A88D	Migration Evaluator Collector	78	78	MigrationModernization
+resource	application_load_balancer	#8C4FFF	Application Load Balancer	78	78	NetworkContentDelivery
+resource	archive	#7AA116	Vault	63	78	Storage
+resource	athena_data_source_connectors	#8C4FFF	Athena Data Source Connectors	77	78	Analytics
+resource	attribute	#C925D1	Attribute	78	78	Database
+resource	attributes	#C925D1	Attributes	78	78	Database
+resource	aurora_instance	#C925D1	Aurora Instance	78	78	Database
+resource	aurora_instance_alt	#C925D1	Aurora Instance	78	78	Database
+resource	authenticated_user	#232F3D	Authenticated User	78	78	GeneralResources
+resource	auto_scaling2	#ED7100	Auto Scaling	48	48	Compute
+resource	automation	#E7157B	Automation	78	78	ManagementGovernance
+resource	aws_backup_for_aws_cloudformation	#7AA116	Backup for AWS CloudFormation	78	64	Storage
+resource	aws_backup_legal_hold	#7AA116	Backup Legal Hold	78	78	Storage
+resource	aws_backup_support_for_amazon_fsx_for_netapp_ontap	#7AA116	Backup Support for Amazon FSX for NetApp ONTAP	78	64	Storage
+resource	aws_backup_vault_lock	#7AA116	Backup Vault Lock	78	78	Storage
+resource	aws_glue_data_quality	#8C4FFF	Glue Data Quality	78	78	Analytics
+resource	aws_glue_for_ray	#8C4FFF	Glue for Ray	78	78	Analytics
+resource	backup_audit_manager	#7AA116	Backup Audit Manager	78	78	Storage
+resource	backup_aws_backup_support_for_amazon_s3	#7AA116	Backup AWS Backup Support for Amazon S3	78	78	Storage
+resource	backup_aws_backup_support_for_vmware_workloads	#7AA116	Backup AWS Backup Support for VMware Workloads	78	78	Storage
+resource	backup_compliance_reporting	#7AA116	Backup Compliance Reporting	64	78	Storage
+resource	backup_compute	#7AA116	Backup Compute	78	77	Storage
+resource	backup_database	#7AA116	Backup Database	78	77	Storage
+resource	backup_gateway	#7AA116	Backup Gateway	78	77	Storage
+resource	backup_plan	#7AA116	Backup Plan	60	78	Storage
+resource	backup_recovery_point_objective	#7AA116	Backup Recovery Point Objective	78	77	Storage
+resource	backup_recovery_time_objective	#7AA116	Backup Recovery Time Objective	78	75	Storage
+resource	backup_restore	#7AA116	Backup Restore	78	78	Storage
+resource	backup_storage	#7AA116	Backup Storage	78	77	Storage
+resource	backup_vault	#7AA116	Backup Vault	78	78	Storage
+resource	backup_virtual_machine	#7AA116	Backup Virtual Machine	78	78	Storage
+resource	backup_virtual_machine_monitor	#7AA116	Backup Virtual Machine Monitor	70	78	Storage
+resource	bank	#7AA116	Bank	78	78	InternetOfThings
+resource	blockchain_resource	#ED7100	Blockchain	78	25	Blockchain
+resource	braket_chandelier	#ED7100	Braket Chandelier	53	78	QuantumTechnologies
+resource	braket_chip	#ED7100	Braket Chip	78	78	QuantumTechnologies
+resource	braket_embedded_simulator	#ED7100	Braket Embedded Simulator	78	78	QuantumTechnologies
+resource	braket_managed_simulator	#ED7100	Braket Managed Simulator	78	78	QuantumTechnologies
+resource	braket_noise_simulator	#ED7100	Braket Noise Simulator	78	78	QuantumTechnologies
+resource	braket_qpu	#ED7100	Braket QPU	78	78	QuantumTechnologies
+resource	braket_simulator	#ED7100	Braket Simulator	78	70	QuantumTechnologies
+resource	braket_simulator_1	#ED7100	Braket Simulator	78	78	QuantumTechnologies
+resource	braket_simulator_2	#ED7100	Braket Simulator	78	78	QuantumTechnologies
+resource	braket_simulator_3	#ED7100	Braket Simulator	78	78	QuantumTechnologies
+resource	braket_simulator_4	#ED7100	Braket Simulator	78	78	QuantumTechnologies
+resource	braket_state_vector	#ED7100	Braket State Vector	78	78	QuantumTechnologies
+resource	braket_tensor_network	#ED7100	Braket Tensor Network	78	78	QuantumTechnologies
+resource	bucket	#7AA116	Bucket	75	78	Storage
+resource	bucket_with_objects	#7AA116	Bucket with Objects	75	78	Storage
+resource	bycicle	#7AA116	Bycicle	78	78	InternetOfThings
+resource	c4_instance	#ED7100	C4 Instance	48	48	Compute
+resource	c5_instance	#ED7100	C5 Instance	48	48	Compute
+resource	c5a	#ED7100	C5a Instance	48	48	Compute
+resource	c5ad	#ED7100	C5ad Instance	48	48	Compute
+resource	c5d	#ED7100	C5d Instance	48	48	Compute
+resource	c5n_instance	#ED7100	C5n Instance	48	48	Compute
+resource	c6g_instance	#ED7100	C6g Instance	48	48	Compute
+resource	c6gd	#ED7100	C6gd Instance	48	48	Compute
+resource	cache_node	#C925D1	Cache Node	78	78	Database
+resource	cached_volume	#7AA116	Cached Volume	62	78	Storage
+resource	camera	#7AA116	Camera	78	78	InternetOfThings
+resource	camera2	#232F3D	Camera	78	62	GeneralResources
+resource	car	#7AA116	Car	78	78	InternetOfThings
+resource	cart	#7AA116	Cart	78	78	InternetOfThings
+resource	certificate_manager	#7AA116	Certificate	59	78	InternetOfThings
+resource	certificate_manager_2	#DD344C	Certificate Authority	78	72	SecurityIdentityCompliance
+resource	change_set	#E7157B	Change Set	65	78	ManagementGovernance
+resource	chat	#232F3D	Chat	78	68	GeneralResources
+resource	checklist	#E7157B	Checklist	66	78	ManagementGovernance
+resource	checklist_cost	#E7157B	Checklist Cost	78	78	ManagementGovernance
+resource	checklist_fault_tolerant	#E7157B	Checklist Fault Tolerant	78	77	ManagementGovernance
+resource	checklist_performance	#E7157B	Checklist Performance	78	78	ManagementGovernance
+resource	checklist_security	#E7157B	Checklist Security	78	78	ManagementGovernance
+resource	classic_load_balancer	#8C4FFF	Classic Load Balancer	78	78	NetworkContentDelivery
+resource	client	#232F3D	Client	78	76	GeneralResources
+resource	cloud9	#C925D1	Cloud9	78	50	DeveloperTools
+resource	cloud_digital_interface	#ED7100	Cloud Digital Interface	78	78	MediaServices
+resource	cloud_extension_ros	#DD344C	Cloud Extensions ROS	78	78	Robotics
+resource	cloud_wan_segment_network	#8C4FFF	Cloud WAN Segment Network	78	78	NetworkContentDelivery
+resource	cloud_wan_transit_gateway_route_table_attachment	#8C4FFF	Cloud WAN Transit Gateway Route Table Attachment	78	78	NetworkContentDelivery
+resource	cloud_wan_virtual_pop	#8C4FFF	Cloud WAN Core Network Edge	78	78	NetworkContentDelivery
+resource	cloudfront_functions	#8C4FFF	CloudFront Functions	78	78	NetworkContentDelivery
+resource	cloudtrail_cloudtrail_lake	#E7157B	CloudTrail Lake	78	78	ManagementGovernance
+resource	cloudwatch_cross_account_observability	#E7157B	CloudWatch Cross Account Observability	78	78	ManagementGovernance
+resource	cloudwatch_data_protection	#E7157B	CloudWatch Data Protection	78	69	ManagementGovernance
+resource	cloudwatch_evidently	#E7157B	CloudWatch Evidently	78	78	ManagementGovernance
+resource	cloudwatch_logs	#E7157B	CloudWatch Logs	78	58	ManagementGovernance
+resource	cloudwatch_metrics_insights	#E7157B	CloudWatch Metrics Insights	77	78	ManagementGovernance
+resource	cloudwatch_rum	#E7157B	CloudWatch RUM	78	78	ManagementGovernance
+resource	cloudwatch_synthetics	#E7157B	CloudWatch Synthetics	78	77	ManagementGovernance
+resource	cluster	#8C4FFF	HDFS Cluster	78	78	Analytics
+resource	coffee_pot	#7AA116	Coffee Pot	78	78	InternetOfThings
+resource	cold_storage	#232F3D	Cold Storage	71	78	GeneralResources
+resource	connector	#7AA116	Connector	78	29	InternetOfThings
+resource	container_1	#ED7100	Container	48	31	Containers
+resource	container_2	#ED7100	Container	48	31	Containers
+resource	container_3	#ED7100	Container	48	31	Containers
+resource	container_registry_image	#ED7100	Image	48	48	Containers
+resource	corporate_data_center	#232F3D	Corporate Data Center	53	78	GeneralResources
+resource	credentials	#232F3D	Credentials	56	78	GeneralResources
+resource	customer_gateway	#8C4FFF	VPC Customer Gateway	78	78	NetworkContentDelivery
+resource	d2_instance	#ED7100	D2 Instance	48	48	Compute
+resource	d3_instance	#ED7100	D3 Instance	48	48	Compute
+resource	d3en_instance	#ED7100	D3en Instance	48	48	Compute
+resource	data_encryption_key	#DD344C	Data Encryption Key	62	78	SecurityIdentityCompliance
+resource	data_exchange_for_apis	#8C4FFF	Data Exchange for APIs	78	78	Analytics
+resource	data_lake_resource_icon	#8C4FFF	Data Lake	78	78	Analytics
+resource	data_set	#7AA116	Data Set	63	78	InternetOfThings
+resource	data_stream	#232F3D	Data Stream	78	78	GeneralResources
+resource	data_table	#232F3D	Data Table	78	59	GeneralResources
+resource	database_migration_workflow_job	#C925D1	Database Migration Workflow / Job	50	78	Database
+resource	datasync_discovery	#01A88D	Datasync Discovery	78	77	MigrationModernization
+resource	datazone_business_data_catalog	#8C4FFF	DataZone Business Data Catalog	71	78	Analytics
+resource	datazone_data_portal	#8C4FFF	DataZone Data Portal	78	78	Analytics
+resource	datazone_data_projects	#8C4FFF	DataZone Data Projects	78	78	Analytics
+resource	db_on_instance2	#ED7100	DB Instance	48	48	Compute
+resource	dense_compute_node	#8C4FFF	Dense Compute Node	78	78	Analytics
+resource	dense_storage_node	#8C4FFF	Dense Storage Node	78	78	Analytics
+resource	deployment	#ED7100	Deployment	48	46	Compute
+resource	deployments	#E7157B	Deployments	65	78	ManagementGovernance
+resource	desired_state	#7AA116	Desired State	78	78	InternetOfThings
+resource	development_environment	#DD344C	Development Environment	78	71	Robotics
+resource	devops_guru_insights	#01A88D	DevOps Guru Insights	77	78	ArtificialIntelligence
+resource	disk	#232F3D	Disk	78	78	GeneralResources
+resource	document	#232F3D	Document	57	78	GeneralResources
+resource	documentdb_elastic_clusters	#C925D1	DocumentDB Elastic Clusters	78	78	Database
+resource	documents	#232F3D	Documents	64	78	GeneralResources
+resource	documents2	#232F3D	Documents	67	78	GeneralResources
+resource	documents3	#232F3D	Documents	57	78	GeneralResources
+resource	door_lock	#7AA116	Door Lock	78	78	InternetOfThings
+resource	download_distribution	#8C4FFF	Download Distribution	78	78	NetworkContentDelivery
+resource	dynamodb_dax	#C925D1	DynamoDB Accelerator	78	72	Database
+resource	dynamodb_standard_access_table_class	#C925D1	DynamoDB Standard Access Table Class	75	78	Database
+resource	dynamodb_standard_infrequent_access_table_class	#C925D1	DynamoDB Standard Infrequent Access Table Class	75	78	Database
+resource	dynamodb_stream	#C925D1	DynamoDB Stream	78	78	Database
+resource	ec2_aws_microservice_extractor_for_net	#ED7100	EC2 AWS Microservice Extractor for .NET	48	48	Compute
+resource	ec2_c6a_instance	#ED7100	C6a Instance	48	48	Compute
+resource	ec2_c6gn_instance	#ED7100	C6gn Instance	48	48	Compute
+resource	ec2_c6i_instance	#ED7100	C6i Instance	48	48	Compute
+resource	ec2_c6in_instance	#ED7100	C6in Instance	48	48	Compute
+resource	ec2_c7g_instance	#ED7100	C7g Instance	48	48	Compute
+resource	ec2_c7gn_instance	#ED7100	C7gn Instance	48	48	Compute
+resource	ec2_dl1_instance	#ED7100	DL1 Instance	48	48	Compute
+resource	ec2_g5_instance	#ED7100	G5 Instance	48	48	Compute
+resource	ec2_g5g_instance	#ED7100	G5g Instance	48	48	Compute
+resource	ec2_hpc6a_instance	#ED7100	Hpc6a Instance	48	48	Compute
+resource	ec2_hpc6id_instance	#ED7100	Hpc6id Instance	48	48	Compute
+resource	ec2_i4i_instance	#ED7100	I4i Instance	48	48	Compute
+resource	ec2_im4gn_instance	#ED7100	Im4gn Instance	48	48	Compute
+resource	ec2_inf2_instance	#ED7100	Inf2	48	48	Compute
+resource	ec2_is4gen_instance	#ED7100	Is4gen Instance	48	48	Compute
+resource	ec2_m1_mac_instance	#ED7100	EC2 M1 Mac Instance	48	48	Compute
+resource	ec2_m6a_instance	#ED7100	M6a Instance	48	48	Compute
+resource	ec2_m6i_instance	#ED7100	M6i Instance	48	48	Compute
+resource	ec2_m6idn_instance	#ED7100	M6idn Instance	48	48	Compute
+resource	ec2_m6in_instance	#ED7100	M6in Instance	48	48	Compute
+resource	ec2_p4de_instance	#ED7100	P4de Instance	48	48	Compute
+resource	ec2_r6a_instance	#ED7100	R6a Instance	48	48	Compute
+resource	ec2_r6i_instance	#ED7100	R6i Instance	48	48	Compute
+resource	ec2_r6idn_instance	#ED7100	R6idn Instance	48	48	Compute
+resource	ec2_r6in_instance	#ED7100	R6in Instance	48	48	Compute
+resource	ec2_r7iz_instance	#ED7100	R7iz Instance	48	48	Compute
+resource	ec2_trn1_instance	#ED7100	Trn1 Instance	48	48	Compute
+resource	ec2_vt1_instance	#ED7100	Vt1 Instance	48	48	Compute
+resource	ec2_x2gd_instance	#ED7100	X2gd Instance	48	48	Compute
+resource	ec2_x2idn_instance	#ED7100	X2idn Instance	48	48	Compute
+resource	ec2_x2iedn_instance	#ED7100	X2iedn Instance	48	48	Compute
+resource	ec2_x2iezn_instance	#ED7100	X2iezn Instance	48	48	Compute
+resource	echo	#7AA116	Echo	41	78	InternetOfThings
+resource	ecs_anywhere	#ED7100	ECS Anywhere	44	48	Containers
+resource	ecs_copilot_cli	#ED7100	ECS copilot CLI	48	44	Containers
+resource	ecs_service	#ED7100	Service	39	48	Containers
+resource	ecs_service_connect	#ED7100	ECS Service Connect	48	44	Containers
+resource	ecs_task	#ED7100	Task	37	48	Containers
+resource	edge_location	#8C4FFF	Edge Location	78	78	NetworkContentDelivery
+resource	eks_on_outposts	#ED7100	EKS On Outposts	48	48	Containers
+resource	elastic_block_store_amazon_data_lifecycle_manager	#7AA116	Elastic Block Store Amazon Data Lifecycle Manager	76	78	Storage
+resource	elastic_block_store_volume_gp3	#7AA116	Elastic Block Store Volume gp3	64	78	Storage
+resource	elastic_file_system_elastic_throughput	#7AA116	Elastic File System Elastic Throughput	78	76	Storage
+resource	elastic_file_system_infrequent_access	#7AA116	Elastic File System Standard Infrequent Access	78	76	Storage
+resource	elastic_file_system_intelligent_tiering	#7AA116	Elastic File System Intelligent Tiering	78	77	Storage
+resource	elastic_file_system_one_zone	#7AA116	Elastic File System One Zone	78	78	Storage
+resource	elastic_file_system_one_zone_infrequent_access	#7AA116	Elastic File System One Zone Infrequent Access	78	78	Storage
+resource	elastic_file_system_standard	#7AA116	Elastic File System Standard	78	78	Storage
+resource	elastic_ip_address	#ED7100	Elastic IP Address	48	20	Compute
+resource	elastic_network_adapter	#8C4FFF	Elastic Network Adapter	78	78	NetworkContentDelivery
+resource	elastic_network_interface	#8C4FFF	Elastic Network Interface	78	78	NetworkContentDelivery
+resource	elasticache_for_memcached	#C925D1	ElastiCache for Memcached	78	69	Database
+resource	elasticache_for_redis	#C925D1	ElastiCache for Redis	78	69	Database
+resource	elasticache_for_valkey	#C925D1	ElastiCache for Valkey	78	69	Database
+resource	email	#DD344C	Email	78	69	BusinessApplications
+resource	email_2	#232F3D	Email	78	49	GeneralResources
+resource	email_notification	#E7157B	Email Notification	78	78	ApplicationIntegration
+resource	emr_engine	#8C4FFF	EMR Engine	78	59	Analytics
+resource	emr_engine_mapr_m3	#8C4FFF	EMR Engine MapR M3	78	59	Analytics
+resource	emr_engine_mapr_m5	#8C4FFF	EMR Engine MapR M5	78	59	Analytics
+resource	emr_engine_mapr_m7	#8C4FFF	EMR Engine MapR M7	78	59	Analytics
+resource	encrypted_data	#DD344C	Encrypted Data	62	78	SecurityIdentityCompliance
+resource	endpoint	#E7157B	API Gateway Endpoint	78	78	ApplicationIntegration
+resource	endpoints	#8C4FFF	Endpoints	78	78	NetworkContentDelivery
+resource	event	#E7157B	Event	78	78	ApplicationIntegration
+resource	event_event_based	#E7157B	Event (Event-Based)	78	78	ManagementGovernance
+resource	event_resource	#E7157B	Event Resource	78	78	ApplicationIntegration
+resource	event_time_based	#E7157B	Event (Time-Based)	78	78	ManagementGovernance
+resource	eventbridge_custom_event_bus_resource	#E7157B	Custom Event Bus	78	69	ApplicationIntegration
+resource	eventbridge_default_event_bus_resource	#E7157B	Default Event Bus	78	53	ApplicationIntegration
+resource	eventbridge_pipes	#E7157B	EventBridge Pipes	78	78	ApplicationIntegration
+resource	eventbridge_saas_partner_event_bus_resource	#E7157B	SaaS Partner Event	78	78	ApplicationIntegration
+resource	eventbridge_scheduler	#E7157B	EventBridge Scheduler	78	78	ApplicationIntegration
+resource	eventbridge_schema	#E7157B	EventBridge Schema	78	78	ApplicationIntegration
+resource	eventbridge_schema_registry	#E7157B	EventBridge Schema Registry	78	78	ApplicationIntegration
+resource	external_sdk	#232F3D	SDK	68	78	GeneralResources
+resource	external_toolkit	#232F3D	Toolkit	68	78	GeneralResources
+resource	f1_instance	#ED7100	F1 Instance	48	48	Compute
+resource	factory	#7AA116	Factory	78	78	InternetOfThings
+resource	file_cache_hybrid_nfs_linked_datasets	#7AA116	File Cache Hybrid NFS Linked Datasets	78	78	Storage
+resource	file_cache_on_premises_nfs_linked_datasets	#7AA116	File Cache On Premises NFS Linked Datasets	78	78	Storage
+resource	file_cache_s3_linked_datasets	#7AA116	File Cache S3 Linked Datasets	78	78	Storage
+resource	file_gateway	#7AA116	File Gateway	69	78	Storage
+resource	file_system	#7AA116	File System	78	73	Storage
+resource	filtering_rule	#DD344C	Filtering Rule	78	78	SecurityIdentityCompliance
+resource	finding	#DD344C	Finding	70	78	SecurityIdentityCompliance
+resource	firetv	#7AA116	Fire TV	78	55	InternetOfThings
+resource	firetv_stick	#7AA116	Fire TV Stick	78	34	InternetOfThings
+resource	fleet_management	#DD344C	Fleet Management	78	78	Robotics
+resource	flow_logs	#8C4FFF	Flow Logs	78	78	NetworkContentDelivery
+resource	folder	#232F3D	Folder	78	71	GeneralResources
+resource	folders	#232F3D	Folders	78	71	GeneralResources
+resource	forums	#232F3D	Forums	78	76	GeneralResources
+resource	fsx_file_gateway	#7AA116	FSx File Gateway	75	78	Storage
+resource	g3_instance	#ED7100	G3 Instance	48	48	Compute
+resource	g4ad_instance	#ED7100	G4ad Instance	48	48	Compute
+resource	g4dn	#ED7100	G4dn Instance	48	48	Compute
+resource	gateway	#8C4FFF	Gateway	76	78	NetworkContentDelivery
+resource	gateway_load_balancer	#8C4FFF	Gateway Load Balancer	78	78	NetworkContentDelivery
+resource	gear	#232F3D	Gear	78	78	GeneralResources
+resource	general_access_points	#7AA116	Access Points	65	78	Storage
+resource	generic	#7AA116	Generic	78	78	InternetOfThings
+resource	generic_application	#232F3D	Generic Application	78	78	GeneralResources
+resource	generic_database	#232F3D	Generic Database	59	78	GeneralResources
+resource	generic_firewall	#232F3D	Generic Firewall	78	66	GeneralResources
+resource	git_repository	#232F3D	Git Repository	60	78	GeneralResources
+resource	glacier	#7AA116	Glacier Flexible Retrieval	75	78	Storage
+resource	glacier_deep_archive	#7AA116	Glacier Deep Archive	75	78	Storage
+resource	global_secondary_index	#C925D1	Global Secondary Index	78	78	Database
+resource	globe	#232F3D	Globe	78	78	GeneralResources
+resource	glue_crawlers	#8C4FFF	Crawler	78	78	Analytics
+resource	glue_data_catalog	#8C4FFF	Glue Data Catalog	72	78	Analytics
+resource	glue_databrew	#8C4FFF	Glue DataBrew	78	78	Analytics
+resource	h1_instance	#ED7100	H1 Instance	48	48	Compute
+resource	habana_gaudi	#ED7100	Habana Gaudi Instance	48	48	Compute
+resource	hardware_board	#7AA116	Hardware Board	78	78	InternetOfThings
+resource	hdfs_cluster	#8C4FFF	HDFS Cluster	78	78	Analytics
+resource	high_memory_instance	#ED7100	High Memory Instance	48	48	Compute
+resource	hosted_zone	#8C4FFF	Hosted Zone	78	77	NetworkContentDelivery
+resource	house	#7AA116	House	78	78	InternetOfThings
+resource	http2_protocol	#7AA116	HTTP2 protocol	78	78	InternetOfThings
+resource	http_notification	#E7157B	HTTP Notification	78	78	ApplicationIntegration
+resource	http_protocol	#7AA116	HTTP protocol	78	78	InternetOfThings
+resource	i2	#ED7100	I2 Instance	48	48	Compute
+resource	i3_instance	#ED7100	I3 Instance	48	48	Compute
+resource	i3en	#ED7100	I3en Instance	48	48	Compute
+resource	identity_access_management_iam_roles_anywhere	#DD344C	IAM Roles Anywhere	78	78	SecurityIdentityCompliance
+resource	import_export	#7AA116	Snowball Import Export	78	61	Storage
+resource	inf1	#ED7100	Inf1	48	48	Compute
+resource	inferentia	#ED7100	Inferentia	48	48	Compute
+resource	instance2	#ED7100	Instance	48	48	Compute
+resource	instance_with_cloudwatch2	#ED7100	Instance with CloudWatch	48	48	Compute
+resource	instances	#ED7100	Instances	48	48	Compute
+resource	instances_2	#E7157B	Instances	78	78	ManagementGovernance
+resource	intelligent_tiering	#7AA116	Intelligent Tiering	75	78	Storage
+resource	internet	#232F3D	Internet	78	48	GeneralResources
+resource	internet_alt1	#232F3D	Internet	78	48	GeneralResources
+resource	internet_alt2	#232F3D	Internet	78	78	GeneralResources
+resource	internet_alt22	#232F3D	Internet	78	78	GeneralResources
+resource	internet_gateway	#8C4FFF	Internet Gateway	78	78	NetworkContentDelivery
+resource	inventory	#E7157B	Inventory	78	78	ManagementGovernance
+resource	iot_analytics_channel	#7AA116	Channel	65	78	InternetOfThings
+resource	iot_analytics_data_store	#7AA116	Data Store	54	78	InternetOfThings
+resource	iot_analytics_pipeline	#7AA116	Pipeline	78	42	InternetOfThings
+resource	iot_core_device_advisor	#7AA116	IoT Core Device Advisor	77	78	InternetOfThings
+resource	iot_core_device_location	#7AA116	IoT Core Device Location	78	78	InternetOfThings
+resource	iot_device_gateway	#7AA116	Device Gateway	78	73	InternetOfThings
+resource	iot_device_jobs_resource	#7AA116	Device Jobs	64	78	InternetOfThings
+resource	iot_device_management_fleet	#7AA116	Device Management Fleet	78	78	InternetOfThings
+resource	iot_device_tester	#7AA116	Device Tester	78	78	InternetOfThings
+resource	iot_greengrass_artifact	#7AA116	Greengrass Artifact	69	78	InternetOfThings
+resource	iot_greengrass_component	#7AA116	Greengrass Component	78	78	InternetOfThings
+resource	iot_greengrass_component_machine_learning	#7AA116	Greengrass Component Machine Learning	78	78	InternetOfThings
+resource	iot_greengrass_component_nucleus	#7AA116	Greengrass Component Nucleus	78	78	InternetOfThings
+resource	iot_greengrass_component_private	#7AA116	Greengrass Component Private	78	78	InternetOfThings
+resource	iot_greengrass_component_public	#7AA116	Greengrass Component Public	78	78	InternetOfThings
+resource	iot_greengrass_interprocess_communication	#7AA116	Greengrass Interprocess Communication	78	78	InternetOfThings
+resource	iot_greengrass_protocol	#7AA116	Greengrass Protocol	78	78	InternetOfThings
+resource	iot_greengrass_recipe	#7AA116	Greengrass Recipe	55	78	InternetOfThings
+resource	iot_greengrass_stream_manager	#7AA116	Greengrass Stream Manager	78	60	InternetOfThings
+resource	iot_lorawan_protocol	#7AA116	LoRaWAN Protocol	78	78	InternetOfThings
+resource	iot_over_the_air_update	#7AA116	Over-The-Air Update	78	63	InternetOfThings
+resource	iot_sailboat	#7AA116	Sailboat	78	78	InternetOfThings
+resource	iot_sitewise_asset	#7AA116	SiteWise Asset	77	78	InternetOfThings
+resource	iot_sitewise_asset_hierarchy	#7AA116	SiteWise Asset Hierarchy	78	78	InternetOfThings
+resource	iot_sitewise_asset_model	#7AA116	SiteWise Asset Model	78	78	InternetOfThings
+resource	iot_sitewise_asset_properties	#7AA116	SiteWise Asset Properties	78	78	InternetOfThings
+resource	iot_sitewise_data_streams	#7AA116	SiteWise Data Streams	78	78	InternetOfThings
+resource	iot_thing_freertos_device	#7AA116	FreeRTOS Device	78	78	InternetOfThings
+resource	iot_thing_humidity_sensor	#7AA116	Humidity Sensor	78	78	InternetOfThings
+resource	iot_thing_industrial_pc	#7AA116	Industrial PC	78	78	InternetOfThings
+resource	iot_thing_plc	#7AA116	PLC	78	78	InternetOfThings
+resource	iot_thing_relay	#7AA116	Relay	78	78	InternetOfThings
+resource	iot_thing_stacklight	#7AA116	Stacklight	78	78	InternetOfThings
+resource	iot_thing_temperature_humidity_sensor	#7AA116	Temperature Humidity Sensor	78	78	InternetOfThings
+resource	iot_thing_temperature_sensor	#7AA116	Temperature Sensor	78	78	InternetOfThings
+resource	iot_thing_temperature_vibration_sensor	#7AA116	Temperature Vibration Sensor	78	78	InternetOfThings
+resource	iot_thing_vibration_sensor	#7AA116	Vibration Sensor	78	78	InternetOfThings
+resource	item	#C925D1	Item	78	78	Database
+resource	items	#C925D1	Items	78	78	Database
+resource	json_script	#232F3D	JSON Script	57	78	GeneralResources
+resource	key_management_service_external_key_store	#DD344C	Key Management Service External Key Store	78	78	SecurityIdentityCompliance
+resource	lambda_function	#ED7100	Lambda Function	48	48	Compute
+resource	layers	#E7157B	Layers	78	78	ManagementGovernance
+resource	license_manager_application_discovery	#E7157B	License Manager Application Discovery	78	78	ManagementGovernance
+resource	license_manager_license_blending	#E7157B	License Manager License Blending	78	78	ManagementGovernance
+resource	lightbulb	#7AA116	Lightbulb	78	78	InternetOfThings
+resource	location_service_geofence	#DD344C	Location Service Geofence	48	48	FrontEndWebMobile
+resource	location_service_map	#DD344C	Location Service Map	48	48	FrontEndWebMobile
+resource	location_service_place	#DD344C	Location Service Place	37	48	FrontEndWebMobile
+resource	location_service_routes	#DD344C	Location Service Routes	48	48	FrontEndWebMobile
+resource	location_service_track	#DD344C	Location Service Track	48	48	FrontEndWebMobile
+resource	logs	#232F3D	Logs	57	78	GeneralResources
+resource	long_term_security_credential	#DD344C	Long Term Security Credential	78	69	SecurityIdentityCompliance
+resource	m4_instance	#ED7100	M4 Instance	48	48	Compute
+resource	m5_instance	#ED7100	M5 Instance	48	48	Compute
+resource	m5a_instance	#ED7100	M5a Instance	48	48	Compute
+resource	m5d_instance	#ED7100	M5d Instance	48	48	Compute
+resource	m5dn_instance	#ED7100	M5dn Instance	48	48	Compute
+resource	m5n_instance	#ED7100	M5n Instance	48	48	Compute
+resource	m5zn_instance	#ED7100	M5zn Instance	48	48	Compute
+resource	m6g_instance	#ED7100	M6g Instance	48	48	Compute
+resource	m6gd_instance	#ED7100	M6gd Instance	48	48	Compute
+resource	mac_instance	#ED7100	Mac Instance	48	48	Compute
+resource	magnifying_glass_2	#232F3D	Magnifying Glass	78	78	GeneralResources
+resource	mainframe_modernization_analyzer	#01A88D	Mainframe Modernization Analyzer	78	78	MigrationModernization
+resource	mainframe_modernization_compiler	#01A88D	Mainframe Modernization Compiler	78	78	MigrationModernization
+resource	mainframe_modernization_converter	#01A88D	Mainframe Modernization Converter	78	78	MigrationModernization
+resource	mainframe_modernization_developer	#01A88D	Mainframe Modernization Developer	78	78	MigrationModernization
+resource	mainframe_modernization_runtime	#01A88D	Mainframe Modernization Runtime	78	45	MigrationModernization
+resource	maintenance_windows	#E7157B	Maintenance Windows	78	78	ManagementGovernance
+resource	managed_ms_ad	#DD344C	Managed MS AD	78	77	SecurityIdentityCompliance
+resource	management_console2	#232F3D	Management Console	78	69	GeneralResources
+resource	marketplace	#232F3D	Marketplace	78	78	GeneralResources
+resource	mediaconnect_gateway	#ED7100	MediaConnect Gateway	78	78	MediaServices
+resource	medical_emergency	#7AA116	Medical Emergency	78	78	InternetOfThings
+resource	mesh	#8C4FFF	Mesh	78	77	NetworkContentDelivery
+resource	message	#E7157B	Message	67	78	ApplicationIntegration
+resource	metrics	#232F3D	Metrics	78	71	GeneralResources
+resource	mfa_token	#DD344C	MFA Token	78	78	SecurityIdentityCompliance
+resource	migration_hub_refactor_spaces_applications	#01A88D	Migration Hub Refactor Spaces Applications	78	78	MigrationModernization
+resource	migration_hub_refactor_spaces_environments	#01A88D	Migration Hub Refactor Spaces Environments	78	78	MigrationModernization
+resource	migration_hub_refactor_spaces_services	#01A88D	Migration Hub Refactor Spaces Services	78	78	MigrationModernization
+resource	mobile_client	#232F3D	Mobile Client	41	78	GeneralResources
+resource	monitoring	#E7157B	Monitoring	78	58	ManagementGovernance
+resource	mq_broker	#E7157B	MQ Broker	78	69	ApplicationIntegration
+resource	mqtt_protocol	#7AA116	MQTT Protocol	78	78	InternetOfThings
+resource	msk_amazon_msk_connect	#8C4FFF	MSK Connect	78	77	Analytics
+resource	multimedia	#232F3D	Multimedia	78	73	GeneralResources
+resource	multiple_volumes_resource	#7AA116	Multiple Volumes	78	60	Storage
+resource	namespace	#8C4FFF	Namespace	78	78	NetworkContentDelivery
+resource	nat_gateway	#8C4FFF	NAT Gateway	78	78	NetworkContentDelivery
+resource	network_access_control_list	#8C4FFF	Network Access Control List	78	78	NetworkContentDelivery
+resource	network_firewall_endpoints	#DD344C	Network Firewall Endpoints	78	78	SecurityIdentityCompliance
+resource	network_load_balancer	#8C4FFF	Network Load Balancer	78	78	NetworkContentDelivery
+resource	non_cached_volume	#7AA116	Non-Cached Volume	62	78	Storage
+resource	notebook	#7AA116	Notebook	68	78	InternetOfThings
+resource	object	#7AA116	Object	78	78	Storage
+resource	office_building	#232F3D	Office Building	50	78	GeneralResources
+resource	one_zone_ia	#7AA116	One Zone IA	75	78	Storage
+resource	opensearch_dashboards	#8C4FFF	OpenSearch Service Dashboards	78	59	Analytics
+resource	opensearch_ingestion	#8C4FFF	OpenSearch Service Ingestion	78	78	Analytics
+resource	opensearch_observability	#8C4FFF	OpenSearch Service Observability	78	78	Analytics
+resource	opensearch_service_cluster_administrator_node	#8C4FFF	OpenSearch Service Cluster Administrator Node	78	78	Analytics
+resource	opensearch_service_data_node	#8C4FFF	OpenSearch Service Data Node	78	78	Analytics
+resource	opensearch_service_index	#8C4FFF	OpenSearch Service Index	78	78	Analytics
+resource	opensearch_service_traces	#8C4FFF	OpenSearch Service Traces	78	78	Analytics
+resource	opensearch_service_ultrawarm_node	#8C4FFF	OpenSearch Service UltraWarm Node	78	78	Analytics
+resource	opsworks_apps	#E7157B	Apps	78	78	ManagementGovernance
+resource	opsworks_permissions	#E7157B	Permissions	54	78	ManagementGovernance
+resource	optimized_instance	#ED7100	Optimized Instance	48	48	Compute
+resource	organizations_account	#E7157B	Account	74	78	ManagementGovernance
+resource	organizations_account2	#E7157B	Organizations Account	78	78	ManagementGovernance
+resource	organizations_management_account	#E7157B	Organizations Management Account	74	78	ManagementGovernance
+resource	organizations_management_account2	#E7157B	Organizations Management Account	78	78	ManagementGovernance
+resource	organizations_organizational_unit	#DD344C	Organizations Organizational Unit	78	67	SecurityIdentityCompliance
+resource	organizations_organizational_unit2	#E7157B	Organizational Unit	78	78	ManagementGovernance
+resource	p2_instance	#ED7100	P2 Instance	48	48	Compute
+resource	p3_instance	#ED7100	P3 Instance	48	48	Compute
+resource	p3dn_instance	#ED7100	P3dn Instance	48	48	Compute
+resource	p4_instance	#ED7100	P4 Instance	48	48	Compute
+resource	p4d_instance	#ED7100	P4d Instance	48	48	Compute
+resource	parameter_store	#E7157B	Parameter Store	75	78	ManagementGovernance
+resource	patch_manager	#E7157B	Patch Manager	78	78	ManagementGovernance
+resource	peering	#8C4FFF	Peering Connection	78	78	NetworkContentDelivery
+resource	permissions	#DD344C	Permissions	62	78	SecurityIdentityCompliance
+resource	pinpoint_journey	#DD344C	Pinpoint Journey	78	75	BusinessApplications
+resource	police_emergency	#7AA116	Police Emergency	78	78	InternetOfThings
+resource	policy	#7AA116	Policy	78	67	InternetOfThings
+resource	programming_language	#232F3D	Programming Language	78	51	GeneralResources
+resource	question	#232F3D	Question	41	78	GeneralResources
+resource	queue	#E7157B	Queue	78	47	ApplicationIntegration
+resource	quicksight_paginated_reports	#8C4FFF	Quicksight Paginated Reports	62	78	Analytics
+resource	r4_instance	#ED7100	R4 Instance	48	48	Compute
+resource	r5_instance	#ED7100	R5 Instance	48	48	Compute
+resource	r5a_instance	#ED7100	R5a Instance	48	48	Compute
+resource	r5ad_instance	#ED7100	R5ad Instance	48	48	Compute
+resource	r5b_instance	#ED7100	R5b Instance	48	48	Compute
+resource	r5d_instance	#ED7100	R5d Instance	48	48	Compute
+resource	r5gd_instance	#ED7100	R5gd Instance	48	48	Compute
+resource	r5n_instance	#ED7100	R5n Instance	48	48	Compute
+resource	r6g_instance	#ED7100	R6g Instance	48	48	Compute
+resource	rdn_instance	#ED7100	Rdn Instance	48	48	Compute
+resource	rds_blue_green_deployments	#C925D1	RDS Blue Green Deployments	78	59	Database
+resource	rds_instance	#C925D1	RDS Instance	78	78	Database
+resource	rds_instance_alt	#C925D1	RDS Instance	78	78	Database
+resource	rds_mariadb_instance	#C925D1	MariaDB Instance	78	78	Database
+resource	rds_mariadb_instance_alt	#C925D1	MariaDB Instance	78	78	Database
+resource	rds_multi_az	#C925D1	RDS Multi-AZ	78	58	Database
+resource	rds_multi_az_db_cluster	#C925D1	RDS Multi-AZ DB Cluster	78	78	Database
+resource	rds_mysql_instance	#C925D1	MySQL Instance	78	78	Database
+resource	rds_mysql_instance_alt	#C925D1	MySQL Instance	78	78	Database
+resource	rds_optimized_writes	#C925D1	RDS Optimized Writes	78	78	Database
+resource	rds_oracle_instance	#C925D1	Oracle Instance	78	78	Database
+resource	rds_oracle_instance_alt	#C925D1	Oracle Instance	78	78	Database
+resource	rds_piops	#C925D1	PIOPS Instance	78	78	Database
+resource	rds_postgresql_instance	#C925D1	Postgre SQL Instance	78	78	Database
+resource	rds_postgresql_instance_alt	#C925D1	Postgre SQL Instance	78	78	Database
+resource	rds_proxy	#C925D1	RDS Proxy Instance	78	78	Database
+resource	rds_proxy_alt	#C925D1	RDS Proxy Instance	78	78	Database
+resource	rds_sql_server_instance	#C925D1	SQL Server Instance	78	78	Database
+resource	rds_sql_server_instance_alt	#C925D1	SQL Server Instance	78	78	Database
+resource	rds_trusted_language_extensions_for_postgresql	#C925D1	Trusted Language Extensions for PostgreSQL	59	78	Database
+resource	recover	#232F3D	Recover	78	78	GeneralResources
+resource	redshift_auto_copy	#8C4FFF	Redshift Auto Copy	78	78	Analytics
+resource	redshift_data_sharing_governance	#8C4FFF	Redshift Data Sharing Governance	78	78	Analytics
+resource	redshift_ml	#8C4FFF	Redshift ML	78	78	Analytics
+resource	redshift_query_editor_v20_light	#8C4FFF	Redshift Query Editor v2.0	78	78	Analytics
+resource	redshift_ra3	#8C4FFF	Redshift RA3	78	78	Analytics
+resource	redshift_streaming_ingestion	#8C4FFF	Redshift Streaming Ingestion	71	78	Analytics
+resource	registry	#ED7100	Registry	48	48	Containers
+resource	rekognition_image	#01A88D	Rekognition image	77	78	ArtificialIntelligence
+resource	rekognition_video	#01A88D	Rekognition video	77	78	ArtificialIntelligence
+resource	replication	#7AA116	Replication	76	78	Storage
+resource	replication_time_control	#7AA116	Replication Time Control	76	78	Storage
+resource	reported_state	#7AA116	Reported State	78	78	InternetOfThings
+resource	rescue	#ED7100	Rescue	48	48	Compute
+resource	resource	#8C4FFF	Resource	76	78	NetworkContentDelivery
+resource	resources	#E7157B	Resources	68	78	ManagementGovernance
+resource	role	#DD344C	Role	78	44	SecurityIdentityCompliance
+resource	route_53_application_recovery_controller	#8C4FFF	Route 53 Application Recovery Controller	78	78	NetworkContentDelivery
+resource	route_53_readiness_checks	#8C4FFF	Route 53 Readiness Checks	78	78	NetworkContentDelivery
+resource	route_53_resolver	#8C4FFF	Route 53 Resolver	78	78	NetworkContentDelivery
+resource	route_53_resolver_dns_firewall	#8C4FFF	Route 53 Resolver DNS Firewall	78	78	NetworkContentDelivery
+resource	route_53_resolver_query_logging	#8C4FFF	Route 53 Resolver Query Logging	78	78	NetworkContentDelivery
+resource	route_53_routing_controls	#8C4FFF	Route 53 Routing Controls	78	78	NetworkContentDelivery
+resource	route_table	#8C4FFF	Route Table	78	76	NetworkContentDelivery
+resource	router	#8C4FFF	Router	78	78	NetworkContentDelivery
+resource	rule	#7AA116	Rule	46	78	InternetOfThings
+resource	rule_2	#E7157B	Rule	78	76	ManagementGovernance
+resource	rule_3	#E7157B	Rule	78	68	ApplicationIntegration
+resource	run_command	#E7157B	Run Command	78	55	ManagementGovernance
+resource	s3_batch_operations	#7AA116	S3 Batch Operations	78	78	Storage
+resource	s3_express_one_zone	#7AA116	S3 Express One-Zone	78	78	Storage
+resource	s3_file_gateway	#7AA116	S3 File Gateway	78	78	Storage
+resource	s3_multi_region_access_points	#7AA116	S3 Multi-Region Access Points	76	78	Storage
+resource	s3_object_lambda	#7AA116	S3 Object Lambda	53	78	Storage
+resource	s3_object_lambda_access_points	#7AA116	S3 Object Lambda Access Points	78	78	Storage
+resource	s3_object_lock	#7AA116	S3 Object Lock	71	78	Storage
+resource	s3_on_outposts	#7AA116	S3 On Outposts	78	78	Storage
+resource	s3_select	#7AA116	S3 Select	78	78	Storage
+resource	s3_storage_lens	#7AA116	S3 Storage Lens	78	78	Storage
+resource	s3_tables	#7AA116	S3 Tables	78	78	Storage
+resource	s3_vectors	#7AA116	S3 Vectors	78	78	Storage
+resource	sagemaker_canvas	#01A88D	SageMaker Canvas	78	78	ArtificialIntelligence
+resource	sagemaker_geospatial_ml	#01A88D	SageMaker Geospatial ML	78	78	ArtificialIntelligence
+resource	sagemaker_model	#01A88D	Model	78	78	ArtificialIntelligence
+resource	sagemaker_notebook	#01A88D	Notebook	68	78	ArtificialIntelligence
+resource	sagemaker_shadow_testing	#01A88D	Shadow Testing	78	78	ArtificialIntelligence
+resource	sagemaker_train	#01A88D	Train	78	65	ArtificialIntelligence
+resource	saml_token	#232F3D	SAML Token	78	78	GeneralResources
+resource	search_documents	#8C4FFF	CloudSearch Search Documents	68	78	Analytics
+resource	sensor	#7AA116	Sensor	70	78	InternetOfThings
+resource	servers	#232F3D	Servers	78	78	GeneralResources
+resource	service	#8C4FFF	Service	78	76	NetworkContentDelivery
+resource	servo	#7AA116	Servo	78	56	InternetOfThings
+resource	shadow	#7AA116	Shadow	78	77	InternetOfThings
+resource	shield2	#232F3D	Shield	78	78	GeneralResources
+resource	shield_shield_advanced	#E7157B	Shield Advanced	70	78	ManagementGovernance
+resource	simple_ad	#DD344C	Simple AD	78	77	SecurityIdentityCompliance
+resource	simple_storage_service_directory_bucket	#7AA116	S3 Directory Bucket	75	78	Storage
+resource	simple_storage_service_s3_glacier_instant_retrieval	#7AA116	Glacier Instant Retrieval	78	78	Storage
+resource	simulation	#DD344C	Simulation	78	64	Robotics
+resource	simulator	#7AA116	Simulator	71	78	InternetOfThings
+resource	snapshot	#7AA116	Snapshot	56	78	Storage
+resource	source_code	#232F3D	Source Code	57	78	GeneralResources
+resource	spot_instance	#ED7100	Spot Instance	48	48	Compute
+resource	ssl_padlock	#232F3D	SSL Padlock	78	76	GeneralResources
+resource	stack	#E7157B	Stack	78	76	ManagementGovernance
+resource	stack2	#E7157B	Stack	78	78	ManagementGovernance
+resource	standard_ia	#7AA116	Standard IA	75	78	Storage
+resource	state_manager	#E7157B	State Manager	78	78	ManagementGovernance
+resource	streaming_distribution	#8C4FFF	Streaming Distribution	78	78	NetworkContentDelivery
+resource	sts	#DD344C	STS	78	50	SecurityIdentityCompliance
+resource	sts_alternate	#DD344C	STS	62	78	SecurityIdentityCompliance
+resource	systems_manager_application_manager	#E7157B	Application Manager	78	74	ManagementGovernance
+resource	systems_manager_change_calendar	#E7157B	Change Calendar	78	72	ManagementGovernance
+resource	systems_manager_change_manager	#E7157B	Change Manager	78	72	ManagementGovernance
+resource	systems_manager_compliance	#E7157B	Compliance	67	78	ManagementGovernance
+resource	systems_manager_distributor	#E7157B	Distributor	78	78	ManagementGovernance
+resource	systems_manager_incident_manager	#E7157B	Incident Manager	78	78	ManagementGovernance
+resource	systems_manager_opscenter	#E7157B	OpsCenter	78	78	ManagementGovernance
+resource	systems_manager_session_manager	#E7157B	Session Manager	78	78	ManagementGovernance
+resource	t2_instance	#ED7100	T2 Instance	48	48	Compute
+resource	t3_instance	#ED7100	T3 Instance	48	48	Compute
+resource	t3a_instance	#ED7100	T3a Instance	48	48	Compute
+resource	t4g_instance	#ED7100	T4g Instance	48	48	Compute
+resource	table	#C925D1	Table	78	78	Database
+resource	tape_gateway	#7AA116	Tape Gateway	74	78	Storage
+resource	tape_storage	#232F3D	Tape Storage	78	38	GeneralResources
+resource	template	#E7157B	Template	65	78	ManagementGovernance
+resource	temporary_security_credential	#DD344C	Temporary Security Credential	77	78	SecurityIdentityCompliance
+resource	textract_analyze_lending	#01A88D	Textract Analyze Lending	78	78	ArtificialIntelligence
+resource	thermostat	#7AA116	Thermostat	78	78	InternetOfThings
+resource	topic	#E7157B	Topic	78	67	ApplicationIntegration
+resource	topic_2	#7AA116	Topic	53	78	InternetOfThings
+resource	traditional_server	#232F3D	Traditional Server	45	78	GeneralResources
+resource	trainium_instance	#ED7100	Trainium Instance	48	48	Compute
+resource	transfer_family_aws_as2	#01A88D	AS2	76	78	MigrationModernization
+resource	transfer_for_ftp_resource	#01A88D	FTP	76	78	MigrationModernization
+resource	transfer_for_ftps_resource	#01A88D	FTPS	76	78	MigrationModernization
+resource	transfer_for_sftp_resource	#01A88D	SFTP	76	78	MigrationModernization
+resource	transit_gateway_attachment	#8C4FFF	Transit Gateway Attachment	78	78	NetworkContentDelivery
+resource	travel	#7AA116	Travel	78	78	InternetOfThings
+resource	user	#232F3D	User	78	78	GeneralResources
+resource	users	#232F3D	Users	78	78	GeneralResources
+resource	utility	#7AA116	Utility	78	78	InternetOfThings
+resource	vault	#7AA116	Archive	62	78	Storage
+resource	virtual_gateway	#8C4FFF	Virtual Gateway	78	78	NetworkContentDelivery
+resource	virtual_node	#8C4FFF	Virtual Node	78	78	NetworkContentDelivery
+resource	virtual_router	#8C4FFF	Virtual Router	78	78	NetworkContentDelivery
+resource	virtual_service	#8C4FFF	Virtual Service	78	74	NetworkContentDelivery
+resource	virtual_tape_library	#7AA116	Virtual Tape Library	62	78	Storage
+resource	volume	#7AA116	Volume	62	78	Storage
+resource	volume_gateway	#7AA116	Volume Gateway	65	78	Storage
+resource	vpc_access_points	#7AA116	VPC Access Points	53	78	Storage
+resource	vpc_carrier_gateway	#8C4FFF	VPC Carrier Gateway	78	78	NetworkContentDelivery
+resource	vpc_network_access_analyzer	#8C4FFF	VPC Network Access Analyzer	77	78	NetworkContentDelivery
+resource	vpc_reachability_analyzer	#8C4FFF	VPC Reachability Analyzer	78	78	NetworkContentDelivery
+resource	vpc_traffic_mirroring	#8C4FFF	Traffic Mirroring	78	78	NetworkContentDelivery
+resource	vpc_virtual_private_cloud_vpc	#8C4FFF	VPC	78	76	NetworkContentDelivery
+resource	vpn_connection	#8C4FFF	VPN Connection	70	78	NetworkContentDelivery
+resource	vpn_gateway	#8C4FFF	VPN Gateway	78	78	NetworkContentDelivery
+resource	waf_bad_bot	#DD344C	WAF Bad Bot	78	71	SecurityIdentityCompliance
+resource	waf_bot	#DD344C	WAF Bot	78	78	SecurityIdentityCompliance
+resource	waf_bot_control	#DD344C	WAF Bot Control	78	78	SecurityIdentityCompliance
+resource	waf_labels	#DD344C	WAF Labels	78	78	SecurityIdentityCompliance
+resource	waf_managed_rule	#DD344C	WAF Managed Rule	78	78	SecurityIdentityCompliance
+resource	waf_rule	#DD344C	WAF Rule	78	78	SecurityIdentityCompliance
+resource	windfarm	#7AA116	Windfarm	78	78	InternetOfThings
+resource	workspaces_family_amazon_workspaces	#01A88D	WorkSpaces Family Amazon Workspaces	78	73	EndUserComputing
+resource	workspaces_family_amazon_workspaces_core	#01A88D	WorkSpaces Family Amazon Workspaces Core	77	78	EndUserComputing
+resource	workspaces_workspaces_web	#01A88D	WorkSpaces Secure Browser	78	74	EndUserComputing
+resource	x1_instance2	#ED7100	X1 Instance	48	48	Compute
+resource	x1e_instance	#ED7100	X1e Instance	48	48	Compute
+resource	z1d_instance	#ED7100	z1d Instance	48	48	Compute

@@ -1,0 +1,14 @@
+{"name": "db-via-app-tier", "meta": {"purpose": "SEM-4 正解形: DB へのアクセスはアプリ層経由のみ"},
+ "containers": [
+   {"id": "vpc", "label": "VPC", "type": "vpc"},
+   {"id": "pub", "label": "Public subnet", "type": "public_subnet", "parent": "vpc"},
+   {"id": "priv", "label": "Private subnet", "type": "private_subnet", "parent": "vpc"}],
+ "nodes": [
+   {"id": "u", "label": "ユーザー", "icon": "users", "col": 0, "row": 1},
+   {"id": "alb", "label": "ALB", "icon": "alb", "parent": "pub", "col": 1, "row": 1},
+   {"id": "app", "label": "アプリ", "icon": "ec2", "parent": "priv", "col": 2, "row": 1},
+   {"id": "db", "label": "Aurora", "icon": "aurora", "parent": "priv", "col": 3, "row": 1}],
+ "edges": [
+   {"id": "e1", "src": "u", "dst": "alb", "kind": "main"},
+   {"id": "e2", "src": "alb", "dst": "app", "kind": "main"},
+   {"id": "e3", "src": "app", "dst": "db", "kind": "main"}]}

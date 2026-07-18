@@ -1,0 +1,9 @@
+# GitHub Actions の依存更新(Python 依存はゼロなので actions のみ)
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: ci

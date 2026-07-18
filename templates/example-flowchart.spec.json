@@ -1,0 +1,38 @@
+{
+ "diagrams": [
+  {
+   "name": "経費精算の承認フロー",
+   "meta": {"updated": "2026-07-09", "purpose": "経費精算の申請から支払までの業務フロー", "audience": "業務部門・経理", "scope": "申請者・上長・経理の 3 者の役割分担", "abstraction": "業務レベル(システム操作の詳細は省略)", "assumptions": "スキル同梱の見本(架空の業務)"},
+   "legend": {"main": "通常フロー", "sub": "差し戻し・例外"},
+   "containers": [
+     {"id": "lane_emp", "label": "申請者", "type": "lane"},
+     {"id": "lane_mgr", "label": "上長", "type": "lane"},
+     {"id": "lane_acc", "label": "経理", "type": "lane"}
+   ],
+   "nodes": [
+     {"id": "start", "shape": "terminator", "label": "開始", "parent": "lane_emp", "col": 0, "row": 0},
+     {"id": "apply", "shape": "io", "label": "経費を申請\n(領収書添付)", "parent": "lane_emp", "col": 0, "row": 1},
+     {"id": "fix", "shape": "process", "label": "申請を修正", "parent": "lane_emp", "col": 0, "row": 3},
+     {"id": "check", "shape": "decision", "label": "承認?", "parent": "lane_mgr", "col": 1, "row": 2},
+     {"id": "verify", "shape": "process", "label": "領収書と\n金額を確認", "parent": "lane_acc", "col": 2, "row": 3},
+     {"id": "book", "shape": "process", "label": "会計システムに計上", "parent": "lane_acc", "col": 2, "row": 4},
+     {"id": "ledger", "shape": "db", "label": "会計DB", "parent": "lane_acc", "col": 3, "row": 4},
+     {"id": "pay", "shape": "process", "label": "振込処理", "parent": "lane_acc", "col": 2, "row": 5},
+     {"id": "receipt", "shape": "document", "label": "支払通知書", "parent": "lane_acc", "col": 3, "row": 5},
+     {"id": "end", "shape": "terminator", "label": "終了", "parent": "lane_acc", "col": 2, "row": 6}
+   ],
+   "edges": [
+     {"id": "f1", "src": "start", "dst": "apply", "kind": "main"},
+     {"id": "f2", "src": "apply", "dst": "check", "kind": "main", "label": "提出"},
+     {"id": "f3", "src": "check", "dst": "fix", "kind": "sub", "label": "差し戻し"},
+     {"id": "f4", "src": "fix", "dst": "check", "kind": "main", "label": "再提出"},
+     {"id": "f5", "src": "check", "dst": "verify", "kind": "main", "label": "承認"},
+     {"id": "f6", "src": "verify", "dst": "book", "kind": "main"},
+     {"id": "f7", "src": "book", "dst": "ledger", "kind": "main"},
+     {"id": "f8", "src": "book", "dst": "pay", "kind": "main"},
+     {"id": "f9", "src": "pay", "dst": "receipt", "kind": "main", "label": "発行"},
+     {"id": "f10", "src": "pay", "dst": "end", "kind": "main"}
+   ]
+  }
+ ]
+}

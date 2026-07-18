@@ -1,0 +1,46 @@
+kind	name	fillColor	label	w	h	category
+gcp	agents	#9aa0a6	AI Applications & Agents	50	50	Categories
+gcp	aimachinelearning	#9aa0a6	AI & Machine Learning	50	50	Categories
+gcp	businessintelligence	#9aa0a6	Business Intelligence	50	50	Categories
+gcp	collaboration	#9aa0a6	Collaboration	50	34	Categories
+gcp	compute	#9aa0a6	Compute	36	50	Categories
+gcp	containers	#9aa0a6	Containers	43	50	Categories
+gcp	dataanalytics	#9aa0a6	Data Analytics	50	49	Categories
+gcp	databases	#9aa0a6	Databases	36	50	Categories
+gcp	developer_tools	#9aa0a6	Developer Tools	50	50	Categories
+gcp	devops	#9aa0a6	DevOps	50	50	Categories
+gcp	hybridmulticloud	#9aa0a6	Hybrid & Multicloud	50	50	Categories
+gcp	integrationservices	#9aa0a6	Integration Services	36	50	Categories
+gcp	managementtools	#9aa0a6	Management Tools	50	50	Categories
+gcp	mapsgeospatial	#9aa0a6	Maps & Geospatial	50	50	Categories
+gcp	marketplace	#9aa0a6	Google Cloud Marketplace	50	50	Categories
+gcp	mediaservices	#9aa0a6	Media Services	50	50	Categories
+gcp	migration	#9aa0a6	Migration	50	50	Categories
+gcp	mixedreality	#9aa0a6	Mixed Reality	50	36	Categories
+gcp	networking	#9aa0a6	Networking	50	50	Categories
+gcp	observability	#9aa0a6	Observability	50	50	Categories
+gcp	operations	#9aa0a6	Operations	50	50	Categories
+gcp	securityidentity	#9aa0a6	Security Identity	45	50	Categories
+gcp	serverlesscomputing	#9aa0a6	Serverless Computing	50	50	Categories
+gcp	storage	#9aa0a6	Storage	36	50	Categories
+gcp	webmobile	#9aa0a6	Web and Mobile	50	50	Categories
+gcp	web3	#9aa0a6	Web3	50	50	Categories
+gcp	aihypercomputer	#4285f4	AI Hypercomputer	50	50	CoreProducts
+gcp	alloydb	#4285f4	AlloyDB	50	50	CoreProducts
+gcp	anthos	#4285f4	Anthos	50	49	CoreProducts
+gcp	apigee	#4285f4	Apigee	50	49	CoreProducts
+gcp	bigquery	#4285f4	BigQuery	50	50	CoreProducts
+gcp	cloudrun	#4285f4	Cloud Run	50	50	CoreProducts
+gcp	cloudspanner	#4285f4	Spanner	50	46	CoreProducts
+gcp	cloudsql	#4285f4	Cloud SQL	50	50	CoreProducts
+gcp	cloud_storage	#4285f4	Cloud Storage	50	50	CoreProducts
+gcp	computeengine	#4285f4	Compute Engine	50	50	CoreProducts
+gcp	distributedcloud	#4285f4	Google Distributed Cloud	50	50	CoreProducts
+gcp	gke	#4285f4	GKE	45	50	CoreProducts
+gcp	hyperdisk	#4285f4	Hyperdisk	50	49	CoreProducts
+gcp	looker	#4285f4	Looker	37	50	CoreProducts
+gcp	mandiant	#4285f4	Mandiant	46	50	CoreProducts
+gcp	securitycommandcenter	#4285f4	Security Command Center	46	50	CoreProducts
+gcp	secops	#4285f4	Google Security Operations	46	50	CoreProducts
+gcp	threatintelligence	#4285f4	Google Threat Intelligence	50	50	CoreProducts
+gcp	vertexai	#4285f4	Vertex AI	50	49	CoreProducts
