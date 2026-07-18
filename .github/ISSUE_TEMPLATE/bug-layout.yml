@@ -1,0 +1,60 @@
+name: Routing / layout bug report
+description: Report a routing, placement or boundary defect in a generated diagram, with a repro spec and measured output(配線・レイアウト不具合報告)
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Routing/layout fixes follow the flow "repro spec → fail-before → regression test",
+        so the **smallest spec that reproduces the issue** and the **measured check output**
+        are the most important information (see CONTRIBUTING.md for details).
+  - type: textarea
+    id: repro-spec
+    attributes:
+      label: Repro spec (JSON)
+      description: >
+        The full smallest .spec.json that reproduces the issue, in a form that reproduces
+        directly with `python3 scripts/build_drawio.py <spec> -o out.drawio`.
+      render: json
+      placeholder: '{"name": "...", "containers": [...], "nodes": [...], "edges": [...]}'
+    validations:
+      required: true
+  - type: input
+    id: engine-version
+    attributes:
+      label: Engine version
+      description: The release tag you are using, or a commit SHA
+      placeholder: v1.0.0
+    validations:
+      required: true
+  - type: textarea
+    id: validator-output
+    attributes:
+      label: Measured validator / check output
+      description: >
+        Paste the raw output of `python3 scripts/validate_drawio.py out.drawio` and
+        `python3 evals/check_diagram.py out.drawio --router`
+        (if it is "0 error, 0 warning but the shape is wrong", say so).
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: expected-vs-actual
+    attributes:
+      label: Expected shape vs. actual
+      description: Which side / which coordinates should look how, and what actually happens (numbers and frac values are fastest)
+      placeholder: |
+        Expected: the two ALB → ECS edges exit from symmetric right-side slots (frac 0.35 / 0.65)
+        Actual: one edge exits from the bottom side (frac 0.5) and bends into an L shape
+    validations:
+      required: true
+  - type: textarea
+    id: png
+    attributes:
+      label: PNG attachment (optional)
+      description: >
+        If you have `--emit-png` output or a draw.io screenshot,
+        drag and drop it into this field.
+    validations:
+      required: false

@@ -1,0 +1,12 @@
+{"name": "egress-via-nat", "meta": {"purpose": "SEM-4 正解形: private subnet の外向きは NAT Gateway(public subnet)経由"},
+ "containers": [
+   {"id": "vpc", "label": "VPC", "type": "vpc"},
+   {"id": "pub", "label": "Public subnet", "type": "public_subnet", "parent": "vpc"},
+   {"id": "priv", "label": "Private subnet", "type": "private_subnet", "parent": "vpc"}],
+ "nodes": [
+   {"id": "inet", "label": "インターネット", "icon": "internet", "col": 4, "row": 1},
+   {"id": "nat", "label": "NAT Gateway", "icon": "nat_gateway", "parent": "pub", "col": 2, "row": 1},
+   {"id": "app", "label": "アプリ", "icon": "fargate", "parent": "priv", "col": 1, "row": 1}],
+ "edges": [
+   {"id": "e1", "src": "app", "dst": "nat", "kind": "main"},
+   {"id": "e2", "src": "nat", "dst": "inet", "kind": "main"}]}

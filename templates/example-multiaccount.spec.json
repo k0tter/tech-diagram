@@ -1,0 +1,70 @@
+{
+ "diagrams": [
+  {
+   "name": "メインフロー",
+   "containers": [
+     {"id": "cloud", "label": "AWS Organizations", "type": "aws_cloud"},
+     {"id": "wl_ou", "label": "Workloads OU", "type": "ou", "parent": "cloud"},
+     {"id": "wl", "label": "Workload (1111-2222-3333)", "type": "account", "parent": "wl_ou"}
+   ],
+   "nodes": [
+     {"id": "users", "label": "ユーザー", "icon": "users", "col": 0, "row": 1},
+     {"id": "r53", "label": "Route 53", "icon": "route_53", "parent": "cloud", "col": 1, "row": 0},
+     {"id": "cf", "label": "CloudFront", "icon": "cloudfront", "parent": "cloud", "col": 1, "row": 1},
+     {"id": "waf", "label": "AWS WAF", "icon": "waf", "parent": "cloud", "col": 1, "row": 2},
+     {"id": "s3fe", "label": "S3 (静的サイト)", "icon": "s3", "parent": "wl", "col": 2, "row": 0},
+     {"id": "apigw", "label": "API Gateway\n(regional)", "icon": "api_gateway", "parent": "wl", "col": 2, "row": 1},
+     {"id": "lam", "label": "Lambda API", "icon": "lambda", "parent": "wl", "col": 3, "row": 1},
+     {"id": "ddb", "label": "DynamoDB", "icon": "dynamodb", "parent": "wl", "col": 4, "row": 1},
+     {"id": "eb", "label": "EventBridge", "icon": "eventbridge", "parent": "wl", "col": 4, "row": 2},
+     {"id": "sqs", "label": "SQS", "icon": "sqs", "parent": "wl", "col": 5, "row": 2},
+     {"id": "fargate", "label": "ECS Fargate", "icon": "fargate", "parent": "wl", "col": 6, "row": 2}
+   ],
+   "edges": [
+     {"id": "e_dns", "src": "users", "dst": "r53", "kind": "sub", "label": "DNS 解決"},
+     {"id": "e_https", "src": "users", "dst": "cf", "kind": "main", "label": "HTTPS"},
+     {"id": "e_waf", "src": "waf", "dst": "cf", "kind": "sub"},
+     {"id": "e_static", "src": "cf", "dst": "s3fe", "kind": "main", "label": "静的配信"},
+     {"id": "e_api", "src": "cf", "dst": "apigw", "kind": "main", "label": "API"},
+     {"id": "e_lam", "src": "apigw", "dst": "lam", "kind": "main"},
+     {"id": "e_ddb", "src": "lam", "dst": "ddb", "kind": "main", "label": "read/write"},
+     {"id": "e_eb", "src": "lam", "dst": "eb", "kind": "sub", "label": "イベント発行"},
+     {"id": "e_sqs", "src": "eb", "dst": "sqs", "kind": "sub"},
+     {"id": "e_fg", "src": "sqs", "dst": "fargate", "kind": "sub", "label": "非同期処理"}
+   ],
+   "meta": {"updated": "2026-07-18", "purpose": "マルチアカウント統制の全体像", "audience": "セキュリティ・プラットフォームチーム", "scope": "Organizations 配下のアカウント責務分離", "abstraction": "概要", "assumptions": "見本(スキル同梱)。API Gateway は自前 CloudFront 背後のため regional エンドポイント"},
+   "legend": {"main": "主フロー(同期)", "sub": "補助・非同期"}
+  },
+  {
+   "name": "CI/CD・運用",
+   "containers": [
+     {"id": "infra_ou", "label": "Infrastructure OU", "type": "ou"},
+     {"id": "wl_ou2", "label": "Workloads OU", "type": "ou"},
+     {"id": "sec_ou", "label": "Security OU", "type": "ou"},
+     {"id": "shared", "label": "Shared Services (2222-3333-4444)", "type": "account", "parent": "infra_ou"},
+     {"id": "wl2", "label": "Workload (1111-2222-3333)", "type": "account", "parent": "wl_ou2"},
+     {"id": "sec", "label": "Security / Log Archive (3333-4444-5555)", "type": "account", "parent": "sec_ou"}
+   ],
+   "nodes": [
+     {"id": "cicd", "label": "CodePipeline", "icon": "codepipeline", "parent": "shared", "col": 1, "row": 0},
+     {"id": "secrets", "label": "Secrets Manager", "icon": "secrets_manager", "parent": "shared", "col": 0, "row": 0},
+     {"id": "ecr", "label": "ECR", "icon": "ecr", "parent": "shared", "col": 2, "row": 0},
+     {"id": "lam2", "label": "Lambda API", "icon": "lambda", "parent": "wl2", "ref": true, "col": 1, "row": 1},
+     {"id": "fargate2", "label": "ECS Fargate", "icon": "fargate", "parent": "wl2", "ref": true, "col": 2, "row": 1},
+     {"id": "cw", "label": "CloudWatch", "icon": "cloudwatch_2", "parent": "sec", "col": 1, "row": 2},
+     {"id": "logs3", "label": "集中ログ S3", "icon": "s3", "parent": "sec", "col": 2, "row": 2},
+     {"id": "ct", "label": "CloudTrail", "icon": "cloudtrail", "parent": "sec", "col": 3, "row": 2}
+   ],
+   "edges": [
+     {"id": "c_img", "src": "cicd", "dst": "ecr", "kind": "sub", "label": "image push"},
+     {"id": "c_dep2", "src": "cicd", "dst": "fargate2", "kind": "sub"},
+     {"id": "c_dep1", "src": "cicd", "dst": "lam2", "kind": "sub", "label": "deploy"},
+     {"id": "c_cw1", "src": "lam2", "dst": "cw", "kind": "sub", "label": "logs/metrics"},
+     {"id": "c_agg", "src": "cw", "dst": "logs3", "kind": "sub", "label": "集約"},
+     {"id": "c_trail", "src": "ct", "dst": "logs3", "kind": "sub"}
+   ],
+   "meta": {"updated": "2026-07-09", "purpose": "ワークロードアカウントの詳細", "audience": "セキュリティ・プラットフォームチーム", "scope": "Organizations 配下のアカウント責務分離", "abstraction": "概要", "assumptions": "見本(スキル同梱)"},
+   "legend": {"sub": "補助・非同期"}
+  }
+ ]
+}

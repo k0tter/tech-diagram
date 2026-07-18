@@ -1,0 +1,11 @@
+{"name": "rds-multi-az", "meta": {"purpose": "SEM-4 正解形: Multi-AZ 表記どおり AZ コンテナ 2 つに展開"},
+ "containers": [
+   {"id": "vpc", "label": "VPC", "type": "vpc"},
+   {"id": "azA", "label": "AZ-a", "type": "az", "parent": "vpc"},
+   {"id": "privA", "label": "Private subnet", "type": "private_subnet", "parent": "azA"},
+   {"id": "azB", "label": "AZ-b", "type": "az", "parent": "vpc"},
+   {"id": "privB", "label": "Private subnet", "type": "private_subnet", "parent": "azB"}],
+ "nodes": [
+   {"id": "dbA", "label": "RDS (Multi-AZ)\nprimary", "icon": "rds", "parent": "privA", "col": 1, "row": 1},
+   {"id": "dbB", "label": "RDS standby", "icon": "rds", "parent": "privB", "col": 1, "row": 3}],
+ "edges": []}

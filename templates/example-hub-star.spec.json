@@ -1,0 +1,59 @@
+{
+ "diagrams": [
+  {
+   "name": "AIエージェント運用基盤(次数10級ハブの畳み込み)",
+   "legend": {"main": "同期呼び出し", "sub": "非同期・補助", "ops": "監視・統制", "ext": "外部SaaS連携"},
+   "containers": [
+     {"id": "cloud", "label": "AWS Cloud", "type": "aws_cloud"},
+     {"id": "platform", "label": "エージェント基盤", "type": "generic", "parent": "cloud"},
+     {"id": "vpc", "label": "ツール実行 VPC", "type": "vpc", "parent": "cloud"},
+     {"id": "toolsub", "label": "Private subnet", "type": "private_subnet", "parent": "vpc"}
+   ],
+   "nodes": [
+     {"id": "users", "label": "利用者", "icon": "users", "col": 0, "row": 2},
+     {"id": "cognito", "label": "Cognito\n(認証)", "icon": "cognito", "parent": "platform", "col": 2, "row": 0},
+     {"id": "ddb", "label": "DynamoDB\n(セッション)", "icon": "dynamodb", "parent": "platform", "col": 2, "row": 1},
+     {"id": "bedrock", "label": "Bedrock\n(LLM 推論)", "icon": "bedrock", "parent": "platform", "col": 3, "row": 1},
+     {"id": "opensearch", "label": "OpenSearch\n(ベクトル検索)", "icon": "elasticsearch_service", "parent": "platform", "col": 4, "row": 1},
+     {"id": "apigw", "label": "API Gateway", "icon": "api_gateway", "parent": "platform", "col": 2, "row": 2},
+     {"id": "hub", "label": "Agent Gateway", "icon": "bedrock_agentcore", "parent": "platform", "col": 3, "row": 2},
+     {"id": "stepfn", "label": "Step Functions\n(承認フロー)", "icon": "step_functions", "parent": "platform", "col": 2, "row": 3},
+     {"id": "sqs", "label": "SQS\n(非同期ジョブ)", "icon": "sqs", "parent": "platform", "col": 3, "row": 3},
+     {"id": "s3", "label": "S3\n(ナレッジ)", "icon": "s3", "parent": "platform", "col": 4, "row": 3},
+     {"id": "ctrail", "label": "CloudTrail", "icon": "cloudtrail", "parent": "cloud", "col": 1, "row": 4},
+     {"id": "cw", "label": "CloudWatch", "icon": "cloudwatch_2", "parent": "cloud", "col": 2, "row": 4},
+     {"id": "worker", "label": "ツール実行\nWorker", "icon": "fargate", "parent": "toolsub", "col": 3, "row": 5},
+     {"id": "mcp", "label": "MCP ツール\nサーバー", "icon": "fargate", "parent": "toolsub", "col": 4, "row": 5},
+     {"id": "integhub", "label": "外部連携ツール", "icon": "gear", "col": 6, "row": 2},
+     {"id": "slack", "label": "Slack", "icon": "gear", "col": 7, "row": 0},
+     {"id": "pagerduty", "label": "PagerDuty", "icon": "gear", "col": 7, "row": 1},
+     {"id": "splunk", "label": "Splunk", "icon": "gear", "col": 7, "row": 2},
+     {"id": "confluence", "label": "Confluence", "icon": "gear", "col": 7, "row": 3}
+   ],
+   "edges": [
+     {"id": "e1", "src": "users", "dst": "apigw", "kind": "main", "label": "HTTPS"},
+     {"id": "e2", "src": "apigw", "dst": "hub", "kind": "main"},
+     {"id": "e3", "src": "apigw", "dst": "cognito", "kind": "sub", "label": "トークン検証"},
+     {"id": "e4", "src": "hub", "dst": "bedrock", "kind": "main", "label": "LLM 推論"},
+     {"id": "e5", "src": "hub", "dst": "opensearch", "kind": "main", "label": "ベクトル検索"},
+     {"id": "e6", "src": "hub", "dst": "ddb", "kind": "main", "label": "セッション"},
+     {"id": "e7", "src": "hub", "dst": "stepfn", "kind": "sub", "label": "承認フロー"},
+     {"id": "e8", "src": "hub", "dst": "sqs", "kind": "sub", "label": "ジョブ投入"},
+     {"id": "e9", "src": "hub", "dst": "s3", "kind": "main", "label": "ナレッジ参照"},
+     {"id": "e10", "src": "hub", "dst": "integhub", "kind": "ext", "label": "通知・連携"},
+     {"id": "e11", "src": "sqs", "dst": "worker", "kind": "sub", "label": "ジョブ取得"},
+     {"id": "e12", "src": "worker", "dst": "mcp", "kind": "main", "label": "ツール呼び出し"},
+     {"id": "e13", "src": "worker", "dst": "s3", "kind": "sub", "label": "成果物格納"},
+     {"id": "e14", "src": "platform", "dst": "cw", "kind": "ops", "label": "メトリクス・ログ"},
+     {"id": "e15", "src": "vpc", "dst": "cw", "kind": "ops", "label": "メトリクス・ログ"},
+     {"id": "e16", "src": "platform", "dst": "ctrail", "kind": "ops", "label": "操作証跡"},
+     {"id": "e17", "src": "integhub", "dst": "slack", "kind": "ext", "label": "通知"},
+     {"id": "e18", "src": "integhub", "dst": "pagerduty", "kind": "ext", "label": "アラート"},
+     {"id": "e19", "src": "integhub", "dst": "splunk", "kind": "ext", "label": "監査ログ"},
+     {"id": "e20", "src": "integhub", "dst": "confluence", "kind": "ext", "label": "レポート"}
+   ],
+   "kinds": {"ext": {"base": "sub", "color": "#8C4FFF", "style_extra": "dashPattern=10 5;"}},
+   "meta": {"updated": "2026-07-18", "purpose": "次数10級ハブを1ページに畳む配置処方の実演(8近傍リング・中間ノード分解・コンテナ端点集約)", "audience": "本スキル利用者(高次数ハブ図の見本)・アーキテクトレビュー", "scope": "架空の AI エージェント運用基盤(入口・推論・状態管理・非同期実行・監視統制・外部SaaS連携)", "abstraction": "概要(監視・統制はコンテナ端点に集約、外部SaaS 4種は中間ノード1個経由に分解)", "assumptions": "スキル同梱の見本(架空の構成)。ハブ論理接続12本を描画8本に畳む: コア7本=8近傍リング(東セルは外部連携の出口回廊として空ける)、SaaS 4本=中間ノード「外部連携ツール」1本に集約、監視は platform/vpc→CloudWatch のコンテナ端点集約。認証は API Gateway の Cognito オーソライザーに委譲"}
+  }
+ ]
+}

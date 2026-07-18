@@ -1,0 +1,733 @@
+{
+ "diagrams": [
+  {
+   "name": "マルチリージョンDR+横断関心事(単一ページ)",
+   "legend": {
+    "main": "リクエスト",
+    "sub": "非同期・補助",
+    "repl": "レプリケーション",
+    "failover": "フェイルオーバー",
+    "cicd": "CI/CD",
+    "obs": "監視",
+    "gov": "統制"
+   },
+   "containers": [
+    {
+     "id": "cloud",
+     "label": "AWS Cloud",
+     "type": "aws_cloud"
+    },
+    {
+     "id": "network",
+     "label": "Network",
+     "type": "generic",
+     "parent": "cloud"
+    },
+    {
+     "id": "regionA",
+     "label": "リージョン A (東京・Primary)",
+     "type": "region",
+     "parent": "cloud"
+    },
+    {
+     "id": "vpcA",
+     "label": "VPC A",
+     "type": "vpc",
+     "parent": "regionA"
+    },
+    {
+     "id": "pubA",
+     "label": "Public subnet",
+     "type": "public_subnet",
+     "parent": "vpcA"
+    },
+    {
+     "id": "appA",
+     "label": "Private subnet (App)",
+     "type": "private_subnet",
+     "parent": "vpcA"
+    },
+    {
+     "id": "dataA",
+     "label": "Private subnet (Data)",
+     "type": "private_subnet",
+     "parent": "vpcA"
+    },
+    {
+     "id": "regionB",
+     "label": "リージョン B (大阪・DR)",
+     "type": "region",
+     "parent": "cloud"
+    },
+    {
+     "id": "vpcB",
+     "label": "VPC B",
+     "type": "vpc",
+     "parent": "regionB"
+    },
+    {
+     "id": "pubB",
+     "label": "Public subnet",
+     "type": "public_subnet",
+     "parent": "vpcB"
+    },
+    {
+     "id": "appB",
+     "label": "Private subnet (App)",
+     "type": "private_subnet",
+     "parent": "vpcB"
+    },
+    {
+     "id": "dataB",
+     "label": "Private subnet (Data)",
+     "type": "private_subnet",
+     "parent": "vpcB"
+    },
+    {
+     "id": "cicd",
+     "label": "CI/CD",
+     "type": "generic",
+     "parent": "cloud"
+    },
+    {
+     "id": "gov",
+     "label": "Governance",
+     "type": "generic",
+     "parent": "cloud"
+    }
+   ],
+   "nodes": [
+    {
+     "id": "users",
+     "label": "ユーザー",
+     "icon": "users",
+     "col": 0,
+     "row": 1
+    },
+    {
+     "id": "office",
+     "label": "オフィス",
+     "icon": "office_building",
+     "col": 0,
+     "row": 3
+    },
+    {
+     "id": "r53",
+     "label": "Route 53",
+     "icon": "route_53",
+     "parent": "cloud",
+     "col": 1,
+     "row": 0
+    },
+    {
+     "id": "cf",
+     "label": "CloudFront",
+     "icon": "cloudfront",
+     "parent": "cloud",
+     "col": 2,
+     "row": 1
+    },
+    {
+     "id": "waf",
+     "label": "WAF",
+     "icon": "waf",
+     "parent": "cloud",
+     "col": 1,
+     "row": 2
+    },
+    {
+     "id": "dx",
+     "label": "Direct Connect / VPN",
+     "icon": "direct_connect",
+     "parent": "network",
+     "col": 2,
+     "row": 3
+    },
+    {
+     "id": "tgw",
+     "label": "Transit Gateway",
+     "icon": "transit_gateway",
+     "parent": "network",
+     "col": 2,
+     "row": 2
+    },
+    {
+     "id": "alb",
+     "label": "ALB",
+     "icon": "application_load_balancer",
+     "parent": "pubA",
+     "col": 3,
+     "row": 0
+    },
+    {
+     "id": "natgw",
+     "label": "NAT Gateway",
+     "icon": "nat_gateway",
+     "parent": "pubA",
+     "col": 3,
+     "row": 1
+    },
+    {
+     "id": "nfw",
+     "label": "Network Firewall",
+     "icon": "network_firewall",
+     "parent": "pubA",
+     "col": 3,
+     "row": 2
+    },
+    {
+     "id": "svc1",
+     "label": "注文サービス",
+     "icon": "fargate",
+     "parent": "appA",
+     "col": 4,
+     "row": 0
+    },
+    {
+     "id": "svc2",
+     "label": "在庫サービス",
+     "icon": "fargate",
+     "parent": "appA",
+     "col": 4,
+     "row": 1
+    },
+    {
+     "id": "svc3",
+     "label": "決済サービス",
+     "icon": "fargate",
+     "parent": "appA",
+     "col": 4,
+     "row": 2
+    },
+    {
+     "id": "aurora",
+     "label": "Aurora Primary",
+     "icon": "aurora",
+     "parent": "dataA",
+     "col": 5,
+     "row": 0
+    },
+    {
+     "id": "ddb",
+     "label": "DynamoDB",
+     "icon": "dynamodb",
+     "parent": "cloud",
+     "col": 6,
+     "row": 1
+    },
+    {
+     "id": "cache",
+     "label": "ElastiCache",
+     "icon": "elasticache",
+     "parent": "dataA",
+     "col": 5,
+     "row": 2
+    },
+    {
+     "id": "s3a",
+     "label": "S3 (静的資産)",
+     "icon": "s3",
+     "parent": "regionA",
+     "col": 3,
+     "row": 3
+    },
+    {
+     "id": "backup",
+     "label": "Backup",
+     "icon": "backup",
+     "parent": "regionA",
+     "col": 5,
+     "row": 3
+    },
+    {
+     "id": "cw",
+     "label": "CloudWatch",
+     "icon": "cloudwatch_2",
+     "parent": "regionA",
+     "col": 3,
+     "row": 4
+    },
+    {
+     "id": "xray",
+     "label": "X-Ray",
+     "icon": "xray",
+     "parent": "regionA",
+     "col": 4,
+     "row": 3
+    },
+    {
+     "id": "grafana",
+     "label": "Grafana",
+     "icon": "gear",
+     "parent": "regionA",
+     "col": 5,
+     "row": 4
+    },
+    {
+     "id": "eb",
+     "label": "EventBridge / SQS",
+     "icon": "eventbridge",
+     "parent": "cloud",
+     "col": 6,
+     "row": 0
+    },
+    {
+     "id": "lam",
+     "label": "非同期処理",
+     "icon": "lambda",
+     "parent": "cloud",
+     "col": 6,
+     "row": 2
+    },
+    {
+     "id": "alb2",
+     "label": "ALB (DR)",
+     "icon": "application_load_balancer",
+     "parent": "pubB",
+     "col": 7,
+     "row": 0
+    },
+    {
+     "id": "nat2",
+     "label": "NAT Gateway",
+     "icon": "nat_gateway",
+     "parent": "pubB",
+     "col": 7,
+     "row": 1
+    },
+    {
+     "id": "svcb1",
+     "label": "注文サービス",
+     "icon": "fargate",
+     "parent": "appB",
+     "col": 8,
+     "row": 0
+    },
+    {
+     "id": "svcb2",
+     "label": "在庫サービス",
+     "icon": "fargate",
+     "parent": "appB",
+     "col": 8,
+     "row": 1
+    },
+    {
+     "id": "aurorab",
+     "label": "Aurora Replica",
+     "icon": "aurora",
+     "parent": "dataB",
+     "col": 9,
+     "row": 0
+    },
+    {
+     "id": "s3b",
+     "label": "S3 (DRコピー)",
+     "icon": "s3",
+     "parent": "regionB",
+     "col": 8,
+     "row": 2
+    },
+    {
+     "id": "s3lake",
+     "label": "S3 データレイク",
+     "icon": "s3",
+     "parent": "cloud",
+     "col": 10,
+     "row": 0
+    },
+    {
+     "id": "athena",
+     "label": "Athena",
+     "icon": "athena",
+     "parent": "cloud",
+     "col": 10,
+     "row": 1
+    },
+    {
+     "id": "qs",
+     "label": "QuickSight",
+     "icon": "quicksight",
+     "parent": "cloud",
+     "col": 10,
+     "row": 2
+    },
+    {
+     "id": "logarch",
+     "label": "S3 ログアーカイブ",
+     "icon": "s3",
+     "parent": "cloud",
+     "col": 11,
+     "row": 4
+    },
+    {
+     "id": "pipeline",
+     "label": "CodePipeline",
+     "icon": "codepipeline",
+     "parent": "cicd",
+     "col": 3,
+     "row": 5
+    },
+    {
+     "id": "build",
+     "label": "CodeBuild",
+     "icon": "codebuild",
+     "parent": "cicd",
+     "col": 4,
+     "row": 5
+    },
+    {
+     "id": "ecr",
+     "label": "ECR",
+     "icon": "ecr",
+     "parent": "cicd",
+     "col": 5,
+     "row": 5
+    },
+    {
+     "id": "argo",
+     "label": "Argo CD",
+     "icon": "gear",
+     "parent": "cicd",
+     "col": 5,
+     "row": 6
+    },
+    {
+     "id": "orgs",
+     "label": "Organizations",
+     "icon": "organizations",
+     "parent": "gov",
+     "col": 7,
+     "row": 5
+    },
+    {
+     "id": "ct",
+     "label": "Control Tower",
+     "icon": "control_tower",
+     "parent": "gov",
+     "col": 8,
+     "row": 5
+    },
+    {
+     "id": "configg",
+     "label": "Config",
+     "icon": "config",
+     "parent": "gov",
+     "col": 9,
+     "row": 5
+    },
+    {
+     "id": "ctrail",
+     "label": "CloudTrail",
+     "icon": "cloudtrail",
+     "parent": "gov",
+     "col": 10,
+     "row": 5
+    },
+    {
+     "id": "sechub",
+     "label": "Security Hub",
+     "icon": "security_hub",
+     "parent": "gov",
+     "col": 11,
+     "row": 5
+    }
+   ],
+   "edges": [
+    {
+     "id": "e1",
+     "src": "users",
+     "dst": "cf",
+     "kind": "main",
+     "label": "HTTPS"
+    },
+    {
+     "id": "e2",
+     "src": "users",
+     "dst": "r53",
+     "kind": "sub",
+     "label": "DNS"
+    },
+    {
+     "id": "e3",
+     "src": "waf",
+     "dst": "cf",
+     "kind": "sub"
+    },
+    {
+     "id": "e4",
+     "src": "cf",
+     "dst": "alb",
+     "kind": "main"
+    },
+    {
+     "id": "e5",
+     "src": "cf",
+     "dst": "alb2",
+     "kind": "failover",
+     "label": "オリジン切替\n(Route 53 failover)"
+    },
+    {
+     "id": "e6",
+     "src": "office",
+     "dst": "dx",
+     "kind": "main",
+     "label": "専用線 (バックアップVPN 併用)"
+    },
+    {
+     "id": "e8",
+     "src": "dx",
+     "dst": "tgw",
+     "kind": "main"
+    },
+    {
+     "id": "e10",
+     "src": "tgw",
+     "dst": "vpcA",
+     "kind": "main",
+     "label": "社内接続"
+    },
+    {
+     "id": "e11",
+     "src": "alb",
+     "dst": "svc1",
+     "kind": "main"
+    },
+    {
+     "id": "e12",
+     "src": "alb",
+     "dst": "svc2",
+     "kind": "main"
+    },
+    {
+     "id": "e13",
+     "src": "alb",
+     "dst": "svc3",
+     "kind": "main"
+    },
+    {
+     "id": "e14",
+     "src": "svc1",
+     "dst": "aurora",
+     "kind": "main"
+    },
+    {
+     "id": "e15",
+     "src": "svc2",
+     "dst": "ddb",
+     "kind": "main"
+    },
+    {
+     "id": "e16",
+     "src": "svc3",
+     "dst": "cache",
+     "kind": "main"
+    },
+    {
+     "id": "e17",
+     "src": "svc2",
+     "dst": "natgw",
+     "kind": "sub",
+     "label": "外部API"
+    },
+    {
+     "id": "e18",
+     "src": "cf",
+     "dst": "s3a",
+     "kind": "sub",
+     "label": "静的配信"
+    },
+    {
+     "id": "e19",
+     "src": "aurora",
+     "dst": "aurorab",
+     "kind": "repl",
+     "label": "非同期レプリケーション"
+    },
+    {
+     "id": "e20",
+     "src": "s3a",
+     "dst": "s3b",
+     "kind": "repl",
+     "label": "CRR"
+    },
+    {
+     "id": "e21",
+     "src": "alb2",
+     "dst": "svcb1",
+     "kind": "main"
+    },
+    {
+     "id": "e22",
+     "src": "alb2",
+     "dst": "svcb2",
+     "kind": "main"
+    },
+    {
+     "id": "e23",
+     "src": "svcb1",
+     "dst": "aurorab",
+     "kind": "main"
+    },
+    {
+     "id": "e24",
+     "src": "svcb2",
+     "dst": "aurorab",
+     "kind": "main"
+    },
+    {
+     "id": "e25",
+     "src": "svc2",
+     "dst": "eb",
+     "kind": "sub",
+     "label": "イベント"
+    },
+    {
+     "id": "e26",
+     "src": "eb",
+     "dst": "lam",
+     "kind": "sub"
+    },
+    {
+     "id": "e27",
+     "src": "lam",
+     "dst": "ddb",
+     "kind": "sub",
+     "label": "書き戻し"
+    },
+    {
+     "id": "e28",
+     "src": "aurorab",
+     "dst": "s3lake",
+     "kind": "sub",
+     "label": "export"
+    },
+    {
+     "id": "e29",
+     "src": "athena",
+     "dst": "s3lake",
+     "kind": "sub",
+     "label": "クエリ"
+    },
+    {
+     "id": "e30",
+     "src": "qs",
+     "dst": "athena",
+     "kind": "main"
+    },
+    {
+     "id": "e31",
+     "src": "vpcA",
+     "dst": "cw",
+     "kind": "obs",
+     "label": "メトリクス"
+    },
+    {
+     "id": "e32",
+     "src": "svc2",
+     "dst": "xray",
+     "kind": "obs"
+    },
+    {
+     "id": "e33",
+     "src": "grafana",
+     "dst": "cw",
+     "kind": "obs",
+     "label": "可視化"
+    },
+    {
+     "id": "e34",
+     "src": "pipeline",
+     "dst": "build",
+     "kind": "cicd"
+    },
+    {
+     "id": "e35",
+     "src": "build",
+     "dst": "ecr",
+     "kind": "cicd"
+    },
+    {
+     "id": "e36",
+     "src": "ecr",
+     "dst": "vpcA",
+     "kind": "cicd",
+     "label": "デプロイ"
+    },
+    {
+     "id": "e37",
+     "src": "argo",
+     "dst": "vpcA",
+     "kind": "cicd",
+     "label": "GitOps"
+    },
+    {
+     "id": "e38",
+     "src": "orgs",
+     "dst": "ct",
+     "kind": "gov"
+    },
+    {
+     "id": "e39",
+     "src": "ctrail",
+     "dst": "logarch",
+     "kind": "gov",
+     "label": "証跡"
+    },
+    {
+     "id": "e40",
+     "src": "configg",
+     "dst": "logarch",
+     "kind": "gov"
+    },
+    {
+     "id": "e41",
+     "src": "sechub",
+     "dst": "logarch",
+     "kind": "gov",
+     "label": "検出結果"
+    },
+    {
+     "id": "e42",
+     "src": "backup",
+     "dst": "s3b",
+     "kind": "repl",
+     "label": "バックアップ複製"
+    }
+   ],
+   "kinds": {
+    "repl": {
+     "base": "sub",
+     "color": "#2E8B57",
+     "style_extra": "dashPattern=10 5;"
+    },
+    "failover": {
+     "base": "sub",
+     "color": "#E8730C",
+     "style_extra": "dashPattern=12 3 3 3;"
+    },
+    "cicd": {
+     "base": "ops",
+     "color": "#8C4FFF",
+     "style_extra": "dashPattern=6 3 1 3;"
+    },
+    "obs": {
+     "base": "ops",
+     "color": "#0FA3A6"
+    },
+    "gov": {
+     "base": "ops",
+     "color": "#C7131F",
+     "style_extra": "dashPattern=1 6;"
+    }
+   },
+   "meta": {
+    "updated": "2026-07-18",
+    "purpose": "マルチリージョン DR 構成の全体像と横断的関心事の可視化",
+    "audience": "インフラチーム・アーキテクトレビュー",
+    "scope": "本番ワークロード(Region A)+DR(Region B)+CI/CD・監視・統制",
+    "abstraction": "概要(イベント基盤・監視系は代表ノードに集約)",
+    "assumptions": "スキル同梱の見本(架空の構成)。個別キュー・関数単位は省略、DX/VPN は接続 1 ノードに集約。DR 切替はオリジンのみ(CloudFront/WAF は共通経路)・手動起動(手順は自動化)を想定"
+   }
+  }
+ ]
+}

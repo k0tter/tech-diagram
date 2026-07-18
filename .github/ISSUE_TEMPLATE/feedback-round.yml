@@ -1,0 +1,52 @@
+name: Structured feedback
+description: Quality feedback in a structured format — routing, placement, checks, docs, anything(構造化フィードバック)
+title: "[feedback] "
+labels: ["feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Feedback that comes with "phenomenon + reproduction + measured values" can be
+        turned into a fail-before regression fixture as-is, so it gets addressed with
+        the highest priority.
+  - type: textarea
+    id: phenomenon
+    attributes:
+      label: Phenomenon
+      description: What is wrong, in one line (e.g. "exit sides of a fan from the same node split between the right and bottom sides")
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction steps or spec
+      description: A .spec.json that reproduces it, or the steps to reproduce
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: measured
+    attributes:
+      label: Measured values
+      description: Coordinates, frac, px, check output — observations that back the phenomenon (screenshots welcome)
+      placeholder: "e.g. exit anchors [1,0.5] and [0.5,1] are mixed; entry v/h styles are mixed too (matches fan_side_consistency in check_diagram --router)"
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: Importance from the reporter's point of view
+      options:
+        - High (the diagram is misleading / not deliverable)
+        - Medium (noticeable but readable)
+        - Low (a matter of taste / improvement idea)
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal (optional)
+      description: Expected behavior or a fix direction, if you have one
+    validations:
+      required: false

@@ -1,0 +1,60 @@
+{
+ "name": "マルチリージョン DR (active-passive・方式A)",
+ "legend": {"main": "リクエスト(同期)", "sub": "非同期・補助", "repl": "レプリケーション", "failover": "フェイルオーバー"},
+ "kinds": {"repl": {"base": "sub", "color": "#2E8B57", "style_extra": "dashPattern=10 5;"}, "failover": {"base": "sub", "color": "#E8730C", "style_extra": "dashPattern=12 3 3 3;"}},
+ "containers": [
+   {"id": "cloud", "label": "AWS Cloud", "type": "aws_cloud"},
+   {"id": "regionA", "label": "リージョン A (東京・Primary)", "type": "region", "parent": "cloud"},
+   {"id": "vpcA", "label": "VPC A", "type": "vpc", "parent": "regionA"},
+   {"id": "pubA", "label": "Public subnet", "type": "public_subnet", "parent": "vpcA"},
+   {"id": "appA", "label": "Private subnet (App)", "type": "private_subnet", "parent": "vpcA"},
+   {"id": "dataA", "label": "Private subnet (Data)", "type": "private_subnet", "parent": "vpcA"},
+   {"id": "regionB", "label": "リージョン B (大阪・DR)", "type": "region", "parent": "cloud"},
+   {"id": "vpcB", "label": "VPC B", "type": "vpc", "parent": "regionB"},
+   {"id": "pubB", "label": "Public subnet", "type": "public_subnet", "parent": "vpcB"},
+   {"id": "appB", "label": "Private subnet (App)", "type": "private_subnet", "parent": "vpcB"},
+   {"id": "dataB", "label": "Private subnet (Data)", "type": "private_subnet", "parent": "vpcB"}
+ ],
+ "nodes": [
+   {"id": "users", "label": "ユーザー", "icon": "users", "col": 0, "row": 2},
+   {"id": "r53", "label": "Route 53", "icon": "route_53", "parent": "cloud", "col": 1, "row": 0},
+   {"id": "cf", "label": "CloudFront", "icon": "cloudfront", "parent": "cloud", "col": 1, "row": 2},
+   {"id": "waf", "label": "WAF (global)", "icon": "waf", "parent": "cloud", "col": 1, "row": 3},
+   {"id": "albA", "label": "ALB", "icon": "application_load_balancer", "parent": "pubA", "col": 2, "row": 2},
+   {"id": "svcA", "label": "アプリ", "icon": "fargate", "parent": "appA", "col": 3, "row": 2},
+   {"id": "auroraA", "label": "Aurora Global\n(Primary)", "icon": "aurora", "parent": "dataA", "col": 4, "row": 2},
+   {"id": "s3A", "label": "S3 (静的資産)", "icon": "s3", "parent": "regionA", "col": 2, "row": 3},
+   {"id": "ddbA", "label": "DynamoDB\n(Global Table)", "icon": "dynamodb", "parent": "regionA", "col": 3, "row": 4},
+   {"id": "albB", "label": "ALB (DR)", "icon": "application_load_balancer", "parent": "pubB", "col": 6, "row": 2},
+   {"id": "svcB", "label": "アプリ (DR)", "icon": "fargate", "parent": "appB", "col": 7, "row": 2},
+   {"id": "auroraB", "label": "Aurora Global\n(Secondary・読取専用)", "icon": "aurora", "parent": "dataB", "col": 8, "row": 2},
+   {"id": "s3B", "label": "S3 (DRコピー)", "icon": "s3", "parent": "regionB", "col": 6, "row": 3},
+   {"id": "ddbB", "label": "DynamoDB\n(Global Table)", "icon": "dynamodb", "parent": "regionB", "col": 7, "row": 4}
+ ],
+ "edges": [
+   {"id": "e_dns", "src": "users", "dst": "r53", "kind": "sub", "label": "DNS"},
+   {"id": "e_https", "src": "users", "dst": "cf", "kind": "main", "label": "HTTPS"},
+   {"id": "e_waf", "src": "waf", "dst": "cf", "kind": "sub"},
+   {"id": "e_orig_dns", "src": "cf", "dst": "r53", "kind": "sub", "label": "オリジン解決\n(failover レコード)"},
+   {"id": "e_orig_a", "src": "cf", "dst": "albA", "kind": "main", "label": "オリジン (平常時)"},
+   {"id": "e_orig_b", "src": "cf", "dst": "albB", "kind": "failover", "label": "オリジン切替 (障害時)"},
+   {"id": "e_a1", "src": "albA", "dst": "svcA", "kind": "main"},
+   {"id": "e_a2", "src": "svcA", "dst": "auroraA", "kind": "main"},
+   {"id": "e_a3", "src": "svcA", "dst": "ddbA", "kind": "main"},
+   {"id": "e_static", "src": "cf", "dst": "s3A", "kind": "sub", "label": "静的配信"},
+   {"id": "e_b1", "src": "albB", "dst": "svcB", "kind": "main"},
+   {"id": "e_b2", "src": "svcB", "dst": "auroraB", "kind": "main", "label": "昇格後に書込"},
+   {"id": "e_b3", "src": "svcB", "dst": "ddbB", "kind": "main"},
+   {"id": "e_repl_aurora", "src": "auroraA", "dst": "auroraB", "kind": "repl", "label": "一方向レプリケーション"},
+   {"id": "e_repl_ddb", "src": "ddbA", "dst": "ddbB", "kind": "repl", "bidir": true, "label": "双方向 (マルチアクティブ)"},
+   {"id": "e_repl_s3", "src": "s3A", "dst": "s3B", "kind": "repl", "label": "CRR"}
+ ],
+ "meta": {
+   "updated": "2026-07-18",
+   "purpose": "マルチリージョン DR (active-passive) の検証済みリファレンス。作図時はここから差分編集する",
+   "audience": "tech-diagram での作図(正解トポロジの起点)",
+   "scope": "Primary(東京)+DR(大阪)+共通エッジ(Route 53/CloudFront/WAF)+データ複製 3 種",
+   "abstraction": "骨格(AZ 表現は three-tier-web を参照。監視・CI/CD は省略)",
+   "assumptions": "正解ポイント(カタログ P3.3-3.5): ①切替はオリジンのみ — CloudFront/WAF は平常・障害共通で対称経路(REL13-BP04。Route 53→DR ALB 直行は WAF バイパス+403 で DR 不能) ②Route 53 failover レコードで CloudFront のオリジンを切替(方式A・全メソッド対応) ③Aurora Global=一方向・DynamoDB GT=双方向・S3 CRR ④切替の自動/手動は要件で明示(AP13)"
+ }
+}

@@ -1,0 +1,32 @@
+<mxfile host="app.diagrams.net" agent="claude tech-diagram" version="24.0.0">
+  <diagram id="d0" name="r7-subprocess-link">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="238" pageHeight="541" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="_meta" value="目的: R7 C subprocess link regression&lt;br&gt;更新日: 2026-07-18" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontFamily=Arial;fontColor=#5A6C86;" vertex="1" parent="1">
+          <mxGeometry x="30" y="26" width="259.1" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="start" value="Start" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fontFamily=Arial;fillColor=#232F3E;fontColor=#FFFFFF;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="48" y="117" width="100" height="36" as="geometry" />
+        </mxCell>
+        <UserObject id="detail" label="Detail">
+          <mxCell style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontFamily=Arial;fillColor=#FFFFFF;strokeColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="38" y="247" width="120" height="44" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="end" value="End" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fontFamily=Arial;fillColor=#232F3E;fontColor=#FFFFFF;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="48" y="385" width="100" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="start" target="detail">
+          <mxGeometry x="0" relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="detail" target="end">
+          <mxGeometry x="0" relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

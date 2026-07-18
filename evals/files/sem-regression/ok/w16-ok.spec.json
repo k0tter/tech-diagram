@@ -1,0 +1,22 @@
+{"name": "dr-origin-switch", "meta": {"purpose": "SEM-4 正解形: フェイルオーバーはオリジン切替(CloudFront 起点)でエッジスタック対称"},
+ "kinds": {"failover": {"base": "sub", "color": "#E8730C"}},
+ "legend": {"main": "リクエスト", "sub": "補助", "failover": "フェイルオーバー"},
+ "containers": [
+   {"id": "cloud", "label": "AWS Cloud", "type": "aws_cloud"},
+   {"id": "regA", "label": "Region A", "type": "region", "parent": "cloud"},
+   {"id": "vpcA", "label": "VPC A", "type": "vpc", "parent": "regA"},
+   {"id": "pubA", "label": "Public subnet", "type": "public_subnet", "parent": "vpcA"},
+   {"id": "regB", "label": "Region B", "type": "region", "parent": "cloud"},
+   {"id": "vpcB", "label": "VPC B", "type": "vpc", "parent": "regB"},
+   {"id": "pubB", "label": "Public subnet", "type": "public_subnet", "parent": "vpcB"}],
+ "nodes": [
+   {"id": "users", "label": "ユーザー", "icon": "users", "col": 0, "row": 1},
+   {"id": "r53", "label": "Route 53", "icon": "route_53", "parent": "cloud", "col": 1, "row": 3},
+   {"id": "cf", "label": "CloudFront", "icon": "cloudfront", "parent": "cloud", "col": 1, "row": 0},
+   {"id": "albA", "label": "ALB", "icon": "alb", "parent": "pubA", "col": 2, "row": 1},
+   {"id": "albB", "label": "ALB (DR)", "icon": "alb", "parent": "pubB", "col": 4, "row": 1}],
+ "edges": [
+   {"id": "e1", "src": "users", "dst": "cf", "kind": "main"},
+   {"id": "e2", "src": "cf", "dst": "albA", "kind": "main"},
+   {"id": "e3", "src": "cf", "dst": "albB", "kind": "failover", "label": "フェイルオーバー\n(オリジン切替)"},
+   {"id": "e4", "src": "cf", "dst": "r53", "kind": "sub", "label": "オリジン解決\n(failover レコード)"}]}

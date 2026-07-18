@@ -1,0 +1,125 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ["**.md"]
+  pull_request:
+    paths-ignore: ["**.md"]
+  schedule:
+    # 週次: 浮動依存(draw.io 最新版)の破壊を push が無くても検知する
+    - cron: "0 21 * * 5"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  secrets-scan:
+    name: シークレット混入検査(gitleaks)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          fetch-depth: 0   # 履歴全体を検査
+      - uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+  test:
+    name: 回帰テスト+テンプレ同期 (py${{ matrix.python }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.13"]   # README の下限と最新
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: ${{ matrix.python }}
+      - name: 回帰テスト
+        run: python3 scripts/tests.py
+      - name: テンプレート同期(再生成してドリフト検出)+ 0e0w
+        run: |
+          set -eu
+          fail=0
+          for f in templates/*.spec.json; do
+            out=$(python3 scripts/build_drawio.py "$f" -o "${f%.spec.json}.drawio" 2>&1) || fail=1
+            echo "$out" | grep -q "=== 0 error(s), 0 warning(s) ===" || {
+              echo "::error::$f が 0e0w でない"; echo "$out"; fail=1; }
+          done
+          git diff --exit-code -- templates/ || {
+            echo "::error::テンプレートがエンジンと非同期です。" \
+                 "全テンプレを再生成してコミットしてください"; fail=1; }
+          exit $fail
+
+  fuzz:
+    name: ファザースモーク(頑健性・幾何不変条件)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.12"
+      - name: HCL 変異・ゴミ入力(tf_to_spec がクラッシュ/ハングしない)
+        run: python3 tools/fuzz_hcl.py 80
+      - name: レイアウト幾何(正当スペックで E エラー・斜め線ゼロ)
+        run: python3 tools/fuzz_layout.py 50
+
+  render:
+    name: draw.io 実描画スモーク
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.12"
+      - name: draw.io 最新版の URL を解決
+        id: drawio
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eu
+          # API は認証付きで呼ぶ(共有ランナー IP の匿名レート制限 403 対策)
+          json=$(curl -fsSL -H "Authorization: Bearer $GH_TOKEN" \
+            https://api.github.com/repos/jgraph/drawio-desktop/releases/latest)
+          echo "url=$(echo "$json" | python3 -c "import json,sys; a=json.load(sys.stdin)['assets']; print(next(x['browser_download_url'] for x in a if x['name'].endswith('.deb') and 'amd64' in x['name']))")" >> "$GITHUB_OUTPUT"
+          echo "ver=$(echo "$json" | python3 -c "import json,sys; print(json.load(sys.stdin)['tag_name'])")" >> "$GITHUB_OUTPUT"
+      - name: deb キャッシュ(毎回 ~100MB 落とさない)
+        id: cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+        with:
+          path: /tmp/drawio.deb
+          key: drawio-deb-${{ steps.drawio.outputs.ver }}
+      - name: draw.io を取得・インストール
+        run: |
+          set -eu
+          if [ "${{ steps.cache.outputs.cache-hit }}" != "true" ]; then
+            curl -fsSL -o /tmp/drawio.deb "${{ steps.drawio.outputs.url }}"
+          fi
+          sudo apt-get update -q
+          sudo apt-get install -y -q /tmp/drawio.deb xvfb
+      - name: 実描画スモーク(簡易プレビューが隠す欠陥の再発防止)
+        run: |
+          set -eu
+          for t in example-reference example-3tier example-dense-1page example-multiregion; do
+            python3 scripts/build_drawio.py templates/$t.spec.json -o /tmp/$t.drawio
+            xvfb-run -a drawio -x -f png --scale 2 -o /tmp/$t.png /tmp/$t.drawio --no-sandbox
+            size=$(stat -c%s /tmp/$t.png)
+            echo "$t.png: ${size} bytes"
+            test "$size" -gt 20000 || { echo "::error::$t.png が小さすぎる(描画失敗の疑い)"; exit 1; }
+          done
+      - name: 描画結果を artifact に保存(目視確認用)
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: rendered-png
+          path: /tmp/example-*.png
+          retention-days: 14

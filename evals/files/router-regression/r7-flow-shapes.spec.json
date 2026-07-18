@@ -1,0 +1,24 @@
+{
+  "name": "r7-flow-shapes",
+  "meta": {"purpose": "R7 C flow shapes and fork/join regression"},
+  "nodes": [
+    {"id": "start", "shape": "terminator", "label": "Start", "col": 2, "row": 0},
+    {"id": "fork", "shape": "gateway", "col": 2, "row": 1},
+    {"id": "delay", "shape": "delay", "label": "Wait", "col": 1, "row": 2},
+    {"id": "preparation", "shape": "preparation", "label": "Prepare", "col": 3, "row": 2},
+    {"id": "join_gate", "shape": "gateway", "col": 2, "row": 3},
+    {"id": "junction", "shape": "junction", "col": 0, "row": 3},
+    {"id": "connector", "shape": "connector", "label": "A", "col": 4, "row": 3},
+    {"id": "detail", "shape": "subprocess", "label": "Detail", "link": "detail-flow.drawio", "col": 2, "row": 4},
+    {"id": "end", "shape": "terminator", "label": "End", "col": 2, "row": 5}
+  ],
+  "edges": [
+    {"id": "e1", "src": "start", "dst": "fork", "kind": "main"},
+    {"id": "e2", "src": "fork", "dst": "delay", "kind": "main"},
+    {"id": "e3", "src": "fork", "dst": "preparation", "kind": "main"},
+    {"id": "e4", "src": "delay", "dst": "join_gate", "kind": "main"},
+    {"id": "e5", "src": "preparation", "dst": "join_gate", "kind": "main"},
+    {"id": "e6", "src": "join_gate", "dst": "detail", "kind": "main"},
+    {"id": "e7", "src": "detail", "dst": "end", "kind": "main"}
+  ]
+}

@@ -1,0 +1,44 @@
+{
+ "name": "サーバーレス Web アプリ リファレンスアーキテクチャ",
+ "meta": {"updated": "2026-07-18", "purpose": "サーバーレス Web アプリの標準構成を番号付きで解説",
+          "audience": "アーキテクチャ検討中の開発チーム",
+          "scope": "静的配信+動的 API+認証の最小構成",
+          "abstraction": "サービス単位",
+          "assumptions": "リファレンスアーキテクチャ図の見本(step/steps の使い方)"},
+ "containers": [
+  {"id": "cloud", "label": "AWS Cloud", "type": "aws_cloud"},
+  {"id": "region", "label": "リージョン (ap-northeast-1)", "type": "region",
+   "parent": "cloud"}
+ ],
+ "nodes": [
+  {"id": "users", "label": "ユーザー", "icon": "users", "col": 0, "row": 1},
+  {"id": "cf", "label": "CloudFront\nCDN 配信", "icon": "cloudfront",
+   "parent": "cloud", "col": 1, "row": 1, "step": 1},
+  {"id": "s3", "label": "S3\n静的アセット", "icon": "s3", "parent": "region",
+   "col": 2, "row": 0, "step": 2},
+  {"id": "apigw", "label": "API Gateway\nREST API (regional)", "icon": "api_gateway",
+   "parent": "region", "col": 2, "row": 1, "step": 3},
+  {"id": "cognito", "label": "Cognito\nユーザー認証", "icon": "cognito",
+   "parent": "region", "col": 2, "row": 2, "step": 4},
+  {"id": "lambda", "label": "Lambda\nビジネスロジック", "icon": "lambda",
+   "parent": "region", "col": 3, "row": 1, "step": 5},
+  {"id": "ddb", "label": "DynamoDB\nデータストア", "icon": "dynamodb",
+   "parent": "region", "col": 4, "row": 1, "step": 6}
+ ],
+ "edges": [
+  {"id": "e1", "src": "users", "dst": "cf", "kind": "main"},
+  {"id": "e2", "src": "cf", "dst": "s3", "kind": "main"},
+  {"id": "e3", "src": "cf", "dst": "apigw", "kind": "main"},
+  {"id": "e4", "src": "apigw", "dst": "cognito", "kind": "main"},
+  {"id": "e5", "src": "apigw", "dst": "lambda", "kind": "main"},
+  {"id": "e6", "src": "lambda", "dst": "ddb", "kind": "main"}
+ ],
+ "steps": [
+  "ユーザーは CloudFront 経由で HTTPS アクセスする(単一の入り口)",
+  "静的アセット(HTML/CSS/JS)は S3 から CloudFront で配信する",
+  "動的リクエストは API Gateway(regional エンドポイント)にルーティングする",
+  "API Gateway は Cognito でトークンを検証する(未認証は 401)",
+  "認証済みリクエストを Lambda が処理する",
+  "Lambda はデータを DynamoDB に読み書きする"
+ ]
+}

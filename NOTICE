@@ -1,0 +1,12 @@
+tech-diagram
+Copyright (c) 2026 tech-diagram contributors
+
+This product includes icon metadata (shape names, style strings, and sizes)
+in references/icons-*.tsv, extracted from the draw.io project
+(https://github.com/jgraph/drawio), licensed under the Apache License,
+Version 2.0.
+
+No icon artwork from AWS, Microsoft Azure, or Google Cloud is distributed
+with this repository. Diagrams rendered with this skill reference the shape
+and image libraries bundled with draw.io. AWS, Amazon Web Services, Microsoft
+Azure, Google Cloud and their icons are trademarks of their respective owners.

@@ -1,0 +1,44 @@
+{
+ "diagrams": [
+  {
+   "name": "EC サイト ER 図",
+   "meta": {"updated": "2026-07-09", "purpose": "注文まわりの主要テーブルと関係", "audience": "アプリ開発チーム", "scope": "受注ドメインの 5 テーブル", "abstraction": "論理モデル(型は代表のみ)", "assumptions": "スキル同梱の見本"},
+   "legend": {"er_1n": "1 対 多", "er_0n": "1 対 0..多"},
+   "nodes": [
+     {"id": "customers", "shape": "entity", "title": "customers", "rows": ["PK id: bigint", "name: varchar", "email: varchar"], "col": 0, "row": 0},
+     {"id": "orders", "shape": "entity", "title": "orders", "rows": ["PK id: bigint", "FK customer_id", "status: enum", "ordered_at: timestamp"], "col": 1, "row": 0},
+     {"id": "order_items", "shape": "entity", "title": "order_items", "rows": ["PK id: bigint", "FK order_id", "FK product_id", "qty: int"], "col": 2, "row": 0},
+     {"id": "products", "shape": "entity", "title": "products", "rows": ["PK id: bigint", "FK category_id", "name: varchar", "price: decimal"], "col": 3, "row": 0},
+     {"id": "categories", "shape": "entity", "title": "categories", "rows": ["PK id: bigint", "name: varchar"], "col": 4, "row": 0}
+   ],
+   "edges": [
+     {"id": "r1", "src": "customers", "dst": "orders", "kind": "er_1n"},
+     {"id": "r2", "src": "orders", "dst": "order_items", "kind": "er_1n"},
+     {"id": "r3", "src": "products", "dst": "order_items", "kind": "er_1n"},
+     {"id": "r4", "src": "categories", "dst": "products", "kind": "er_0n"}
+   ]
+  },
+  {
+   "name": "決済 UML クラス図",
+   "meta": {"updated": "2026-07-09", "purpose": "決済ゲートウェイまわりのクラス設計", "audience": "アプリ開発チーム", "scope": "決済ドメインの主要クラス", "abstraction": "設計クラス図", "assumptions": "スキル同梱の見本"},
+   "legend": {"uml_implement": "実現(implements)", "uml_depend": "依存", "uml_compose": "コンポジション", "uml_assoc": "関連"},
+   "nodes": [
+     {"id": "gateway", "shape": "entity", "title": "«interface» PaymentGateway", "rows2": ["+ charge(order): Receipt", "+ refund(receipt): void"], "col": 1, "row": 0},
+     {"id": "stripe", "shape": "entity", "title": "StripeGateway", "rows": ["- apiKey: string"], "rows2": ["+ charge(order): Receipt"], "col": 0, "row": 1},
+     {"id": "bank", "shape": "entity", "title": "BankTransferGateway", "rows": ["- bankCode: string"], "rows2": ["+ charge(order): Receipt"], "col": 2, "row": 1},
+     {"id": "svc", "shape": "entity", "title": "OrderService", "rows2": ["+ placeOrder(cart): Order"], "col": 3, "row": 0},
+     {"id": "order", "shape": "entity", "title": "Order", "rows": ["- id: OrderId", "- status: Status"], "col": 3, "row": 1},
+     {"id": "line", "shape": "entity", "title": "OrderLine", "rows": ["- sku: string", "- qty: int"], "col": 3, "row": 2},
+     {"id": "customer", "shape": "entity", "title": "Customer", "rows": ["- id: CustomerId"], "col": 4, "row": 1}
+   ],
+   "edges": [
+     {"id": "u1", "src": "stripe", "dst": "gateway", "kind": "uml_implement"},
+     {"id": "u2", "src": "bank", "dst": "gateway", "kind": "uml_implement"},
+     {"id": "u3", "src": "svc", "dst": "gateway", "kind": "uml_depend", "label": "uses"},
+     {"id": "u4", "src": "svc", "dst": "order", "kind": "uml_assoc", "label": "creates"},
+     {"id": "u5", "src": "order", "dst": "line", "kind": "uml_compose", "label": "1..*"},
+     {"id": "u6", "src": "order", "dst": "customer", "kind": "uml_assoc"}
+   ]
+  }
+ ]
+}

@@ -1,0 +1,435 @@
+{
+ "diagrams": [
+  {
+   "name": "マイクロサービス+データ基盤",
+   "containers": [
+    {
+     "id": "cloud",
+     "label": "AWS Cloud",
+     "type": "aws_cloud"
+    },
+    {
+     "id": "vpc",
+     "label": "VPC",
+     "type": "vpc",
+     "parent": "cloud"
+    },
+    {
+     "id": "pub",
+     "label": "Public subnet",
+     "type": "public_subnet",
+     "parent": "vpc"
+    },
+    {
+     "id": "app",
+     "label": "Private subnet (App)",
+     "type": "private_subnet",
+     "parent": "vpc"
+    },
+    {
+     "id": "data",
+     "label": "Private subnet (Data)",
+     "type": "private_subnet",
+     "parent": "vpc"
+    }
+   ],
+   "nodes": [
+    {
+     "id": "users",
+     "label": "ユーザー",
+     "icon": "users",
+     "col": 0,
+     "row": 2
+    },
+    {
+     "id": "r53",
+     "label": "Route 53",
+     "icon": "route_53",
+     "col": 1,
+     "row": 0,
+     "parent": "cloud"
+    },
+    {
+     "id": "cf",
+     "label": "CloudFront",
+     "icon": "cloudfront",
+     "col": 1,
+     "row": 2,
+     "parent": "cloud"
+    },
+    {
+     "id": "waf",
+     "label": "WAF",
+     "icon": "waf",
+     "col": 1,
+     "row": 4,
+     "parent": "cloud"
+    },
+    {
+     "id": "s3web",
+     "label": "S3 静的サイト",
+     "icon": "s3",
+     "col": 1,
+     "row": 3,
+     "parent": "cloud"
+    },
+    {
+     "id": "alb",
+     "label": "ALB",
+     "icon": "application_load_balancer",
+     "parent": "pub",
+     "col": 2,
+     "row": 2
+    },
+    {
+     "id": "natgw",
+     "label": "NAT Gateway",
+     "icon": "nat_gateway",
+     "parent": "pub",
+     "col": 2,
+     "row": 3
+    },
+    {
+     "id": "svc1",
+     "label": "注文サービス",
+     "icon": "fargate",
+     "parent": "app",
+     "col": 3,
+     "row": 1
+    },
+    {
+     "id": "svc2",
+     "label": "在庫サービス",
+     "icon": "fargate",
+     "parent": "app",
+     "col": 3,
+     "row": 2
+    },
+    {
+     "id": "svc3",
+     "label": "決済サービス",
+     "icon": "fargate",
+     "parent": "app",
+     "col": 3,
+     "row": 3
+    },
+    {
+     "id": "rds",
+     "label": "Aurora",
+     "icon": "aurora",
+     "parent": "data",
+     "col": 4,
+     "row": 1
+    },
+    {
+     "id": "ddb",
+     "label": "DynamoDB",
+     "icon": "dynamodb",
+     "parent": "cloud",
+     "col": 5,
+     "row": 0
+    },
+    {
+     "id": "cache",
+     "label": "ElastiCache",
+     "icon": "elasticache",
+     "parent": "data",
+     "col": 4,
+     "row": 3
+    },
+    {
+     "id": "sqs",
+     "label": "SQS",
+     "icon": "sqs",
+     "col": 5,
+     "row": 1,
+     "parent": "cloud"
+    },
+    {
+     "id": "sns",
+     "label": "SNS",
+     "icon": "sns",
+     "col": 5,
+     "row": 3,
+     "parent": "cloud"
+    },
+    {
+     "id": "lam1",
+     "label": "非同期処理",
+     "icon": "lambda",
+     "col": 6,
+     "row": 1,
+     "parent": "cloud"
+    },
+    {
+     "id": "lam2",
+     "label": "通知処理",
+     "icon": "lambda",
+     "col": 6,
+     "row": 3,
+     "parent": "cloud"
+    },
+    {
+     "id": "ses",
+     "label": "SES",
+     "icon": "simple_email_service",
+     "col": 7,
+     "row": 3,
+     "parent": "cloud"
+    },
+    {
+     "id": "kinesis",
+     "label": "Kinesis",
+     "icon": "kinesis",
+     "col": 5,
+     "row": 2,
+     "parent": "cloud"
+    },
+    {
+     "id": "firehose",
+     "label": "Data Firehose",
+     "icon": "kinesis_data_firehose",
+     "col": 6,
+     "row": 2,
+     "parent": "cloud"
+    },
+    {
+     "id": "s3lake",
+     "label": "S3 データレイク",
+     "icon": "s3",
+     "col": 7,
+     "row": 2,
+     "parent": "cloud"
+    },
+    {
+     "id": "athena",
+     "label": "Athena",
+     "icon": "athena",
+     "col": 7,
+     "row": 1,
+     "parent": "cloud"
+    },
+    {
+     "id": "cw",
+     "label": "CloudWatch",
+     "icon": "cloudwatch_2",
+     "col": 3,
+     "row": 4,
+     "parent": "cloud"
+    },
+    {
+     "id": "xray",
+     "label": "X-Ray",
+     "icon": "xray",
+     "col": 4,
+     "row": 4,
+     "parent": "cloud"
+    },
+    {
+     "id": "cognito",
+     "label": "Cognito",
+     "icon": "cognito",
+     "col": 2,
+     "row": 0,
+     "parent": "cloud"
+    },
+    {
+     "id": "apigw",
+     "label": "API Gateway\n(regional)",
+     "icon": "api_gateway",
+     "col": 1,
+     "row": 1,
+     "parent": "cloud"
+    }
+   ],
+   "edges": [
+    {
+     "id": "e1",
+     "src": "users",
+     "dst": "cf",
+     "kind": "main",
+     "label": "HTTPS"
+    },
+    {
+     "id": "e2",
+     "src": "users",
+     "dst": "r53",
+     "kind": "sub",
+     "label": "DNS"
+    },
+    {
+     "id": "e3",
+     "src": "waf",
+     "dst": "cf",
+     "kind": "sub"
+    },
+    {
+     "id": "e4",
+     "src": "cf",
+     "dst": "s3web",
+     "kind": "main"
+    },
+    {
+     "id": "e5",
+     "src": "cf",
+     "dst": "alb",
+     "kind": "main"
+    },
+    {
+     "id": "e6",
+     "src": "alb",
+     "dst": "svc1",
+     "kind": "main"
+    },
+    {
+     "id": "e7",
+     "src": "alb",
+     "dst": "svc2",
+     "kind": "main"
+    },
+    {
+     "id": "e8",
+     "src": "alb",
+     "dst": "svc3",
+     "kind": "main"
+    },
+    {
+     "id": "e9",
+     "src": "svc1",
+     "dst": "rds",
+     "kind": "main"
+    },
+    {
+     "id": "e10",
+     "src": "svc2",
+     "dst": "ddb",
+     "kind": "main"
+    },
+    {
+     "id": "e11",
+     "src": "svc3",
+     "dst": "cache",
+     "kind": "main"
+    },
+    {
+     "id": "e12",
+     "src": "svc1",
+     "dst": "sqs",
+     "kind": "sub",
+     "label": "enqueue"
+    },
+    {
+     "id": "e13",
+     "src": "sqs",
+     "dst": "lam1",
+     "kind": "sub",
+     "label": "ポーリング"
+    },
+    {
+     "id": "e14",
+     "src": "lam1",
+     "dst": "ddb",
+     "kind": "sub"
+    },
+    {
+     "id": "e15",
+     "src": "svc3",
+     "dst": "sns",
+     "kind": "sub",
+     "label": "publish"
+    },
+    {
+     "id": "e16",
+     "src": "sns",
+     "dst": "lam2",
+     "kind": "sub"
+    },
+    {
+     "id": "e17",
+     "src": "lam2",
+     "dst": "ses",
+     "kind": "main",
+     "label": "メール"
+    },
+    {
+     "id": "e18",
+     "src": "svc2",
+     "dst": "kinesis",
+     "kind": "sub",
+     "label": "イベント"
+    },
+    {
+     "id": "e19",
+     "src": "kinesis",
+     "dst": "firehose",
+     "kind": "main"
+    },
+    {
+     "id": "e20",
+     "src": "firehose",
+     "dst": "s3lake",
+     "kind": "main"
+    },
+    {
+     "id": "e21",
+     "src": "athena",
+     "dst": "s3lake",
+     "kind": "sub",
+     "label": "クエリ"
+    },
+    {
+     "id": "e22",
+     "src": "vpc",
+     "dst": "cw",
+     "kind": "ops",
+     "label": "メトリクス"
+    },
+    {
+     "id": "e23",
+     "src": "svc2",
+     "dst": "xray",
+     "kind": "ops"
+    },
+    {
+     "id": "e24",
+     "src": "apigw",
+     "dst": "cognito",
+     "kind": "sub",
+     "label": "認証"
+    },
+    {
+     "id": "e25",
+     "src": "cf",
+     "dst": "apigw",
+     "kind": "main"
+    },
+    {
+     "id": "e26",
+     "src": "apigw",
+     "dst": "svc1",
+     "kind": "main"
+    },
+    {
+     "id": "e27",
+     "src": "rds",
+     "dst": "s3lake",
+     "kind": "sub",
+     "label": "export"
+    }
+   ],
+   "meta": {
+    "updated": "2026-07-18",
+    "purpose": "マイクロサービスとデータ基盤の全体像",
+    "audience": "アーキテクトレビュー",
+    "scope": "本番ワークロード一式",
+    "abstraction": "概要(補助サービスは代表化)",
+    "assumptions": "見本(スキル同梱)。API Gateway は自前 CloudFront 背後のため regional エンドポイント。SQS→Lambda はイベントソースマッピングのポーリング(非同期線)"
+   },
+   "legend": {
+    "main": "同期呼び出し",
+    "sub": "非同期・補助",
+    "ops": "運用・監視"
+   }
+  }
+ ]
+}

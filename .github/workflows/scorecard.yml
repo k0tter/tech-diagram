@@ -1,0 +1,31 @@
+name: Scorecard
+
+on:
+  schedule:
+    - cron: "0 23 * * 5"   # 週次(CI/CodeQL の後に続く金曜夜枠)
+  push:
+    branches: [main]       # Branch-Protection 等の変更を早く反映
+  workflow_dispatch:
+
+permissions: read-all
+
+jobs:
+  analysis:
+    name: OpenSSF Scorecard 分析
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      security-events: write   # SARIF を Security タブへアップロード
+      id-token: write          # publish_results の OIDC 署名(公開バッジ用)
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          persist-credentials: false   # Scorecard の要求(トークン非保持)
+      - uses: ossf/scorecard-action@4eaacf0543bb3f2c246792bd56e8cdeffafb205a # v2.4.3
+        with:
+          results_file: results.sarif
+          results_format: sarif
+          publish_results: true   # api.scorecard.dev へ公開(README バッジの供給元)
+      - uses: github/codeql-action/upload-sarif@99df26d4f13ea111d4ec1a7dddef6063f76b97e9 # v4
+        with:
+          sarif_file: results.sarif

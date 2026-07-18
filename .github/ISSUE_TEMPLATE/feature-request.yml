@@ -1,0 +1,19 @@
+name: Feature request
+description: Request a new diagram type, icon, spec feature, CLI option, etc.(機能要望)
+title: "[feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What you want to solve
+      description: Which diagram or task is causing friction (the background of the request)
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: How you would like it to behave. A draft of the spec JSON ergonomics is even better
+    validations:
+      required: true

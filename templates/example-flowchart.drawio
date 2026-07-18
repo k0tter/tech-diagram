@@ -1,0 +1,122 @@
+<mxfile host="app.diagrams.net" agent="claude tech-diagram" version="24.0.0">
+  <diagram id="d0" name="経費精算の承認フロー">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="962" pageHeight="1385" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="lane_emp" value="申請者" style="fillColor=none;strokeColor=#5A6C86;fontColor=#5A6C86;fontStyle=1;verticalAlign=top;fontStyle=0;whiteSpace=wrap;html=1;container=1;fontFamily=Arial;pointerEvents=0;collapsible=0;recursiveResize=0;" vertex="1" parent="1">
+          <mxGeometry x="30" y="168" width="196" height="942" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_mgr" value="上長" style="fillColor=none;strokeColor=#5A6C86;fontColor=#5A6C86;fontStyle=1;verticalAlign=top;fontStyle=0;whiteSpace=wrap;html=1;container=1;fontFamily=Arial;pointerEvents=0;collapsible=0;recursiveResize=0;" vertex="1" parent="1">
+          <mxGeometry x="270" y="168" width="196" height="942" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_acc" value="経理" style="fillColor=none;strokeColor=#5A6C86;fontColor=#5A6C86;fontStyle=1;verticalAlign=top;fontStyle=0;whiteSpace=wrap;html=1;container=1;fontFamily=Arial;pointerEvents=0;collapsible=0;recursiveResize=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="168" width="372" height="942" as="geometry" />
+        </mxCell>
+        <mxCell id="_legend" value="凡例" style="fillColor=none;strokeColor=#5A6C86;dashed=1;fontColor=#5A6C86;spacingLeft=10;verticalAlign=top;fontStyle=0;whiteSpace=wrap;html=1;container=1;fontFamily=Arial;pointerEvents=0;collapsible=0;recursiveResize=0;" vertex="1" parent="1">
+          <mxGeometry x="30" y="1140" width="223" height="125" as="geometry" />
+        </mxCell>
+        <mxCell id="_meta" value="目的: 経費精算の申請から支払までの業務フロー&lt;br&gt;読者: 業務部門・経理&lt;br&gt;スコープ: 申請者・上長・経理の 3 者の役割分担&lt;br&gt;抽象度: 業務レベル(システム操作の詳細は省略)&lt;br&gt;更新日: 2026-07-09&lt;br&gt;前提: スキル同梱の見本(架空の業務)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontFamily=Arial;fontColor=#5A6C86;" vertex="1" parent="1">
+          <mxGeometry x="30" y="26" width="266.1" height="108" as="geometry" />
+        </mxCell>
+        <mxCell id="start" value="開始" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fontFamily=Arial;fillColor=#232F3E;fontColor=#FFFFFF;strokeColor=none;" vertex="1" parent="lane_emp">
+          <mxGeometry x="48" y="55" width="100" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="apply" value="経費を申請&lt;br&gt;(領収書添付)" style="shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;whiteSpace=wrap;html=1;fontFamily=Arial;fillColor=#FFFFFF;strokeColor=#232F3E;" vertex="1" parent="lane_emp">
+          <mxGeometry x="28" y="179" width="140" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="fix" value="申請を修正" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Arial;fillColor=#FFFFFF;strokeColor=#232F3E;" vertex="1" parent="lane_emp">
+          <mxGeometry x="38" y="453" width="120" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="check" value="承認?" style="rhombus;whiteSpace=wrap;html=1;fontFamily=Arial;fillColor=#FFFFFF;strokeColor=#232F3E;" vertex="1" parent="lane_mgr">
+          <mxGeometry x="28" y="306" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="verify" value="領収書と&lt;br&gt;金額を確認" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Arial;fillColor=#FFFFFF;strokeColor=#232F3E;" vertex="1" parent="lane_acc">
+          <mxGeometry x="36" y="447" width="120" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="book" value="会計システムに計上" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Arial;fillColor=#FFFFFF;strokeColor=#232F3E;" vertex="1" parent="lane_acc">
+          <mxGeometry x="28" y="587" width="136" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="ledger" value="会計DB" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;fontFamily=Arial;backgroundOutline=1;size=12;fillColor=#FFFFFF;strokeColor=#232F3E;" vertex="1" parent="lane_acc">
+          <mxGeometry x="229" y="579" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pay" value="振込処理" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Arial;fillColor=#FFFFFF;strokeColor=#232F3E;" vertex="1" parent="lane_acc">
+          <mxGeometry x="36" y="721" width="120" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="receipt" value="支払通知書" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fontFamily=Arial;fillColor=#FFFFFF;strokeColor=#232F3E;" vertex="1" parent="lane_acc">
+          <mxGeometry x="224" y="721" width="120" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="end" value="終了" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fontFamily=Arial;fillColor=#232F3E;fontColor=#FFFFFF;strokeColor=none;" vertex="1" parent="lane_acc">
+          <mxGeometry x="46" y="859" width="100" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="_lg_t0" value="通常フロー" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontFamily=Arial;fontColor=#5A6C86;" vertex="1" parent="_legend">
+          <mxGeometry x="95" y="45" width="65" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="_lg_t1" value="差し戻し・例外" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontFamily=Arial;fontColor=#5A6C86;" vertex="1" parent="_legend">
+          <mxGeometry x="95" y="85" width="87" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="f1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="start" target="apply" >
+          <mxGeometry x="0" relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f2" value="提出" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=1;" edge="1" parent="1" source="apply" target="check" >
+          <mxGeometry x="-0.2164" relative="1" as="geometry">
+            <Array as="points"><mxPoint x="368" y="375" /></Array>
+            <mxPoint as="offset" x="0.0" y="0.0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f3" value="差し戻し" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#7D8998;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="check" target="fix" >
+          <mxGeometry x="-0.2525" relative="1" as="geometry">
+            <Array as="points"><mxPoint x="128" y="509" /></Array>
+            <mxPoint as="offset" x="0.0" y="0.0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f4" value="再提出" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=1;" edge="1" parent="1" source="fix" target="check" >
+          <mxGeometry x="-0.2000" relative="1" as="geometry">
+            <Array as="points"><mxPoint x="368" y="643" /></Array>
+            <mxPoint as="offset" x="0.0" y="0.0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f5" value="承認" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="check" target="verify" >
+          <mxGeometry x="-0.2394" relative="1" as="geometry">
+            <Array as="points"><mxPoint x="606" y="509" /></Array>
+            <mxPoint as="offset" x="0.0" y="0.0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="verify" target="book" >
+          <mxGeometry x="0" relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="book" target="ledger" >
+          <mxGeometry x="0" relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="book" target="pay" >
+          <mxGeometry x="0" relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f9" value="発行" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="pay" target="receipt" >
+          <mxGeometry x="0.0000" relative="1" as="geometry">
+            <mxPoint as="offset" x="0.0" y="0.0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="pay" target="end" >
+          <mxGeometry x="0" relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_lg_e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;" edge="1" parent="1" >
+          <mxGeometry x="0" relative="1" as="geometry">
+            <mxPoint x="45" y="1195" as="sourcePoint" />
+            <mxPoint x="105" y="1195" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_lg_e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#7D8998;strokeWidth=1.5;dashed=1;dashPattern=4 4;" edge="1" parent="1" >
+          <mxGeometry x="0" relative="1" as="geometry">
+            <mxPoint x="45" y="1235" as="sourcePoint" />
+            <mxPoint x="105" y="1235" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

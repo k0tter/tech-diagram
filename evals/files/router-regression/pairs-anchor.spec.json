@@ -1,0 +1,75 @@
+{
+  "name": "pairs-anchor",
+  "meta": {
+    "purpose": "e17 回帰用の固定スペック(接続アンカー)。題字帯が Aurora 列を覆う縦並び複製ペア。修正前エンジンは e6 の exit/entry frac が 0.9215(ほぼ右角)に追いやられていた"
+  },
+  "containers": [
+    {
+      "id": "vpc",
+      "type": "vpc",
+      "label": "VPC"
+    },
+    {
+      "id": "sub1",
+      "type": "private_subnet",
+      "label": "Private subnet (DB)",
+      "parent": "vpc"
+    },
+    {
+      "id": "sub2",
+      "type": "private_subnet",
+      "label": "Private subnet (DB)",
+      "parent": "vpc"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "db1",
+      "icon": "aurora",
+      "label": "Aurora primary",
+      "parent": "sub1",
+      "col": 4,
+      "row": 2
+    },
+    {
+      "id": "ca1",
+      "icon": "elasticache",
+      "label": "ElastiCache primary",
+      "parent": "sub1",
+      "col": 5,
+      "row": 2
+    },
+    {
+      "id": "db2",
+      "icon": "aurora",
+      "label": "Aurora standby",
+      "parent": "sub2",
+      "col": 4,
+      "row": 4
+    },
+    {
+      "id": "ca2",
+      "icon": "elasticache",
+      "label": "ElastiCache replica",
+      "parent": "sub2",
+      "col": 5,
+      "row": 4
+    }
+  ],
+  "edges": [
+    {
+      "id": "e6",
+      "src": "db1",
+      "dst": "db2",
+      "label": "Replication",
+      "kind": "sub"
+    },
+    {
+      "id": "e7",
+      "src": "ca1",
+      "dst": "ca2",
+      "label": "Replication",
+      "kind": "sub"
+    }
+  ]
+}

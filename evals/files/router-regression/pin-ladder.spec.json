@@ -1,0 +1,63 @@
+{
+  "name": "pin-ladder",
+  "meta": {
+    "purpose": "router regression fixture: A-3 pinned port vs auto slot"
+  },
+  "nodes": [
+    {
+      "id": "hub",
+      "icon": "ec2",
+      "label": "Hub",
+      "col": 2,
+      "row": 1
+    },
+    {
+      "id": "pinsrc",
+      "icon": "s3",
+      "label": "Pinned src",
+      "col": 0,
+      "row": 1
+    },
+    {
+      "id": "auto1",
+      "icon": "lambda",
+      "label": "Auto src 1",
+      "col": 0,
+      "row": 0
+    },
+    {
+      "id": "auto2",
+      "icon": "sqs",
+      "label": "Auto src 2",
+      "col": 0,
+      "row": 2
+    }
+  ],
+  "edges": [
+    {
+      "id": "pinned",
+      "src": "pinsrc",
+      "dst": "hub",
+      "exit": [
+        1,
+        0.4
+      ],
+      "entry": [
+        0,
+        0.4
+      ]
+    },
+    {
+      "id": "a1",
+      "src": "auto1",
+      "dst": "hub",
+      "kind": "main"
+    },
+    {
+      "id": "a2",
+      "src": "auto2",
+      "dst": "hub",
+      "kind": "main"
+    }
+  ]
+}

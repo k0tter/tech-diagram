@@ -1,0 +1,13 @@
+# 開発ループの状態ファイル(公開対象外)
+RUN_STATE.md
+
+__pycache__/
+*.pyc
+.DS_Store
+*.out.drawio
+
+# R5-D 経路キャッシュ(利用者ローカルの状態。テンプレ・eval に混ぜない)
+*.routes.json
+
+# サブエージェント用ワークツリー等(公開対象外)
+.claude/

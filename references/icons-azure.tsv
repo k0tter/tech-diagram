@@ -1,0 +1,642 @@
+kind	name	fillColor	label	w	h	category
+azure	ai_studio	ai_machine_learning/AI_Studio.svg	AI Studio	64	68	AIMachineLearning
+azure	anomaly_detector	ai_machine_learning/Anomaly_Detector.svg	Anomaly Detector	68	68	AIMachineLearning
+azure	azure_applied_ai	ai_machine_learning/Azure_Applied_AI.svg	Applied AI	68	52	AIMachineLearning
+azure	batch_ai	ai_machine_learning/Batch_AI.svg	Batch AI	48	68	AIMachineLearning
+azure	bonsai	ai_machine_learning/Bonsai.svg	Bonsai	68	66	AIMachineLearning
+azure	bot_services	ai_machine_learning/Bot_Services.svg	Bot Services	68	68	AIMachineLearning
+azure	computer_vision	ai_machine_learning/Computer_Vision.svg	Computer Vision	68	68	AIMachineLearning
+azure	cognitive_services	ai_machine_learning/Cognitive_Services.svg	Cognitive Services	68	48	AIMachineLearning
+azure	content_moderators	ai_machine_learning/Content_Moderators.svg	Content Moderators	68	63	AIMachineLearning
+azure	custom_vision	ai_machine_learning/Custom_Vision.svg	Custom Vision	68	68	AIMachineLearning
+azure	azure_experimentation_studio	ai_machine_learning/Azure_Experimentation_Studio.svg	Experimentation Studio	68	56	AIMachineLearning
+azure	face_apis	ai_machine_learning/Face_APIs.svg	Face APIs	68	68	AIMachineLearning
+azure	form_recognizers	ai_machine_learning/Form_Recognizers.svg	Form Recognizers	63	68	AIMachineLearning
+azure	genomics	ai_machine_learning/Genomics.svg	Genomics	36	68	AIMachineLearning
+azure	immersive_readers	ai_machine_learning/Immersive_Readers.svg	Immersive Readers	68	68	AIMachineLearning
+azure	language_services	ai_machine_learning/Language_Services.svg	Language	68	68	AIMachineLearning
+azure	cognitive_services_decisions	ai_machine_learning/Cognitive_Services_Decisions.svg	Cognitive Services Decisions	68	68	AIMachineLearning
+azure	content_safety	ai_machine_learning/Content_Safety.svg	Content Safety	68	68	AIMachineLearning
+azure	language_understanding	ai_machine_learning/Language_Understanding.svg	Language Understanding	68	68	AIMachineLearning
+azure	machine_learning	ai_machine_learning/Machine_Learning.svg	Machine Learning	64	68	AIMachineLearning
+azure	machine_learning_studio_classic_web_services	ai_machine_learning/Machine_Learning_Studio_Classic_Web_Services.svg	Machine Learning Studio - Classic Web Services	68	68	AIMachineLearning
+azure	machine_learning_studio_web_service_plans	ai_machine_learning/Machine_Learning_Studio_Web_Service_Plans.svg	Machine Learning Studio - Web Service Plans	68	68	AIMachineLearning
+azure	machine_learning_studio_workspaces	ai_machine_learning/Machine_Learning_Studio_Workspaces.svg	Machine Learning Studio - Workspaces	68	68	AIMachineLearning
+azure	azure_object_understanding	ai_machine_learning/Azure_Object_Understanding.svg	Object Understanding	68	68	AIMachineLearning
+azure	azure_openai	ai_machine_learning/Azure_OpenAI.svg	OpenAI	68	68	AIMachineLearning
+azure	personalizers	ai_machine_learning/Personalizers.svg	Personalizers	68	55	AIMachineLearning
+azure	qna_makers	ai_machine_learning/QnA_Makers.svg	QnA Makers	68	68	AIMachineLearning
+azure	serverless_search	ai_machine_learning/Serverless_Search.svg	Serverless Search	68	68	AIMachineLearning
+azure	speech_services	ai_machine_learning/Speech_Services.svg	Speech Services	68	68	AIMachineLearning
+azure	translator_text	ai_machine_learning/Translator_Text.svg	Translator Text	68	68	AIMachineLearning
+azure	analysis_services	analytics/Analysis_Services.svg	Analysis Services	63	48	Analytics
+azure	data_lake_analytics	analytics/Data_Lake_Analytics.svg	Data Lake Analytics	68	68	Analytics
+azure	data_lake_store_gen1	analytics/Data_Lake_Store_Gen1.svg	Data Lake Store Gen1	64	52	Analytics
+azure	azure_databricks	analytics/Azure_Databricks.svg	Databricks	63	68	Analytics
+azure	endpoint_analytics	analytics/Endpoint_Analytics.svg	Endpoint Analytics	68	68	Analytics
+azure	event_hub_clusters	analytics/Event_Hub_Clusters.svg	Event Hub Clusters	64	52	Analytics
+azure	event_hubs	analytics/Event_Hubs.svg	Event Hubs	67	60	Analytics
+azure	hd_insight_clusters	analytics/HD_Insight_Clusters.svg	HD Insight Clusters	63	62	Analytics
+azure	log_analytics_workspaces	analytics/Log_Analytics_Workspaces.svg	Log Analytics Workspaces	64	64	Analytics
+azure	power_bi_embedded	analytics/Power_BI_Embedded.svg	Power BI Embedded	51	68	Analytics
+azure	power_platform	analytics/Power_Platform.svg	Power Platform	65	68	Analytics
+azure	stream_analytics_jobs	analytics/Stream_Analytics_Jobs.svg	Stream Analytics Jobs	68	58	Analytics
+azure	azure_synapse_analytics	analytics/Azure_Synapse_Analytics.svg	Synapse Analytics	60	69	Analytics
+azure	azure_workbooks	analytics/Azure_Workbooks.svg	Workbooks	68	68	Analytics
+azure	api_management_services	app_services/API_Management_Services.svg	API Management Services	65	60	AppServices
+azure	app_service_certificates	app_services/App_Service_Certificates.svg	App Service Certificates	70	64	AppServices
+azure	app_service_domains	app_services/App_Service_Domains.svg	App Service Domains	65	52	AppServices
+azure	app_service_environments	app_services/App_Service_Environments.svg	App Service Environments	64	64	AppServices
+azure	app_service_plans	app_services/App_Service_Plans.svg	App Service Plans	64	64	AppServices
+azure	app_services	app_services/App_Services.svg	App Services	64	64	AppServices
+azure	cdn_profiles	app_services/CDN_Profiles.svg	CDN Profiles	68	40	AppServices
+azure	notification_hubs	app_services/Notification_Hubs.svg	Notification Hubs	67	56	AppServices
+azure	search_services	app_services/Search_Services.svg	Search Services	72	52	AppServices
+azure	applens	azure_ecosystem/Applens.svg	Applens	68	68	Ecosystem
+azure	collaborative_service	azure_ecosystem/Collaborative_Service.svg	Collaborative Service	68	67	Ecosystem
+azure	azure_hybrid_center	azure_ecosystem/Azure_Hybrid_Center.svg	Hybrid Center	68	48	Ecosystem
+azure	capacity	azure_stack/Capacity.svg	Capacity	63	68	AzureStack
+azure	infrastructure_backup	azure_stack/Infrastructure_Backup.svg	Infrastructure Backup	60	69	AzureStack
+azure	multi_tenancy	azure_stack/Multi_Tenancy.svg	Multi Tenancy	68	65	AzureStack
+azure	offers	azure_stack/Offers.svg	Offers	65	64	AzureStack
+azure	plans	azure_stack/Plans.svg	Plans	52	64	AzureStack
+azure	azure_stack	azure_stack/Azure_Stack.svg	Stack	62	64	AzureStack
+azure	updates	azure_stack/Updates.svg	Updates	68	67	AzureStack
+azure	user_subscriptions	azure_stack/User_Subscriptions.svg	User Subscriptions	68	66	AzureStack
+azure	avs	azure_vmware_solution/AVS.svg	AVS	70	56	AzureVMwareSolution
+azure	abs_member	blockchain/ABS_Member.svg	ABS Member	56	65	Blockchain
+azure	blockchain_applications	blockchain/Blockchain_Applications.svg	Blockchain Applications	48	68	Blockchain
+azure	azure_blockchain_service	blockchain/Azure_Blockchain_Service.svg	Blockchain Service	68	68	Blockchain
+azure	consortium	blockchain/Consortium.svg	Consortium	68	68	Blockchain
+azure	outbound_connection	blockchain/Outbound_Connection.svg	Outbound Connection	71	64	Blockchain
+azure	azure_token_service	blockchain/Azure_Token_Service.svg	Token Service	59	68	Blockchain
+azure	app_services_compute	compute/App_Services.svg	App Services	64	64	Compute
+azure	application_group	compute/Application_Group.svg	Application Group	68	68	Compute
+azure	automanaged_vm	compute/Automanaged_VM.svg	Automanaged VM	68	62	Compute
+azure	availability_sets	compute/Availability_Sets.svg	Availability Sets	68	68	Compute
+azure	batch_accounts	compute/Batch_Accounts.svg	Batch Accounts	68	64	Compute
+azure	cloud_services_classic	compute/Cloud_Services_Classic.svg	Cloud Services (Classic)	72	52	Compute
+azure	azure_compute_galleries	compute/Azure_Compute_Galleries.svg	Compute Galleries	68	68	Compute
+azure	container_instances	compute/Container_Instances.svg	Container Instances	64	68	Compute
+azure	container_services_deprecated	compute/Container_Services_Deprecated.svg	Container Services (deprecated)	68	60	Compute
+azure	disk_encryption_sets	compute/Disk_Encryption_Sets.svg	Disk Encryption Sets	68	68	Compute
+azure	disks	compute/Disks.svg	Disks	57	56	Compute
+azure	disks_snapshots	compute/Disks_Snapshots.svg	Disks Snapshots	68	71	Compute
+azure	function_apps	compute/Function_Apps.svg	Function Apps	68	60	Compute
+azure	host_groups	compute/Host_Groups.svg	Host Groups	62	68	Compute
+azure	host_pools	compute/Host_Pools.svg	Host Pools	68	68	Compute
+azure	hosts	compute/Hosts.svg	Hosts	57	68	Compute
+azure	image_definitions	compute/Image_Definitions.svg	Image Definitions	66	64	Compute
+azure	image_templates	compute/Image_Templates.svg	Image Templates	68	60	Compute
+azure	image_versions	compute/Image_Versions.svg	Image Versions	67	64	Compute
+azure	images	compute/Images.svg	Images	69	64	Compute
+azure	kubernetes_services	compute/Kubernetes_Services.svg	Kubernetes Services	68	60	Compute
+azure	maintenance_configuration	compute/Maintenance_Configuration.svg	Maintenance Configuration	68	64	Compute
+azure	managed_service_fabric	compute/Managed_Service_Fabric.svg	Managed Service Fabric	68	66	Compute
+azure	mesh_applications	compute/Mesh_Applications.svg	Mesh Applications	68	68	Compute
+azure	metrics_advisor	compute/Metrics_Advisor.svg	Metrics Advisor	55	68	Compute
+azure	os_images_classic	compute/OS_Images_Classic.svg	OS Images (Classic)	69	64	Compute
+azure	restore_points	compute/Restore_Points.svg	Restore Points	68	67	Compute
+azure	restore_points_collections	compute/Restore_Points_Collections.svg	Restore Points Collections	68	56	Compute
+azure	service_fabric_clusters	compute/Service_Fabric_Clusters.svg	Service Fabric Clusters	67	64	Compute
+azure	shared_image_galleries	compute/Shared_Image_Galleries.svg	Shared Image Galleries	64	64	Compute
+azure	azure_spring_cloud	compute/Azure_Spring_Cloud.svg	Spring Cloud	68	68	Compute
+azure	virtual_machine	compute/Virtual_Machine.svg	Virtual Machine	69	64	Compute
+azure	virtual_machines_classic	compute/Virtual_Machines_Classic.svg	Virtual Machines (Classic)	69	64	Compute
+azure	vm_images_classic	compute/VM_Images_Classic.svg	VM Images (Classic)	69	64	Compute
+azure	vm_scale_sets	compute/VM_Scale_Sets.svg	VM Scale Sets	68	68	Compute
+azure	workspaces2	compute/Workspaces2.svg	Workspaces	68	68	Compute
+azure	workspaces	compute/Workspaces.svg	Workspaces	65	56	Compute
+azure	app_services_containers	containers/App_Services.svg	App Services	64	64	Containers
+azure	batch_accounts_containers	containers/Batch_Accounts.svg	Batch Accounts	68	64	Containers
+azure	container_instances_containers	containers/Container_Instances.svg	Container Instances	64	69	Containers
+azure	container_registries	containers/Container_Registries.svg	Container Registries	68	61	Containers
+azure	kubernetes_services_containers	containers/Kubernetes_Services.svg	Kubernetes Services	68	60	Containers
+azure	service_fabric_clusters_containers	containers/Service_Fabric_Clusters.svg	Service Fabric Clusters	67	64	Containers
+azure	azure_red_hat_openshift	containers/Azure_Red_Hat_OpenShift.svg	Red Hat OpenShift	68	68	Containers
+azure	elixir	cxp/Elixir.svg	Elixir	49	68	CXP
+azure	elixir_purple	cxp/Elixir_Purple.svg	Elixir Purple	49	68	CXP
+azure	cache_redis	databases/Cache_Redis.svg	Cache Redis	64	52	Databases
+azure	azure_cosmos_db	databases/Azure_Cosmos_DB.svg	Cosmos DB	64	64	Databases
+azure	azure_data_explorer_clusters	databases/Azure_Data_Explorer_Clusters.svg	Data Explorer Clusters	68	68	Databases
+azure	data_factory	databases/Data_Factory.svg	Data Factory	68	68	Databases
+azure	azure_database_mariadb_server	databases/Azure_Database_MariaDB_Server.svg	Database MariaDB Server	48	64	Databases
+azure	azure_database_migration_services	databases/Azure_Database_Migration_Services.svg	Database Migration Services	64	69	Databases
+azure	azure_database_mysql_server	databases/Azure_Database_MySQL_Server.svg	Database MySQL Server	48	64	Databases
+azure	azure_database_postgresql_server	databases/Azure_Database_PostgreSQL_Server.svg	Database PostgreSQL Server	48	64	Databases
+azure	azure_database_postgresql_server_group	databases/Azure_Database_PostgreSQL_Server_Group.svg	Database PostgreSQL Server Group	60	68	Databases
+azure	elastic_job_agents	databases/Elastic_Job_Agents.svg	Elastic Job Agents	64	64	Databases
+azure	instance_pools	databases/Instance_Pools.svg	Instance Pools	65	64	Databases
+azure	managed_database	databases/Managed_Database.svg	Managed Database	68	64	Databases
+azure	oracle_database	databases/Oracle_Database.svg	Oracle Database	68	68	Databases
+azure	azure_purview_accounts	databases/Azure_Purview_Accounts.svg	Purview Accounts	68	42	Databases
+azure	azure_sql	databases/Azure_SQL.svg	SQL	64	46	Databases
+azure	sql_data_warehouses	databases/SQL_Data_Warehouses.svg	SQL Data Warehouses	64	65	Databases
+azure	sql_database	databases/SQL_Database.svg	SQL Database	48	64	Databases
+azure	azure_sql_edge	databases/Azure_SQL_Edge.svg	SQL Edge	68	68	Databases
+azure	sql_elastic_pools	databases/SQL_Elastic_Pools.svg	SQL Elastic Pools	68	68	Databases
+azure	sql_managed_instance	databases/SQL_Managed_Instance.svg	SQL Managed Instance	65	64	Databases
+azure	sql_server	databases/SQL_Server.svg	SQL Server	68	68	Databases
+azure	sql_server_registries	databases/SQL_Server_Registries.svg	SQL Server Registries	68	62	Databases
+azure	azure_sql_server_stretch_databases	databases/Azure_SQL_Server_Stretch_Databases.svg	SQL Server Stretch Databases	64	65	Databases
+azure	azure_sql_vm	databases/Azure_SQL_VM.svg	SQL VM	64	60	Databases
+azure	ssis_lift_and_shift_ir	databases/SSIS_Lift_And_Shift_IR.svg	SSIS Lift and Shift IR	62	68	Databases
+azure	azure_synapse_analytics_databases	databases/Azure_Synapse_Analytics.svg	Synapse Analytics	60	69	Databases
+azure	virtual_clusters	databases/Virtual_Clusters.svg	Virtual Clusters	66	64	Databases
+azure	api_connections	devops/API_Connections.svg	API Connections	68	45	DevOps
+azure	application_insights	devops/Application_Insights.svg	Application Insights	44	63	DevOps
+azure	change_analysis	devops/Change_Analysis.svg	Change Analysis	68	68	DevOps
+azure	cloudtest	devops/CloudTest.svg	CloudTest	59	68	DevOps
+azure	code_optimization	devops/Code_Optimization.svg	Code Optimization	68	68	DevOps
+azure	azure_devops	devops/Azure_DevOps.svg	DevOps	64	64	DevOps
+azure	devops_starter	devops/DevOps_Starter.svg	DevOps Starter	68	64	DevOps
+azure	devtest_labs	devops/DevTest_Labs.svg	DevTest Labs	66	64	DevOps
+azure	lab_accounts	devops/Lab_Accounts.svg	Lab Accounts	65	68	DevOps
+azure	lab_services	devops/Lab_Services.svg	Lab Services	66	64	DevOps
+azure	all_resources	general/All_Resources.svg	All Resources	64	64	General
+azure	backlog	general/Backlog.svg	Backlog	68	60	General
+azure	biz_talk	general/Biz_Talk.svg	Biz Talk	69	64	General
+azure	blob_block	general/Blob_Block.svg	Blob Block	65	52	General
+azure	blob_page	general/Blob_Page.svg	Blob Page	65	52	General
+azure	branch	general/Branch.svg	Branch	72	72	General
+azure	browser	general/Browser.svg	Browser	65	52	General
+azure	bug	general/Bug.svg	Bug	59	64	General
+azure	builds	general/Builds.svg	Builds	64	64	General
+azure	cache	general/Cache.svg	Cache	64	64	General
+azure	code	general/Code.svg	Code	64	52	General
+azure	commit	general/Commit.svg	Commit	72	68	General
+azure	controls	general/Controls.svg	Controls	56	69	General
+azure	controls_horizontal	general/Controls_Horizontal.svg	Controls Horizontal	69	56	General
+azure	cost_alerts	general/Cost_Alerts.svg	Cost Alerts	67	56	General
+azure	cost_analysis	general/Cost_Analysis.svg	Cost Analysis	60	70	General
+azure	cost_budgets	general/Cost_Budgets.svg	Cost Budgets	67	68	General
+azure	cost_management	general/Cost_Management.svg	Cost Management	67	60	General
+azure	cost_management_and_billing	general/Cost_Management_and_Billing.svg	Cost Management and Billing	68	68	General
+azure	counter	general/Counter.svg	Counter	64	52	General
+azure	cubes	general/Cubes.svg	Cubes	67	68	General
+azure	dashboard	general/Dashboard.svg	Dashboard	68	48	General
+azure	dashboard2	general/Dashboard2.svg	Dashboard	68	48	General
+azure	dev_console	general/Dev_Console.svg	Dev Console	65	52	General
+azure	download	general/Download.svg	Download	64	67	General
+azure	error	general/Error.svg	Error	71	68	General
+azure	extensions	general/Extensions.svg	Extensions	65	64	General
+azure	file	general/File.svg	File	56	69	General
+azure	files	general/Files.svg	Files	64	70	General
+azure	folder_blank	general/Folder_Blank.svg	Folder Blank	69	56	General
+azure	folder_website	general/Folder_Website.svg	Folder Website	68	56	General
+azure	free_services	general/Free_Services.svg	Free Services	68	63	General
+azure	ftp	general/FTP.svg	FTP	60	48	General
+azure	gear	general/Gear.svg	Gear	64	64	General
+azure	globe	general/Globe.svg	Globe	56	66	General
+azure	globe_error	general/Globe_Error.svg	Globe Error	56	66	General
+azure	globe_success	general/Globe_Success.svg	Globe Success	56	66	General
+azure	globe_warning	general/Globe_Warning.svg	Globe Warning	56	66	General
+azure	guide	general/Guide.svg	Guide	68	68	General
+azure	heart	general/Heart.svg	Heart	64	60	General
+azure	help_and_support	general/Help_and_Support.svg	Help and Support	56	69	General
+azure	image	general/Image.svg	Image	64	44	General
+azure	information	general/Information.svg	Information	64	64	General
+azure	input_output	general/Input_Output.svg	Input Output	64	55	General
+azure	journey_hub	general/Journey_Hub.svg	Journey Hub	60	63	General
+azure	launch_portal	general/Launch_Portal.svg	Launch Portal	68	67	General
+azure	learn	general/Learn.svg	Learn	48	70	General
+azure	load_test	general/Load_Test.svg	Load Test	68	66	General
+azure	location	general/Location.svg	Location	40	71	General
+azure	log_streaming	general/Log_Streaming.svg	Log Streaming	56	67	General
+azure	management_groups	general/Management_Groups.svg	Management Groups	66	64	General
+azure	management_portal	general/Management_Portal.svg	Management Portal	60	48	General
+azure	marketplace	general/Marketplace.svg	Marketplace	56	64	General
+azure	media	general/Media.svg	Media	68	68	General
+azure	media_file	general/Media_File.svg	Media File	52	64	General
+azure	mobile	general/Mobile.svg	Mobile	40	67	General
+azure	mobile_engagement	general/Mobile_Engagement.svg	Mobile Engagement	40	67	General
+azure	module	general/Module.svg	Module	64	64	General
+azure	power	general/Power.svg	Power	44	68	General
+azure	power_up	general/Power_Up.svg	Power Up	68	68	General
+azure	powershell	general/Powershell.svg	Powershell	65	52	General
+azure	preview	general/Preview.svg	Preview	44	64	General
+azure	preview_features	general/Preview_Features.svg	Preview Features	68	68	General
+azure	process_explorer	general/Process_Explorer.svg	Process Explorer	70	68	General
+azure	production_ready_database	general/Production_Ready_Database.svg	Production Ready Database	48	64	General
+azure	quickstart_center	general/Quickstart_Center.svg	Quickstart Center	68	68	General
+azure	recent	general/Recent.svg	Recent	68	68	General
+azure	reservations	general/Reservations.svg	Reservations	68	68	General
+azure	resource_explorer	general/Resource_Explorer.svg	Resource Explorer	68	56	General
+azure	resource_group_list	general/Resource_Group_List.svg	Resource Group List	68	67	General
+azure	resource_groups	general/Resource_Groups.svg	Resource Groups	68	64	General
+azure	resource_linked	general/Resource_Linked.svg	Resource Linked	72	72	General
+azure	scale	general/Scale.svg	Scale	60	60	General
+azure	scheduler	general/Scheduler.svg	Scheduler	68	68	General
+azure	search	general/Search.svg	Search	64	65	General
+azure	search_grid	general/Search_Grid.svg	Search Grid	68	67	General
+azure	server_farm	general/Server_Farm.svg	Server Farm	64	64	General
+azure	service_bus	general/Service_Bus.svg	Service Bus	70	60	General
+azure	service_health	general/Service_Health.svg	Service Health	68	64	General
+azure	ssd	general/SSD.svg	SSD	66	60	General
+azure	storage_azure_files	general/Storage_Azure_Files.svg	Storage Azure Files	64	52	General
+azure	storage_container	general/Storage_Container.svg	Storage Container	64	52	General
+azure	storage_queue	general/Storage_Queue.svg	Storage Queue	64	52	General
+azure	subscriptions	general/Subscriptions.svg	Subscriptions	44	71	General
+azure	table	general/Table.svg	Table	64	52	General
+azure	tag	general/Tag.svg	Tag	68	67	General
+azure	tags	general/Tags.svg	Tags	60	65	General
+azure	templates	general/Templates.svg	Templates	56	68	General
+azure	tfs_vc_repository	general/TFS_VC_Repository.svg	TFS VC Repository	68	68	General
+azure	toolbox	general/Toolbox.svg	Toolbox	64	56	General
+azure	troubleshoot	general/Troubleshoot.svg	Troubleshoot	66	68	General
+azure	versions	general/Versions.svg	Versions	62	60	General
+azure	web_slots	general/Web_Slots.svg	Web Slots	58	64	General
+azure	web_test	general/Web_Test.svg	Web Test	72	72	General
+azure	website_power	general/Website_Power.svg	Website Power	68	68	General
+azure	website_staging	general/Website_Staging.svg	Website Staging	64	70	General
+azure	workbooks	general/Workbooks.svg	Workbooks	60	65	General
+azure	workflow	general/Workflow.svg	Workflow	68	70	General
+azure	azure_operator_5g_core	hybrid_multicloud/Azure_Operator_5G_Core.svg	Azure Operator 5G Core	68	45	HybridAndMulticloud
+azure	azure_operator_insights	hybrid_multicloud/Azure_Operator_Insights.svg	Azure Operator Insights	68	68	HybridAndMulticloud
+azure	azure_operator_nexus	hybrid_multicloud/Azure_Operator_Nexus.svg	Azure Operator Nexus	68	68	HybridAndMulticloud
+azure	azure_operator_service_manager	hybrid_multicloud/Azure_Operator_Service_Manager.svg	Azure Operator Service Manager	68	68	HybridAndMulticloud
+azure	azure_programmable_connectivity	hybrid_multicloud/Azure_Programmable_Connectivity.svg	Azure Programmable Connectivity	68	68	HybridAndMulticloud
+azure	aad_licenses	identity/AAD_Licenses.svg	AAD Licenses	66	68	Identity
+azure	azure_active_directory	identity/Azure_Active_Directory.svg	Active Directory	70	64	Identity
+azure	active_directory_connect_health	identity/Active_Directory_Connect_Health.svg	Active Directory Connect Health	69	64	Identity
+azure	active_directory_connect_health2	identity/Active_Directory_Connect_Health2.svg	Active Directory Connect Health	68	60	Identity
+azure	azure_ad_b2c	identity/Azure_AD_B2C.svg	AD B2C	69	64	Identity
+azure	azure_ad_domain_services	identity/Azure_AD_Domain_Services.svg	AD Domain Services	70	64	Identity
+azure	azure_ad_identity_protection	identity/Azure_AD_Identity_Protection.svg	AD Identity Protection	68	62	Identity
+azure	azure_ad_privilege_identity_management	identity/Azure_AD_Privilege_Identity_Management.svg	AD Privilege Identity Management	68	68	Identity
+azure	administrative_units	identity/Administrative_Units.svg	Administrative Units	68	68	Identity
+azure	app_registrations	identity/App_Registrations.svg	App Registrations	63	64	Identity
+azure	azure_ad_b2c2	identity/Azure_AD_B2C2.svg	Azure AD B2C	68	60	Identity
+azure	custom_azure_ad_roles	identity/Custom_Azure_AD_Roles.svg	Custom Azure AD Roles	68	68	Identity
+azure	enterprise_applications	identity/Enterprise_Applications.svg	Enterprise Applications	64	64	Identity
+azure	entra_connect	identity/Entra_Connect.svg	Entra Connect	68	64	Identity
+azure	entra_domain_services	identity/Entra_Domain_Services.svg	Entra Domain Services	68	68	Identity
+azure	entra_global_secure_access	identity/Entra_Global_Secure_Access.svg	Entra Global Secure Access	68	68	Identity
+azure	entra_id_protection	identity/Entra_ID_Protection.svg	Entra ID Protection	68	60	Identity
+azure	entra_internet_access	identity/Entra_Internet_Access.svg	Entra Internet Access	68	68	Identity
+azure	entra_managed_identities	identity/Entra_Managed_Identities.svg	Entra Managed Identities	68	60	Identity
+azure	entra_private_access	identity/Entra_Private_Access.svg	Entra Private Access	68	68	Identity
+azure	entra_privileged_identity_management	identity/Entra_Privileged_Identity_Management.svg	Entra Privileged Identity Management	68	68	Identity
+azure	entra_verified_id	identity/Entra_Verified_ID.svg	Entra Verified ID	68	60	Identity
+azure	external_identities	identity/External_Identities.svg	External Identities	62	68	Identity
+azure	groups	identity/Groups.svg	Groups	68	56	Identity
+azure	identity_governance	identity/Identity_Governance.svg	Identity Governance	64	64	Identity
+azure	azure_information_protection	identity/Azure_Information_Protection.svg	Information Protection	51	68	Identity
+azure	managed_identities	identity/Managed_Identities.svg	Managed Identities	68	66	Identity
+azure	multi_factor_authentication	identity/Multi_Factor_Authentication.svg	Multi-Factor Authentication	68	68	Identity
+azure	pim	identity/PIM.svg	PIM	60	68	Identity
+azure	security	identity/Security.svg	Security	57	68	Identity
+azure	tenant_properties	identity/Tenant_Properties.svg	Tenant Properties	68	48	Identity
+azure	user_settings	identity/User_Settings.svg	User Settings	68	57	Identity
+azure	users	identity/Users.svg	Users	64	70	Identity
+azure	verifiable_credentials	identity/Verifiable_Credentials.svg	Verifiable Credentials	68	68	Identity
+azure	verification_as_a_service	identity/Verification_As_A_Service.svg	Verification As A Service	68	68	Identity
+azure	azure_api_for_fhir	integration/Azure_API_for_FHIR.svg	API for FHIR	68	65	Integration
+azure	api_management_services_integration	integration/API_Management_Services.svg	API Management Services	65	60	Integration
+azure	app_configuration	integration/App_Configuration.svg	App Configuration	64	68	Integration
+azure	azure_data_catalog	integration/Azure_Data_Catalog.svg	Data Catalog	60	67	Integration
+azure	event_grid_domains	integration/Event_Grid_Domains.svg	Event Grid Domains	67	60	Integration
+azure	event_grid_subscriptions	integration/Event_Grid_Subscriptions.svg	Event Grid Subscriptions	67	60	Integration
+azure	event_grid_topics	integration/Event_Grid_Topics.svg	Event Grid Topics	67	60	Integration
+azure	integration_accounts	integration/Integration_Accounts.svg	Integration Accounts	64	64	Integration
+azure	integration_environments	integration/Integration_Environments.svg	Integration Environments	64	68	Integration
+azure	integration_service_environments	integration/Integration_Service_Environments.svg	Integration Service Environments	68	68	Integration
+azure	logic_apps	integration/Logic_Apps.svg	Logic Apps	67	52	Integration
+azure	logic_apps_custom_connector	integration/Logic_Apps_Custom_Connector.svg	Logic Apps Custom Connector	68	68	Integration
+azure	partner_namespace	integration/Partner_Namespace.svg	Partner Namespace	68	61	Integration
+azure	partner_registration	integration/Partner_Registration.svg	Partner Registration	68	63	Integration
+azure	partner_topic	integration/Partner_Topic.svg	Partner Topic	68	61	Integration
+azure	relays	integration/Relays.svg	Relays	67	60	Integration
+azure	sendgrid_accounts	integration/SendGrid_Accounts.svg	SendGrid Accounts	67	68	Integration
+azure	service_bus_integration	integration/Service_Bus.svg	Service Bus	68	60	Integration
+azure	software_as_a_service	integration/Software_as_a_Service.svg	Software as a Service	64	53	Integration
+azure	sql_data_warehouses_integration	integration/SQL_Data_Warehouses.svg	SQL Data Warehouses	64	65	Integration
+azure	system_topic	integration/System_Topic.svg	System Topic	68	60	Integration
+azure	azure_ad_roles_and_administrators	intune/Azure_AD_Roles_and_Administrators.svg	AD Roles and Administrators	64	64	Intune
+azure	client_apps	intune/Client_Apps.svg	Client Apps	68	68	Intune
+azure	device_compliance	intune/Device_Compliance.svg	Device Compliance	62	68	Intune
+azure	device_configuration	intune/Device_Configuration.svg	Device Configuration	62	68	Intune
+azure	device_enrollment	intune/Device_Enrollment.svg	Device Enrollment	68	60	Intune
+azure	device_security_apple	intune/Device_Security_Apple.svg	Device Security Apple	68	69	Intune
+azure	device_security_google	intune/Device_Security_Google.svg	Device Security Google	68	69	Intune
+azure	device_security_windows	intune/Device_Security_Windows.svg	Device Security Windows	68	68	Intune
+azure	devices	intune/Devices.svg	Devices	68	60	Intune
+azure	ebooks	intune/eBooks.svg	eBooks	68	60	Intune
+azure	exchange_access	intune/Exchange_Access.svg	Exchange Access	56	68	Intune
+azure	intune	intune/Intune.svg	Intune	68	62	Intune
+azure	intune_for_education	intune/Intune_For_Education.svg	Intune for Education	68	62	Intune
+azure	mindaro	intune/Mindaro.svg	Mindaro	67	68	Intune
+azure	security_baselines	intune/Security_Baselines.svg	Security Baselines	68	68	Intune
+azure	software_updates	intune/Software_Updates.svg	Software Updates	68	60	Intune
+azure	tenant_status	intune/Tenant_Status.svg	Tenant Status	64	68	Intune
+azure	device_provisioning_services	iot/Device_Provisioning_Services.svg	Device Provisioning Services	64	66	IOT
+azure	digital_twins	iot/Digital_Twins.svg	Digital Twins	68	68	IOT
+azure	event_hubs_iot	iot/Event_Hubs.svg	Event Hubs	67	60	IOT
+azure	function_apps_iot	iot/Function_Apps.svg	Function Apps	68	60	IOT
+azure	industrial_iot	iot/Industrial_IoT.svg	Industrial IoT	63	68	IOT
+azure	iot_central_applications	iot/IoT_Central_Applications.svg	IoT Central Applications	60	69	IOT
+azure	iot_edge	iot/IoT_Edge.svg	IoT Edge	68	68	IOT
+azure	iot_hub	iot/IoT_Hub.svg	IoT Hub	64	64	IOT
+azure	azure_iot_operations	iot/Azure_IoT_Operations.svg	IoT Operations	68	64	IOT
+azure	logic_apps_iot	iot/Logic_Apps.svg	Logic Apps	67	52	IOT
+azure	azure_maps_accounts	iot/Azure_Maps_Accounts.svg	Maps Accounts	68	68	IOT
+azure	notification_hubs_iot	iot/Notification_Hubs.svg	Notification Hubs	67	56	IOT
+azure	stream_analytics_jobs_iot	iot/Stream_Analytics_Jobs.svg	Stream Analytics Jobs	68	58	IOT
+azure	time_series_data_sets	iot/Time_Series_Data_Sets.svg	Time Series Data Sets	51	68	IOT
+azure	time_series_insights_environments	iot/Time_Series_Insights_Environments.svg	Time Series Insights Environments	67	68	IOT
+azure	time_series_insights_event_sources	iot/Time_Series_Insights_Event_Sources.svg	Time Series Insights Event Sources	67	68	IOT
+azure	windows10_core_services	iot/Windows10_Core_Services.svg	Windows10 Core Services	68	68	IOT
+azure	activity_log	management_governance/Activity_Log.svg	Activity Log	56	67	ManagementGovernance
+azure	advisor	management_governance/Advisor.svg	Advisor	66	64	ManagementGovernance
+azure	alerts	management_governance/Alerts.svg	Alerts	67	56	ManagementGovernance
+azure	application_insights_management	management_governance/Application_Insights.svg	Application Insights	44	63	ManagementGovernance
+azure	azure_arc	management_governance/Azure_Arc.svg	Arc	69	52	ManagementGovernance
+azure	arc_machines	management_governance/Arc_Machines.svg	Arc Machines	65	68	ManagementGovernance
+azure	automation_accounts	management_governance/Automation_Accounts.svg	Automation Accounts	68	68	ManagementGovernance
+azure	blueprints	management_governance/Blueprints.svg	Blueprints	65	64	ManagementGovernance
+azure	compliance	management_governance/Compliance.svg	Compliance	52	64	ManagementGovernance
+azure	cost_management_and_billing_management	management_governance/Cost_Management_and_Billing.svg	Cost Management and Billing	68	68	ManagementGovernance
+azure	customer_lockbox_for_ms_azure	management_governance/Customer_Lockbox_for_MS_Azure.svg	Customer Lockbox for MS Azure	68	66	ManagementGovernance
+azure	diagnostics_settings	management_governance/Diagnostics_Settings.svg	Diagnostics Settings	56	67	ManagementGovernance
+azure	education	management_governance/Education.svg	Education	67	52	ManagementGovernance
+azure	azure_lighthouse	management_governance/Azure_Lighthouse.svg	Lighthouse	59	68	ManagementGovernance
+azure	log_analytics_workspaces_management	management_governance/Log_Analytics_Workspaces.svg	Log Analytics Workspaces	64	64	ManagementGovernance
+azure	machinesazurearc	management_governance/MachinesAzureArc.svg	MachinesAzureArc	44	68	ManagementGovernance
+azure	managed_applications_center	management_governance/Managed_Applications_Center.svg	Managed Applications Center	68	54	ManagementGovernance
+azure	managed_desktop	management_governance/Managed_Desktop.svg	Managed Desktop	68	63	ManagementGovernance
+azure	metrics	management_governance/Metrics.svg	Metrics	60	65	ManagementGovernance
+azure	monitor	management_governance/Monitor.svg	Monitor	64	64	ManagementGovernance
+azure	my_customers	management_governance/My_Customers.svg	My Customers	69	56	ManagementGovernance
+azure	operation_log_classic	management_governance/Operation_Log_Classic.svg	Operation Log (Classic)	56	67	ManagementGovernance
+azure	policy	management_governance/Policy.svg	Policy	60	64	ManagementGovernance
+azure	recovery_services_vaults	management_governance/Recovery_Services_Vaults.svg	Recovery Services Vaults	69	60	ManagementGovernance
+azure	resource_graph_explorer	management_governance/Resource_Graph_Explorer.svg	Resource Graph Explorer	67	64	ManagementGovernance
+azure	resources_provider	management_governance/Resources_Provider.svg	Resources Provider	60	68	ManagementGovernance
+azure	scheduler_job_collections	management_governance/Scheduler_Job_Collections.svg	Scheduler Job Collections	68	64	ManagementGovernance
+azure	service_catalog_mad	management_governance/Service_Catalog_MAD.svg	Service Catalog MAD	56	68	ManagementGovernance
+azure	service_providers	management_governance/Service_Providers.svg	Service Providers	66	68	ManagementGovernance
+azure	solutions	management_governance/solutions.svg	Solutions	64	64	ManagementGovernance
+azure	universal_print	management_governance/Universal_Print.svg	Universal Print	68	58	ManagementGovernance
+azure	user_privacy	management_governance/User_Privacy.svg	User Privacy	64	68	ManagementGovernance
+azure	keys	menu/Keys.svg	Keys	64	68	Menu
+azure	cost_management_and_billing_migrate	migrate/Cost_Management_and_Billing.svg	Cost Management and Billing	68	68	Migrate
+azure	data_box	migrate/Data_Box.svg	Data Box	71	68	Migrate
+azure	data_box_edge	migrate/Data_Box_Edge.svg	Data Box Edge	67	48	Migrate
+azure	azure_migrate	migrate/Azure_Migrate.svg	Migrate	72	44	Migrate
+azure	recovery_services_vaults_migrate	migrate/Recovery_Services_Vaults.svg	Recovery Services Vaults	69	60	Migrate
+azure	remote_rendering	mixed_reality/Remote_Rendering.svg	Remote Rendering	68	48	MixedReality
+azure	spatial_anchor_accounts	mixed_reality/Spatial_Anchor_Accounts.svg	Spatial Anchor Accounts	67	68	MixedReality
+azure	sap_azure_monitor	monitor/SAP_Azure_Monitor.svg	SAP Azure Monitor	70	56	Monitor
+azure	application_gateway_containers	networking/Application_Gateway_Containers.svg	Application Gateway Containers	68	64	Networking
+azure	application_gateways	networking/Application_Gateways.svg	Application Gateways	64	64	Networking
+azure	atm_multistack	networking/ATM_Multistack.svg	ATM Multistack	68	68	Networking
+azure	bastions	networking/Bastions.svg	Bastions	58	68	Networking
+azure	cdn_profiles_networking	networking/CDN_Profiles.svg	CDN Profiles	68	40	Networking
+azure	azure_communications_gateway	networking/Azure_Communications_Gateway.svg	Communications Gateway	68	68	Networking
+azure	connections	networking/Connections.svg	Connections	68	68	Networking
+azure	ddos_protection_plans	networking/DDoS_Protection_Plans.svg	DDoS Protection Plans	56	68	Networking
+azure	dns_multistack	networking/DNS_Multistack.svg	DNS Multistack	68	68	Networking
+azure	dns_private_resolver	networking/DNS_Private_Resolver.svg	DNS Private Resolver	68	60	Networking
+azure	dns_security_policy	networking/DNS_Security_Policy.svg	DNS Security Policy	68	68	Networking
+azure	dns_zones	networking/DNS_Zones.svg	DNS Zones	64	64	Networking
+azure	expressroute_circuits	networking/ExpressRoute_Circuits.svg	ExpressRoute Circuits	70	64	Networking
+azure	azure_firewall_manager	networking/Azure_Firewall_Manager.svg	Firewall Manager	70	60	Networking
+azure	azure_firewall_policy	networking/Azure_Firewall_Policy.svg	Firewall Policy	68	49	Networking
+azure	firewalls	networking/Firewalls.svg	Firewalls	71	60	Networking
+azure	front_doors	networking/Front_Doors.svg	Front Doors	68	60	Networking
+azure	ip_address_manager	networking/IP_Address_Manager.svg	IP Address Manager	68	60	Networking
+azure	ip_groups	networking/IP_Groups.svg	IP Groups	67	52	Networking
+azure	load_balancer_hub	networking/Load_Balancer_Hub.svg	Load Balancer Hub	54	68	Networking
+azure	load_balancers	networking/Load_Balancers.svg	Load Balancers	72	72	Networking
+azure	local_network_gateways	networking/Local_Network_Gateways.svg	Local Network Gateways	68	68	Networking
+azure	nat	networking/NAT.svg	NAT	68	68	Networking
+azure	network_interfaces	networking/Network_Interfaces.svg	Network Interfaces	68	60	Networking
+azure	network_security_groups	networking/Network_Security_Groups.svg	Network Security Groups	56	68	Networking
+azure	network_watcher	networking/Network_Watcher.svg	Network Watcher	64	64	Networking
+azure	on_premises_data_gateways	networking/On_Premises_Data_Gateways.svg	On Premises Data Gateways	68	65	Networking
+azure	private_endpoint	networking/Private_Endpoint.svg	Private Endpoint	72	66	Networking
+azure	private_link	networking/Private_Link.svg	Private Link	72	66	Networking
+azure	private_link_hub	networking/Private_Link_Hub.svg	Private Link Hub	59	68	Networking
+azure	private_link_service	networking/Private_Link_Service.svg	Private Link Service	69	40	Networking
+azure	proximity_placement_groups	networking/Proximity_Placement_Groups.svg	Proximity Placement Groups	72	68	Networking
+azure	public_ip_addresses	networking/Public_IP_Addresses.svg	Public IP Addresses	65	52	Networking
+azure	public_ip_addresses_classic	networking/Public_IP_Addresses_Classic.svg	Public IP Addresses (Classic)	64	52	Networking
+azure	public_ip_prefixes	networking/Public_IP_Prefixes.svg	Public IP Prefixes	72	56	Networking
+azure	reserved_ip_addresses_classic	networking/Reserved_IP_Addresses_Classic.svg	Reserved IP Addresses (Classic)	68	55	Networking
+azure	resource_management_private_link	networking/Resource_Management_Private_Link.svg	Resource Management Private Link	68	66	Networking
+azure	route_filters	networking/Route_Filters.svg	Route Filters	71	44	Networking
+azure	route_tables	networking/Route_Tables.svg	Route Tables	64	62	Networking
+azure	service_endpoint_policies	networking/Service_Endpoint_Policies.svg	Service Endpoint Policies	62	64	Networking
+azure	spot_vm	networking/Spot_VM.svg	Spot VM	68	63	Networking
+azure	spot_vmss	networking/Spot_VMSS.svg	Spot VMSS	68	64	Networking
+azure	subnet	networking/Subnet.svg	Subnet	68	41	Networking
+azure	traffic_manager_profiles	networking/Traffic_Manager_Profiles.svg	Traffic Manager Profiles	68	68	Networking
+azure	virtual_network_gateways	networking/Virtual_Network_Gateways.svg	Virtual Network Gateways	52	69	Networking
+azure	virtual_networks	networking/Virtual_Networks.svg	Virtual Networks	67	40	Networking
+azure	virtual_networks_classic	networking/Virtual_Networks_Classic.svg	Virtual Networks (Classic)	67	40	Networking
+azure	virtual_router	networking/Virtual_Router.svg	Virtual Router	68	68	Networking
+azure	virtual_wan_hub	networking/Virtual_WAN_Hub.svg	Virtual WAN Hub	65	64	Networking
+azure	virtual_wans	networking/Virtual_WANs.svg	Virtual WANs	65	64	Networking
+azure	web_application_firewall_policies_waf	networking/Web_Application_Firewall_Policies_WAF.svg	Web Application Firewall Policies (WAF)	68	68	Networking
+azure	azure_a	other/Azure_A.svg	A	68	64	Other
+azure	acs_solutions_builder	other/ACS_Solutions_Builder.svg	ACS Solutions Builder	68	52	Other
+azure	aks_automatic	other/AKS_Automatic.svg	AKS Automatic	68	68	Other
+azure	aks_istio	other/AKS_Istio.svg	AKS Istio	68	68	Other
+azure	api_proxy	other/API_Proxy.svg	API Proxy	68	38	Other
+azure	app_compliance_automation	other/App_Compliance_Automation.svg	App Compliance Automation	68	49	Other
+azure	app_space_component	other/App_Space_Component.svg	App Space Compoment	57	68	Other
+azure	aquila	other/Aquila.svg	Aquila	68	67	Other
+azure	arc_data_services	other/Arc_Data_Services.svg	Arc Data Services	65	68	Other
+azure	arc_kubernetes	other/Arc_Kubernetes.svg	Arc Kubernetes	68	68	Other
+azure	arc_postgresql	other/Arc_PostgreSQL.svg	Arc PostgreSQL	65	68	Other
+azure	arc_sql_managed_instance	other/Arc_SQL_Managed_Instance.svg	Arc SQL Managed Instance	65	68	Other
+azure	arc_sql_server	other/Arc_SQL_Server.svg	Arc SQL Server	65	68	Other
+azure	avs_vm	other/AVS_VM.svg	AVS VM	68	63	Other
+azure	azureattestation	other/AzureAttestation.svg	AzureAttestation	56	68	Other
+azure	azurite	other/Azurite.svg	Azurite	68	66	Other
+azure	azure_backup_center	other/Azure_Backup_Center.svg	Backup Center	68	62	Other
+azure	backup_vault	other/Backup_Vault.svg	Backup Vault	68	58	Other
+azure	bare_metal_infrastructure	other/Bare_Metal_Infrastructure.svg	Bare Metal Infrastructure	68	64	Other
+azure	business_process_tracking	other/Business_Process_Tracking.svg	Business Process Tracking	49	68	Other
+azure	azure_center_for_sap	other/Azure_Center_for_SAP.svg	Center for SAP	68	68	Other
+azure	central_service_instance_for_sap	other/Central_Service_Instance_for_SAP.svg	Central Service Instance for SAP	68	36	Other
+azure	ceres	other/Ceres.svg	Ceres	59	68	Other
+azure	azure_chaos_studio	other/Azure_Chaos_Studio.svg	Chaos Studio	68	68	Other
+azure	cloud_services_extended_support	other/Cloud_Services_(extended_support).svg	Cloud Services (extended support)	68	58	Other
+azure	azure_cloud_shell	other/Azure_Cloud_Shell.svg	Cloud Shell	68	47	Other
+azure	azure_communication_services	other/Azure_Communication_Services.svg	Communication Services	68	50	Other
+azure	compliance_center	other/Compliance_Center.svg	Compliance Center	68	68	Other
+azure	compute_fleet	other/Compute_Fleet.svg	Compute Fleet	68	68	Other
+azure	confidential_ledger	other/Confidential_Ledger.svg	Confidential_Ledger	68	68	Other
+azure	container_app_environments	other/Container_App_Environments.svg	Container App Environments	68	68	Other
+azure	connected_cache	other/Connected_Cache.svg	Connected Cache	68	56	Other
+azure	connected_vehicle_platform	other/Connected_Vehicle_Platform.svg	Connected Vehicle Platform	68	52	Other
+azure	cost_export	other/Cost_Export.svg	Cost Export	68	53	Other
+azure	custom_ip_prefix	other/Custom_IP_Prefix.svg	Custom IP Prefix	68	68	Other
+azure	dashboard_hub	other/Dashboard_Hub.svg	Dashboard Hub	68	52	Other
+azure	data_collection_rules	other/Data_Collection_Rules.svg	Data Collection Rules	67	68	Other
+azure	database_instance_for_sap	other/Database_Instance_for_SAP.svg	Database Instance for SAP	68	65	Other
+azure	dedicated_hsm	other/Dedicated_HSM.svg	Dedicated HSM	68	62	Other
+azure	defender_cm_local_manager	other/Defender_CM_Local_Manager.svg	Defender CM Local Manager	68	68	Other
+azure	defender_dcs_controller	other/Defender_DCS_Controller.svg	Defender DCS Controller	68	62	Other
+azure	defender_distributer_control_system	other/Defender_Distributer_Control_System.svg	Defender Distributer Control System	68	68	Other
+azure	defender_engineering_station	other/Defender_Engineering_Station.svg	Defender Engineering Station	68	63	Other
+azure	defender_external_management	other/Defender_External_Management.svg	Defender External Management	66	68	Other
+azure	defender_freezer_monitor	other/Defender_Freezer_Monitor.svg	Defender Freezer Monitor	48	68	Other
+azure	defender_historian	other/Defender_Historian.svg	Defender Historian	68	67	Other
+azure	defender_hmi	other/Defender_HMI.svg	Defender HMI	68	53	Other
+azure	defender_industrial_packaging_system	other/Defender_Industrial_Packaging_System.svg	Defender Industrial Packaging System	68	68	Other
+azure	defender_industrial_printer	other/Defender_Industrial_Printer.svg	Defender Industrial Printer	68	68	Other
+azure	defender_industrial_scale_system	other/Defender_Industrial_Scale_System.svg	Defender Industrial Scale System	68	68	Other
+azure	defender_industrial_robot	other/Defender_Industrial_Robot.svg	Defender Industrial Robot	51	68	Other
+azure	defender_marquee	other/Defender_Marquee.svg	Defender Marquee	68	41	Other
+azure	defender_meter	other/Defender_Meter.svg	Defender Meter	68	68	Other
+azure	defender_plc	other/Defender_PLC.svg	Defender PLC	68	68	Other
+azure	defender_pneumatic_device	other/Defender_Pneumatic_Device.svg	Defender Pneumatic Device	68	56	Other
+azure	defender_programable_board	other/Defender_Programable_Board.svg	Defender Programable Board	68	68	Other
+azure	defender_relay	other/Defender_Relay.svg	Defender Relay	68	27	Other
+azure	defender_robot_controller	other/Defender_Robot_Controller.svg	Defender Robot Controller	66	68	Other
+azure	defender_rtu	other/Defender_RTU.svg	Defender RTU	68	60	Other
+azure	defender_sensor	other/Defender_Sensor.svg	Defender Sensor	68	50	Other
+azure	defender_slot	other/Defender_Slot.svg	Defender Slot	68	68	Other
+azure	defender_web_guiding_system	other/Defender_Web_Guiding_System.svg	Defender Web Guiding System	68	24	Other
+azure	azure_deployment_environments	other/Azure_Deployment_Environments.svg	Deployment Environments	68	65	Other
+azure	detonation	other/Detonation.svg	Detonation	62	64	Other
+azure	device_update_iot_hub	other/Device_Update_IoT_Hub.svg	Device Update IoT Hub	60	68	Other
+azure	azure_dev_tunnels	other/Azure_Dev_Tunnels.svg	Dev Tunnels	68	68	Other
+azure	disk_pool	other/Disk_Pool.svg	Disk Pool	68	66	Other
+azure	azure_edge_hardware_center	other/Azure_Edge_Hardware_Center.svg	Edge Hardware Center	68	68	Other
+azure	edge_management	other/Edge_Management.svg	Edge Management	66	68	Other
+azure	elastic_san	other/Elastic_SAN.svg	Elastic SAN	68	68	Other
+azure	entra_connect_sync	other/Entra_Connect_Sync.svg	Entra Connect Sync	68	68	Other
+azure	entra_identity	other/Entra_Identity.svg	Entra Identity	68	60	Other
+azure	exchange_on_premises_access	other/Exchange_On_Premises_Access.svg	Exchange On Premises Access	40	68	Other
+azure	express_route_traffic_collector	other/Express_Route_Traffic_Collector.svg	Express Route Traffic Collector	58	68	Other
+azure	expressroute_direct	other/ExpressRoute_Direct.svg	ExpressRoute Direct	68	60	Other
+azure	fhir_service	other/FHIR_Service.svg	FHIR Service	68	59	Other
+azure	fiji	other/Fiji.svg	Fiji	54	68	Other
+azure	grafana	other/Grafana.svg	Grafana	68	53	Other
+azure	hdi_aks_cluster	other/HDI_AKS_Cluster.svg	HDI AKS Cluster	60	68	Other
+azure	azure_hpc_workbench	other/Azure_HPC_Workbench.svg	HPC Workbench	56	68	Other
+azure	icm_troubleshooting	other/IcM_Troubleshooting.svg	IcM Troubleshooting	68	68	Other
+azure	image_definition	other/Image_Definition.svg	Image Definition	68	64	Other
+azure	image_version	other/Image_Version.svg	Image Version	68	68	Other
+azure	instance_pools_other	other/Instance_Pools.svg	Instance Pools	65	64	Other
+azure	internet_analyzer_profiles	other/Internet_Analyzer_Profiles.svg	Internet Analyzer Profiles	68	64	Other
+azure	intune_trends	other/Intune_Trends.svg	Intune Trends	57	68	Other
+azure	kubernetes_fleet_manager	other/Kubernetes_Fleet_Manager.svg	Kubernetes Fleet Manager	68	68	Other
+azure	azure_load_testing	other/Azure_Load_Testing.svg	Load Testing	68	65	Other
+azure	load_testing	other/Load_Testing.svg	Load Testing	59	68	Other
+azure	local_network_gateways_other	other/Local_Network_Gateways.svg	Local Network Gateways	68	68	Other
+azure	log_analytics_query_pack	other/Log_Analytics_Query_Pack.svg	Log Analytics Query Pack	68	68	Other
+azure	managed_devops_pools	other/Managed_DevOps_Pools.svg	Managed DevOps Pools	68	68	Other
+azure	managed_file_shares	other/Managed_File_Shares.svg	Managed File Shares	68	68	Other
+azure	managed_instance_apache_cassandra	other/Managed_Instance_Apache_Cassandra.svg	Managed Instance Apache Cassandra	68	68	Other
+azure	marketplace_management	other/Marketplace_Management.svg	Marketplace Management	58	68	Other
+azure	medtech_service	other/MedTech_Service.svg	MedTech Service	68	61	Other
+azure	mission_landing_zone	other/Mission_Landing_Zone.svg	Mission Landing Zone	68	64	Other
+azure	modular_data_center	other/Modular_Data_Center.svg	Modular Data Center	68	68	Other
+azure	azure_monitor_dashboard	other/Azure_Monitor_Dashboard.svg	Monitor Dashboard	68	63	Other
+azure	monitor_health_models	other/Monitor_Health_Models.svg	Monitor Health Models	68	68	Other
+azure	azure_monitor_pipeline	other/Azure_Monitor_Pipeline.svg	Monitor Pipeline	68	49	Other
+azure	ms_dev_box	other/MS_Dev_Box.svg	MS Dev Box	68	68	Other
+azure	azure_network_function_manager	other/Azure_Network_Function_Manager.svg	Network Function Manager	60	68	Other
+azure	azure_network_function_manager_functions	other/Azure_Network_Function_Manager_Functions.svg	Network Function Manager Functions	68	62	Other
+azure	azure_network_manager	other/Azure_Network_Manager.svg	Network Manager	64	68	Other
+azure	network_security_perimeters	other/Network_Security_Perimeters.svg	Network Security Perimeters	68	68	Other
+azure	open_supply_chain_platform	other/Open_Supply_Chain_Platform.svg	Open Supply Chain Platform	68	68	Other
+azure	azure_orbital	other/Azure_Orbital.svg	Orbital	68	68	Other
+azure	osconfig	other/OSConfig.svg	OSConfig	68	57	Other
+azure	peering_service	other/Peering_Service.svg	Peering Service	68	69	Other
+azure	peerings	other/Peerings.svg	Peerings	68	58	Other
+azure	private_endpoints	other/Private_Endpoints.svg	Private Endpoints	68	65	Other
+azure	private_mobile_network	other/Private_Mobile_Network.svg	Private Mobile Network	68	48	Other
+azure	azure_quotas	other/Azure_Quotas.svg	Quotas	68	48	Other
+azure	reserved_capacity	other/Reserved_Capacity.svg	Reserved Capacity	58	68	Other
+azure	reserved_capacity_groups	other/Reserved_Capacity_Groups.svg	Reserved Capacity Groups	58	68	Other
+azure	resource_guard	other/Resource_Guard.svg	Resource Guard	57	68	Other
+azure	resource_mover	other/Resource_Mover.svg	Resource Mover	56	68	Other
+azure	rtos	other/RTOS.svg	RTOS	68	68	Other
+azure	savings_plan	other/Savings_Plan.svg	Savings Plan	68	68	Other
+azure	scvmm_management_servers	other/SCVMM_Management_Servers.svg	SCVMM Management Servers	68	68	Other
+azure	sonic_dash	other/Sonic_Dash.svg	Sonic Dash	62	68	Other
+azure	azure_sphere	other/Azure_Sphere.svg	Sphere	66	68	Other
+azure	ssh_keys	other/SSH_Keys.svg	SSH Keys	68	60	Other
+azure	storage_actions	other/Storage_Actions.svg	Storage Actions	68	68	Other
+azure	azure_storage_mover	other/Azure_Storage_Mover.svg	Storage Mover	68	67	Other
+azure	storage_tasks	other/Storage_Tasks.svg	Storage Tasks	68	68	Other
+azure	azure_support_center_blue	other/Azure_Support_Center_Blue.svg	Support Center Blue	60	68	Other
+azure	azure_sustainability	other/Azure_Sustainability.svg	Support Sustainability	68	68	Other
+azure	targets_management	other/Targets_Management.svg	Targets Management	68	68	Other
+azure	template_specs	other/Template_Specs.svg	Template Specs	57	68	Other
+azure	test_base	other/Test_Base.svg	Test Base	68	48	Other
+azure	universal_print_other	other/Universal_Print.svg	Universal Print	70	60	Other
+azure	update_center	other/Update_Center.svg	Update Center	68	68	Other
+azure	video_analyzers	other/Video_Analyzers.svg	Video Analyzers	68	48	Other
+azure	azure_video_indexer	other/Azure_Video_Indexer.svg	Video Indexer	60	68	Other
+azure	virtual_enclaves	other/Virtual_Enclaves.svg	Virtual Enclaves	60	68	Other
+azure	virtual_instance_for_sap	other/Virtual_Instance_for_SAP.svg	Virtual Instance for SAP	68	63	Other
+azure	vm_application_definition	other/VM_Application_Definition.svg	VM Application Definition	68	63	Other
+azure	vm_application_version	other/VM_Application_Version.svg	VM Application Version	68	68	Other
+azure	wac	other/WAC.svg	WAC	62	68	Other
+azure	wac_installer	other/WAC_Installer.svg	WAC Installer	68	68	Other
+azure	web_app_database	other/Web_App_Database.svg	Web App Database	68	68	Other
+azure	web_jobs	other/Web_Jobs.svg	Web Jobs	66	68	Other
+azure	windows_notification_services	other/Windows_Notification_Services.svg	Windows Notification Services	68	68	Other
+azure	windows_virtual_desktop	other/Windows_Virtual_Desktop.svg	Windows Virtual Desktop	68	68	Other
+azure	worker_container_app	other/Worker_Container_App.svg	Worker Container App	68	66	Other
+azure	workspace_gateway	other/Workspace_Gateway.svg	Workspace Gateway	68	57	Other
+azure	aibuilder	power_platform/AIBuilder.svg	AI Builder	68	68	PowerPlatform
+azure	copilotstudio	power_platform/CopilotStudio.svg	Copilot Studio	68	62	PowerPlatform
+azure	dataverse	power_platform/Dataverse.svg	Dataverse	68	52	PowerPlatform
+azure	powerapps	power_platform/PowerApps.svg	PowerApps	68	65	PowerPlatform
+azure	powerautomate	power_platform/PowerAutomate.svg	PowerAutomate	68	54	PowerPlatform
+azure	powerbi	power_platform/PowerBI.svg	PowerBI	51	68	PowerPlatform
+azure	powerfx	power_platform/PowerFx.svg	PowerFx	68	65	PowerPlatform
+azure	powerpages	power_platform/PowerPages.svg	PowerPages	68	68	PowerPlatform
+azure	powerplatform	power_platform/PowerPlatform.svg	PowerPlatform	64	68	PowerPlatform
+azure	azure_cloud_shell_preview	preview/Azure_Cloud_Shell.svg	Cloud Shell	68	48	Preview
+azure	iot_edge_preview	preview/IoT_Edge.svg	IoT Edge	68	67	Preview
+azure	private_link_hub_preview	preview/Private_Link_Hub.svg	Private Link Hub	60	69	Preview
+azure	rtos_preview	preview/RTOS.svg	RTOS	68	68	Preview
+azure	azure_sphere_preview	preview/Azure_Sphere.svg	Sphere	66	68	Preview
+azure	static_apps	preview/Static_Apps.svg	Static Apps	70	56	Preview
+azure	time_series_data_sets_preview	preview/Time_Series_Data_Sets.svg	Time Series Data Sets	48	64	Preview
+azure	web_environment	preview/Web_Environment.svg	Web Environment	64	66	Preview
+azure	azure_workbooks_preview	preview/Azure_Workbooks.svg	Workbooks	72	72	Preview
+azure	azure_ad_risky_signins	security/Azure_AD_Risky_Signins.svg	AD Risky Signins	68	68	Security
+azure	azure_ad_risky_users	security/Azure_AD_Risky_Users.svg	AD Risky Users	68	68	Security
+azure	application_security_groups	security/Application_Security_Groups.svg	Application Security Groups	56	68	Security
+azure	conditional_access	security/Conditional_Access.svg	Conditional Access	56	68	Security
+azure	azure_defender	security/Azure_Defender.svg	Defender	56	68	Security
+azure	detonation_security	security/Detonation.svg	Detonation	66	68	Security
+azure	extendedsecurityupdates	security/ExtendedSecurityUpdates.svg	Extended Security Updates	64	70	Security
+azure	identity_secure_score	security/Identity_Secure_Score.svg	Identity Secure Score	62	68	Security
+azure	key_vaults	security/Key_Vaults.svg	Key Vaults	68	68	Security
+azure	keys_security	security/Keys.svg	Keys	72	76	Security
+azure	ms_defender_easm	security/MS_Defender_EASM.svg	MS Defender EASM	55	68	Security
+azure	multifactor_authentication	security/Multifactor_Authentication.svg	Multifactor Authentication	55	68	Security
+azure	security_center	security/Security_Center.svg	Security Center	56	68	Security
+azure	azure_sentinel	security/Azure_Sentinel.svg	Sentinel	56	68	Security
+azure	data_box_storage	storage/Data_Box.svg	Data Box	71	68	Storage
+azure	data_box_edge_storage	storage/Data_Box_Edge.svg	Data Box Edge	67	48	Storage
+azure	data_lake_storage_gen1	storage/Data_Lake_Storage_Gen1.svg	Data Lake Storage Gen1	64	52	Storage
+azure	data_share_invitations	storage/Data_Share_Invitations.svg	Data Share Invitations	68	45	Storage
+azure	data_shares	storage/Data_Shares.svg	Data Shares	64	55	Storage
+azure	azure_fileshare	storage/Azure_Fileshare.svg	Fileshare	68	68	Storage
+azure	azure_hcp_cache	storage/Azure_HCP_Cache.svg	HCP Cache	68	63	Storage
+azure	import_export_jobs	storage/Import_Export_Jobs.svg	Import Export Jobs	64	67	Storage
+azure	azure_netapp_files	storage/Azure_NetApp_Files.svg	NetApp Files	65	52	Storage
+azure	recovery_services_vaults_storage	storage/Recovery_Services_Vaults.svg	Recovery Services Vaults	69	60	Storage
+azure	azure_stack_edge	storage/Azure_Stack_Edge.svg	Stack Edge	68	48	Storage
+azure	storage_accounts	storage/Storage_Accounts.svg	Storage Accounts	65	52	Storage
+azure	storage_accounts_classic	storage/Storage_Accounts_Classic.svg	Storage Accounts (Classic)	65	52	Storage
+azure	storage_explorer	storage/Storage_Explorer.svg	Storage Explorer	58	68	Storage
+azure	storage_sync_services	storage/Storage_Sync_Services.svg	Storage Sync Services	72	60	Storage
+azure	storsimple_data_managers	storage/StorSimple_Data_Managers.svg	StorSimple Data Managers	48	64	Storage
+azure	storsimple_device_managers	storage/StorSimple_Device_Managers.svg	StorSimple Device Managers	70	64	Storage
+azure	api_center	web/API_Center.svg	API Center	68	68	Web
+azure	app_space	web/App_Space.svg	App Space	68	68	Web
+azure	azure_media_service	web/Azure_Media_Service.svg	Media Service	68	68	Web
+azure	notification_hub_namespaces	web/Notification_Hub_Namespaces.svg	Notification Hub Namespaces	67	56	Web
+azure	signalr	web/SignalR.svg	SignalR	68	68	Web

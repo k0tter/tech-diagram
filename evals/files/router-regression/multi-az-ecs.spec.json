@@ -1,0 +1,177 @@
+{
+  "name": "multi-az-ecs-webapp",
+  "meta": {
+    "purpose": "e17 回帰用の固定スペック(レーン分離)。(i) 縦並び複製ペア2組の隣接 (ii) ALB 上下ファンアウト (iii) 題字が上辺を覆う狭サブネット を含む。修正前エンジンは r_db の迂回が r_ca と 2.4px 間隔で 129px 並走(E7)"
+  },
+  "containers": [
+    {
+      "id": "cloud",
+      "type": "aws_cloud",
+      "label": "AWS Cloud"
+    },
+    {
+      "id": "vpc",
+      "type": "vpc",
+      "label": "VPC",
+      "parent": "cloud"
+    },
+    {
+      "id": "az1",
+      "type": "az",
+      "label": "Availability Zone A",
+      "parent": "vpc"
+    },
+    {
+      "id": "app1",
+      "type": "private_subnet",
+      "label": "Private subnet (app tier)",
+      "parent": "az1"
+    },
+    {
+      "id": "dbs1",
+      "type": "private_subnet",
+      "label": "Private subnet (database tier)",
+      "parent": "az1"
+    },
+    {
+      "id": "az2",
+      "type": "az",
+      "label": "Availability Zone C",
+      "parent": "vpc"
+    },
+    {
+      "id": "app2",
+      "type": "private_subnet",
+      "label": "Private subnet (app tier)",
+      "parent": "az2"
+    },
+    {
+      "id": "dbs2",
+      "type": "private_subnet",
+      "label": "Private subnet (database tier)",
+      "parent": "az2"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "users",
+      "icon": "users",
+      "label": "Users",
+      "col": 0,
+      "row": 3
+    },
+    {
+      "id": "alb",
+      "icon": "application_load_balancer",
+      "label": "ALB",
+      "parent": "vpc",
+      "col": 1,
+      "row": 3
+    },
+    {
+      "id": "ecs1",
+      "icon": "ecs",
+      "label": "ECS Service",
+      "parent": "app1",
+      "col": 2,
+      "row": 2
+    },
+    {
+      "id": "db1",
+      "icon": "aurora",
+      "label": "Aurora primary",
+      "parent": "dbs1",
+      "col": 3,
+      "row": 2
+    },
+    {
+      "id": "ca1",
+      "icon": "elasticache",
+      "label": "ElastiCache primary",
+      "parent": "dbs1",
+      "col": 4,
+      "row": 3
+    },
+    {
+      "id": "ecs2",
+      "icon": "ecs",
+      "label": "ECS Service",
+      "parent": "app2",
+      "col": 2,
+      "row": 4
+    },
+    {
+      "id": "db2",
+      "icon": "aurora",
+      "label": "Aurora standby",
+      "parent": "dbs2",
+      "col": 3,
+      "row": 4
+    },
+    {
+      "id": "ca2",
+      "icon": "elasticache",
+      "label": "ElastiCache replica",
+      "parent": "dbs2",
+      "col": 4,
+      "row": 5
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_in",
+      "src": "users",
+      "dst": "alb",
+      "label": "HTTPS",
+      "kind": "main"
+    },
+    {
+      "id": "e_f1",
+      "src": "alb",
+      "dst": "ecs1",
+      "kind": "main"
+    },
+    {
+      "id": "e_f2",
+      "src": "alb",
+      "dst": "ecs2",
+      "kind": "main"
+    },
+    {
+      "id": "e_d1",
+      "src": "ecs1",
+      "dst": "db1",
+      "kind": "main"
+    },
+    {
+      "id": "e_d2",
+      "src": "ecs2",
+      "dst": "db2",
+      "kind": "main"
+    },
+    {
+      "id": "r_db",
+      "src": "db1",
+      "dst": "db2",
+      "label": "Replication",
+      "kind": "sub"
+    },
+    {
+      "id": "r_ca",
+      "src": "ca1",
+      "dst": "ca2",
+      "label": "Replication",
+      "kind": "sub"
+    }
+  ],
+  "legend": [
+    {
+      "kind": "main",
+      "label": "Traffic"
+    },
+    {
+      "kind": "sub",
+      "label": "Replication"
+    }
+  ]
+}

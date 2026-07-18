@@ -1,0 +1,42 @@
+{
+ "name": "コンテナ (ECS/Fargate Multi-AZ)",
+ "legend": {"main": "リクエスト(同期)", "sub": "非同期・補助"},
+ "containers": [
+   {"id": "cloud", "label": "AWS Cloud", "type": "aws_cloud"},
+   {"id": "region", "label": "リージョン (ap-northeast-1)", "type": "region", "parent": "cloud"},
+   {"id": "vpc", "label": "VPC", "type": "vpc", "parent": "region"},
+   {"id": "az1", "label": "Availability Zone A", "type": "az", "parent": "vpc"},
+   {"id": "az1_pub", "label": "Public subnet", "type": "public_subnet", "parent": "az1"},
+   {"id": "az1_app", "label": "Private subnet (App)", "type": "private_subnet", "parent": "az1"},
+   {"id": "az2", "label": "Availability Zone C", "type": "az", "parent": "vpc"},
+   {"id": "az2_pub", "label": "Public subnet", "type": "public_subnet", "parent": "az2"},
+   {"id": "az2_app", "label": "Private subnet (App)", "type": "private_subnet", "parent": "az2"}
+ ],
+ "nodes": [
+   {"id": "users", "label": "ユーザー", "icon": "users", "col": 0, "row": 2},
+   {"id": "ecr", "label": "ECR", "icon": "ecr", "parent": "region", "col": 1, "row": 0},
+   {"id": "igw", "label": "Internet Gateway", "icon": "internet_gateway", "parent": "vpc", "col": 1, "row": 2},
+   {"id": "alb", "label": "ALB", "icon": "application_load_balancer", "parent": "vpc", "col": 2, "row": 2},
+   {"id": "nat1", "label": "NAT Gateway", "icon": "nat_gateway", "parent": "az1_pub", "col": 2, "row": 1},
+   {"id": "task1", "label": "ECS/Fargate\nタスク", "icon": "fargate", "parent": "az1_app", "col": 3, "row": 1},
+   {"id": "nat2", "label": "NAT Gateway", "icon": "nat_gateway", "parent": "az2_pub", "col": 2, "row": 3},
+   {"id": "task2", "label": "ECS/Fargate\nタスク", "icon": "fargate", "parent": "az2_app", "col": 3, "row": 3}
+ ],
+ "edges": [
+   {"id": "e_https", "src": "users", "dst": "igw", "kind": "main", "label": "HTTPS"},
+   {"id": "e_alb", "src": "igw", "dst": "alb", "kind": "main"},
+   {"id": "e_t1", "src": "alb", "dst": "task1", "kind": "main"},
+   {"id": "e_t2", "src": "alb", "dst": "task2", "kind": "main"},
+   {"id": "e_eg1", "src": "task1", "dst": "nat1", "kind": "sub", "label": "外向き\n(pull・外部 API)"},
+   {"id": "e_eg2", "src": "task2", "dst": "nat2", "kind": "sub"},
+   {"id": "e_pull", "src": "nat1", "dst": "ecr", "kind": "sub", "label": "image pull (IGW 経由)"}
+ ],
+ "meta": {
+   "updated": "2026-07-18",
+   "purpose": "コンテナ (ECS/Fargate) の検証済みリファレンス。作図時はここから差分編集する",
+   "audience": "tech-diagram での作図(正解トポロジの起点)",
+   "scope": "ALB+ECS/Fargate 2AZ+NAT egress+ECR",
+   "abstraction": "骨格(サービス/タスク内部階層・CI/CD は省略)",
+   "assumptions": "正解ポイント(カタログ P7): ①タスクは private subnet・複数 AZ、前段に ALB ②外向き(image pull・外部 API)は NAT(public subnet)→IGW 経由(AP5) ③ECR はリージョナルで VPC 外 ④代替: ECR/S3/CloudWatch へは VPC エンドポイントで NAT を通さない構成も可(その場合 endpoints アイコンを subnet 内に)"
+ }
+}

@@ -1,0 +1,50 @@
+{
+ "diagrams": [
+  {
+   "name": "マルチクラウド接続構成",
+   "meta": {"updated": "2026-07-09", "purpose": "AWS・Azure・GCP の 3 クラウド間の接続と役割分担", "audience": "インフラ・ネットワークチーム", "scope": "各クラウドの代表ワークロードとクラウド間接続", "abstraction": "概要(各クラウド内は代表ノードのみ)", "assumptions": "スキル同梱の見本(架空の構成)"},
+   "legend": {"main": "同期呼び出し", "sub": "非同期・複製", "ops": "運用・監視", "interconnect": "専用線・VPN"},
+   "kinds": {"interconnect": {"base": "main", "color": "#7D8998", "style_extra": "strokeWidth=2;"}},
+   "containers": [
+     {"id": "aws", "label": "AWS Cloud", "type": "aws_cloud"},
+     {"id": "vpc1", "label": "VPC", "type": "vpc", "parent": "aws"},
+     {"id": "azure", "label": "Azure Subscription", "type": "subscription"},
+     {"id": "vnet1", "label": "VNet", "type": "vnet", "parent": "azure"},
+     {"id": "gcp", "label": "GCP Project", "type": "project"},
+     {"id": "gvpc", "label": "VPC Network", "type": "gcp_vpc", "parent": "gcp"}
+   ],
+   "nodes": [
+     {"id": "users", "label": "ユーザー", "icon": "users", "col": 0, "row": 1},
+     {"id": "r53", "label": "Route 53", "icon": "route_53", "parent": "aws", "col": 1, "row": 0},
+     {"id": "alb", "label": "ALB", "icon": "application_load_balancer", "parent": "vpc1", "col": 1, "row": 1},
+     {"id": "ecs", "label": "本番アプリ", "icon": "ecs", "parent": "vpc1", "col": 2, "row": 1},
+     {"id": "rds", "label": "Aurora", "icon": "aurora", "parent": "vpc1", "col": 2, "row": 2},
+     {"id": "dx", "label": "Direct Connect", "icon": "direct_connect", "parent": "aws", "col": 3, "row": 1},
+     {"id": "er", "label": "ExpressRoute", "icon": "azure:expressroute_circuits", "parent": "azure", "col": 4, "row": 1},
+     {"id": "aks", "label": "社内基幹 (AKS)", "icon": "azure:kubernetes_services", "parent": "vnet1", "col": 5, "row": 1},
+     {"id": "asql", "label": "SQL Database", "icon": "azure:sql_database", "parent": "azure", "col": 5, "row": 2},
+     {"id": "aad", "label": "Entra ID", "icon": "azure:azure_active_directory", "parent": "azure", "col": 4, "row": 0},
+     {"id": "gci", "label": "Cloud Interconnect", "icon": "gcp:networking", "parent": "gcp", "col": 6, "row": 1},
+     {"id": "bq", "label": "BigQuery", "icon": "gcp:bigquery", "parent": "gcp", "col": 7, "row": 0},
+     {"id": "gke", "label": "分析基盤 (GKE)", "icon": "gcp:gke", "parent": "gvpc", "col": 7, "row": 1},
+     {"id": "gcs", "label": "Cloud Storage", "icon": "gcp:cloud_storage", "parent": "gcp", "col": 7, "row": 2}
+   ],
+   "edges": [
+     {"id": "e1", "src": "users", "dst": "alb", "kind": "main", "label": "HTTPS"},
+     {"id": "e2", "src": "users", "dst": "r53", "kind": "sub", "label": "DNS"},
+     {"id": "e3", "src": "alb", "dst": "ecs", "kind": "main"},
+     {"id": "e4", "src": "ecs", "dst": "rds", "kind": "main"},
+     {"id": "e5", "src": "ecs", "dst": "dx", "kind": "main", "label": "基幹連携"},
+     {"id": "e6", "src": "dx", "dst": "er", "kind": "interconnect", "label": "専用線"},
+     {"id": "e7", "src": "er", "dst": "aks", "kind": "main"},
+     {"id": "e8", "src": "aks", "dst": "asql", "kind": "main"},
+     {"id": "e9", "src": "aks", "dst": "aad", "kind": "ops", "label": "認証"},
+     {"id": "e10", "src": "er", "dst": "gci", "kind": "interconnect", "label": "クラウド間 VPN"},
+     {"id": "e11", "src": "gci", "dst": "gke", "kind": "main"},
+     {"id": "e12", "src": "gke", "dst": "bq", "kind": "sub", "label": "分析クエリ"},
+     {"id": "e13", "src": "rds", "dst": "gcs", "kind": "sub", "label": "データ連携"},
+     {"id": "e14", "src": "gke", "dst": "gcs", "kind": "sub"}
+   ]
+  }
+ ]
+}

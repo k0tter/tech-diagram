@@ -1,0 +1,15 @@
+{
+  "name": "r7-er-cardinality",
+  "meta": {"purpose": "R7 B endpoint-specific ER cardinality regression"},
+  "legend": {"er_01n": "nullable FK", "er_11n": "required FK"},
+  "nodes": [
+    {"id": "team", "shape": "entity", "title": "teams", "rows": ["PK id"], "col": 0, "row": 0},
+    {"id": "project", "shape": "entity", "title": "projects", "rows": ["FK team_id"], "col": 1, "row": 0},
+    {"id": "account", "shape": "entity", "title": "accounts", "rows": ["PK id"], "col": 0, "row": 1},
+    {"id": "member", "shape": "entity", "title": "members", "rows": ["FK account_id"], "col": 1, "row": 1}
+  ],
+  "edges": [
+    {"id": "nullable", "src": "team", "dst": "project", "kind": "er_01n"},
+    {"id": "required", "src": "account", "dst": "member", "kind": "er_11n"}
+  ]
+}

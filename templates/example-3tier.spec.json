@@ -1,0 +1,48 @@
+{
+ "name": "Multi-AZ 3層構成",
+ "containers": [
+   {"id": "cloud", "label": "AWS Cloud", "type": "aws_cloud"},
+   {"id": "region", "label": "リージョン (ap-northeast-1)", "type": "region", "parent": "cloud"},
+   {"id": "vpc", "label": "VPC", "type": "vpc", "parent": "region"},
+   {"id": "az1", "label": "Availability Zone A", "type": "az", "parent": "vpc"},
+   {"id": "az1_pub", "label": "Public subnet", "type": "public_subnet", "parent": "az1"},
+   {"id": "az1_app", "label": "Private subnet (App)", "type": "private_subnet", "parent": "az1"},
+   {"id": "az1_db", "label": "Private subnet (DB)", "type": "private_subnet", "parent": "az1"},
+   {"id": "az2", "label": "Availability Zone C", "type": "az", "parent": "vpc"},
+   {"id": "az2_pub", "label": "Public subnet", "type": "public_subnet", "parent": "az2"},
+   {"id": "az2_app", "label": "Private subnet (App)", "type": "private_subnet", "parent": "az2"},
+   {"id": "az2_db", "label": "Private subnet (DB)", "type": "private_subnet", "parent": "az2"}
+ ],
+ "nodes": [
+   {"id": "users", "label": "ユーザー", "icon": "users", "col": 0, "row": 2},
+   {"id": "r53", "label": "Route 53", "icon": "route_53", "parent": "cloud", "col": 1, "row": 0},
+   {"id": "waf", "label": "AWS WAF", "icon": "waf", "parent": "cloud", "col": 1, "row": 1},
+   {"id": "cf", "label": "CloudFront", "icon": "cloudfront", "parent": "cloud", "col": 1, "row": 2},
+   {"id": "igw", "label": "Internet Gateway", "icon": "internet_gateway", "parent": "vpc", "col": 2, "row": 2},
+   {"id": "alb", "label": "ALB", "icon": "application_load_balancer", "parent": "vpc", "col": 3, "row": 2},
+   {"id": "nat1", "label": "NAT Gateway", "icon": "nat_gateway", "parent": "az1_pub", "col": 4, "row": 1},
+   {"id": "ec2a", "label": "EC2 アプリサーバー", "icon": "ec2", "parent": "az1_app", "col": 5, "row": 1},
+   {"id": "rds1", "label": "RDS (プライマリ)", "icon": "rds", "parent": "az1_db", "col": 6, "row": 1},
+   {"id": "nat2", "label": "NAT Gateway", "icon": "nat_gateway", "parent": "az2_pub", "col": 4, "row": 3},
+   {"id": "ec2b", "label": "EC2 アプリサーバー", "icon": "ec2", "parent": "az2_app", "col": 5, "row": 3},
+   {"id": "rds2", "label": "RDS (スタンバイ)", "icon": "rds", "parent": "az2_db", "col": 6, "row": 3},
+   {"id": "s3", "label": "S3 (静的アセット)", "icon": "s3", "parent": "region", "col": 2, "row": 4},
+   {"id": "cw", "label": "CloudWatch", "icon": "cloudwatch_2", "parent": "region", "col": 3, "row": 4}
+ ],
+ "edges": [
+   {"id": "e_dns", "src": "users", "dst": "r53", "kind": "sub", "label": "DNS 解決"},
+   {"id": "e_https", "src": "users", "dst": "cf", "kind": "main", "label": "HTTPS"},
+   {"id": "e_waf", "src": "waf", "dst": "cf", "kind": "sub"},
+   {"id": "e_dyn", "src": "cf", "dst": "igw", "kind": "main", "label": "動的コンテンツ"},
+   {"id": "e_alb", "src": "igw", "dst": "alb", "kind": "main"},
+   {"id": "e_ec2a", "src": "alb", "dst": "ec2a", "kind": "main"},
+   {"id": "e_ec2b", "src": "alb", "dst": "ec2b", "kind": "main"},
+   {"id": "e_sqla", "src": "ec2a", "dst": "rds1", "kind": "main", "label": "SQL"},
+   {"id": "e_sqlb", "src": "ec2b", "dst": "rds1", "kind": "main"},
+   {"id": "e_repl", "src": "rds1", "dst": "rds2", "kind": "sub", "label": "同期レプリケーション"},
+   {"id": "e_s3", "src": "cf", "dst": "s3", "kind": "main", "label": "静的コンテンツ"},
+   {"id": "e_cw", "src": "vpc", "dst": "cw", "kind": "sub", "label": "ログ/メトリクス"}
+ ],
+ "meta": {"updated": "2026-07-09", "purpose": "Web 3 層構成の標準形", "audience": "開発チーム", "scope": "単一リージョン・Multi-AZ の本番構成", "abstraction": "概要", "assumptions": "標準的な 3 層構成の見本"},
+ "legend": {"main": "主フロー(同期)", "sub": "補助・非同期"}
+}
