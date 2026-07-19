@@ -14,7 +14,8 @@
                           [--optimize [秒]] [--emit-svg] [--route-cache]
 
   --emit-svg  : 簡易プレビュー SVG も出力(アイコンは色矩形代用。draw.io CLI が
-                ない環境での目視確認用。複数タブは <out>.<タブ名>.svg)
+                ない環境での目視確認用。複数タブは
+                <out>.<01からの連番>-<安全化したタブ名>.svg)
   --emit-png  : 目視確認用 PNG を出力。draw.io CLI(drawio / macOS アプリ)を
                 自動検出して実描画 PNG を書き出す(公式アイコン込み)。CLI が
                 なければ --emit-svg と同じ SVG にフォールバックして通知する
@@ -28,7 +29,8 @@
                 エンジン改善で無関係なエッジが黙って動くのを防ぐ)。キャッシュは
                 このフラグで作成され、以後はファイルが存在する限り読み書きされる
                 (無効化はファイル削除)。ノード/エッジ集合(id・src/dst・col/row・
-                コンテナ構成)が変わるとタブ単位で自動無効化される
+                コンテナ構成)が変わるとタブ単位で自動無効化される。タブの対応は
+                名前で追跡し、名前が重複する場合は誤流用せず無効化する
   col/row が全ノードで未指定なら、エッジの流れから自動配置する(ドラフト品質)。
   このとき --optimize なしの通常ビルドでも、確定した col/row を入力スペックへ
   書き戻す(整形・キー順は dump_spec の形式に揃う)
@@ -5078,6 +5080,24 @@ def check_abs_basics(spec: dict) -> None:
                 if "text" in item and not ("x" in item and "y" in item):
                     die(f"node '{iid}': text ノードには x/y が必要です")
 
+    endpoint_ids = {
+        item.get("id")
+        for kindname in ("nodes", "containers")
+        for item in (spec.get(kindname) or [])
+    }
+    for edge in spec.get("edges") or []:
+        for term in ("src", "dst"):
+            endpoint = edge.get(term)
+            if endpoint is None and f"{term}_at" in edge:
+                # 固定座標端点(src_at/dst_at。--emit-abs の凡例 _lg_e* 等)は
+                # 図形参照を持たないのが正
+                continue
+            if not isinstance(endpoint, str):
+                die(f"edge '{edge['id']}' に {term} がありません")
+            if endpoint not in endpoint_ids:
+                die(f"edge '{edge['id']}' の {term} '{endpoint}' が "
+                    "nodes/containers にありません")
+
 
 def check_structure(spec: dict) -> None:
     """nodes/containers/edges の器(null・非配列・非 dict 要素)を検証して即時 die。
@@ -5548,11 +5568,16 @@ def validate_spec(spec: dict) -> None:
                 err(f"kinds '{kname}': color '{color}' は #RRGGBB 形式で")
 
     cont_ids = {c.get("id") for c in conts if isinstance(c, dict)}
+    node_ids = {n.get("id") for n in nodes if isinstance(n, dict)}
+    endpoint_ids = cont_ids | node_ids
     # edges: src/dst 必須・自己ループ・手動配線の値域
     for e in edges:
         for k in ("src", "dst"):
             if not isinstance(e.get(k), str):
                 err(f"edge '{e['id']}' に {k} がありません")
+            elif e[k] not in endpoint_ids:
+                err(f"edge '{e['id']}' の {k} '{e[k]}' が nodes/containers に"
+                    "ありません")
         if "kind" in e and not isinstance(e["kind"], str):
             err(f"edge '{e['id']}' の kind は文字列で書いてください({e['kind']!r})")
         if e.get("src") and e.get("src") == e.get("dst") \
@@ -5892,11 +5917,19 @@ def _stretch_layout(lay: Layout, fx, fy) -> None:
 # 既存キャッシュの更新時のみ(テンプレ再生成・CI・eval の「同一 spec →
 # バイト一致」検証に、キャッシュ無しの経路が混入しない安全側の既定)。
 
-ROUTE_CACHE_VERSION = 1
+ROUTE_CACHE_VERSION = 2
 
 
 def route_cache_path(out: Path) -> Path:
     return out.with_name(out.name.removesuffix(".drawio") + ".routes.json")
+
+
+def route_cache_tab_key(spec: dict) -> str:
+    """タブ名を型込みで安定 ID 化する。タブ順は ID に含めない。"""
+    import hashlib
+    raw = json.dumps(spec.get("name"), ensure_ascii=False, sort_keys=True,
+                     separators=(",", ":"), default=str)
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 
 def routes_struct_hash(spec: dict) -> str:
@@ -5969,21 +6002,31 @@ def _decode_route(obj) -> NodeRoute | None:
     return NodeRoute(exit=ends[0], entry=ends[1], runs=runs, direct=direct)
 
 
-def seed_routes_from_cache(cache: dict | None, idx: int, spec: dict
+def seed_routes_from_cache(cache: dict | None, idx: int, spec: dict,
+                           current_keys: list[str] | None = None
                            ) -> tuple[dict[str, NodeRoute], bool] | None:
-    """キャッシュからタブ idx の初期解を復元する。
+    """キャッシュからタブ名で対応付けた初期解を復元する。
 
     構成ハッシュ不一致(ノード/エッジ集合の変更)はタブ全体を無効化する。
+    タブ名が現行 spec またはキャッシュ内で重複する場合も、安全側に無効化する。
+    これによりタブの挿入・削除・並べ替えで別タブの経路を混入させない。
     壊れたエッジ項目は個別にスキップする(残りの慣性は生かす)。
     返り値: (シード, 前回ビルドの等化適用フラグ)。等化フラグは grid_to_abs が
     照合する — 等化ロールバック(R4-6)で非等化になったタブのシードを
     等化レイアウトに注入すると、ロールバック判定が変わり再ビルドが
     非冪等になるため(実測: multiaccount CI/CD タブ)。
     """
-    if cache is None or not 0 <= idx < len(cache["tabs"]):
+    if cache is None or not 0 <= idx:
         return None
-    tab = cache["tabs"][idx]
-    if not isinstance(tab, dict) or tab.get("hash") != routes_struct_hash(spec):
+    key = route_cache_tab_key(spec)
+    if current_keys is not None and current_keys.count(key) != 1:
+        return None
+    matches = [tab for tab in cache["tabs"]
+               if isinstance(tab, dict) and tab.get("key") == key]
+    if len(matches) != 1:
+        return None
+    tab = matches[0]
+    if tab.get("hash") != routes_struct_hash(spec):
         return None
     edges = tab.get("edges")
     if not isinstance(edges, dict):
@@ -5996,6 +6039,23 @@ def seed_routes_from_cache(cache: dict | None, idx: int, spec: dict
     if not seeds:
         return None
     return seeds, bool(tab.get("equalized"))
+
+
+def unique_route_cache_tabs(cache: dict) -> dict[str, dict]:
+    """一意な tab key だけを O(n) で索引化する。重複 key は除外する。"""
+    indexed: dict[str, dict] = {}
+    duplicates: set[str] = set()
+    for tab in cache.get("tabs") or []:
+        if not isinstance(tab, dict) or not isinstance(tab.get("key"), str):
+            continue
+        key = tab["key"]
+        if key in indexed:
+            duplicates.add(key)
+        else:
+            indexed[key] = tab
+    for key in duplicates:
+        indexed.pop(key, None)
+    return indexed
 
 
 def encode_route_snapshot(routes: dict[str, NodeRoute]) -> dict:
@@ -7143,7 +7203,8 @@ def build_diagram(spec: dict, icons: dict, idx: int) -> str:
                 geo += (f'\n            <mxPoint x="{g0(pt[0])}" y="{g0(pt[1])}" '
                         f'as="{pname}" />')
         cells.append(
-            f'        <mxCell id="{xid(eid)}" value="{esc_label(e.get("label", ""))}" style="{esc(style)}" '
+            f'        <mxCell id="{xid(eid)}" value="{esc_label(e.get("label", ""))}" '
+            f'awsdiagKind="{esc(str(e.get("kind", "main")))}" style="{esc(style)}" '
             f'edge="1" parent="1" {term_attr}>\n'
             f'          <mxGeometry x="{gx}" relative="1" as="geometry">{geo}\n'
             f'          </mxGeometry>\n'
@@ -7601,9 +7662,7 @@ def export_png(cli: str, drawio_path: Path, diagrams: list[dict]) -> list[Path]:
     outs: list[Path] = []
     stem = drawio_path.name.removesuffix(".drawio")
     for i, d in enumerate(diagrams):
-        tab = ("" if len(diagrams) == 1
-               else "." + re.sub(r"[^\w\-]+", "_",
-                                 str(d.get("name") or f"tab{i}")))
+        tab = preview_tab_suffix(diagrams, i, d)
         png = drawio_path.with_name(f"{stem}{tab}.png")
         # drawio CLI の --page-index は 1-based(30.3.11 実測: -p 0 と -p 1 が同一出力)
         cmd = [cli, "-x", "-f", "png", "-s", "2", "-p", str(i + 1),
@@ -7619,6 +7678,16 @@ def export_png(cli: str, drawio_path: Path, diagrams: list[dict]) -> list[Path]:
         except (subprocess.TimeoutExpired, OSError) as exc:
             print(f"WARN: PNG 書き出し失敗(タブ {i}): {exc}")
     return outs
+
+
+def preview_tab_suffix(diagrams: list[dict], index: int, diagram: dict) -> str:
+    """プレビュー名の安全な suffix。連番で正規化後の衝突を防ぐ。"""
+    if len(diagrams) == 1:
+        return ""
+    slug = re.sub(r"[^\w\-]+", "_",
+                  str(diagram.get("name") or f"tab{index + 1}"))
+    slug = slug.strip("_.-")[:80].rstrip("_.-") or f"tab{index + 1}"
+    return f".{index + 1:02d}-{slug}"
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -7758,6 +7827,7 @@ def _build(args) -> int:
         if not is_grid(d):  # abs 経路は validate_spec を通らないため最小検証
             check_abs_basics(d)
     originals = list(diagrams)
+    tab_keys = [route_cache_tab_key(d) for d in originals]
 
     # R5-D: 経路キャッシュ。読みは <out>.routes.json が存在する場合のみ、
     # 書きは --route-cache 指定時か既存ファイルの更新時のみ(既定挙動は不変)
@@ -7767,9 +7837,16 @@ def _build(args) -> int:
     write_cache = args.route_cache or cache_exists
     seeds_by_tab: dict[int, tuple] = {}
     if old_cache is not None:
+        key_counts: dict[str, int] = {}
+        for key in tab_keys:
+            key_counts[key] = key_counts.get(key, 0) + 1
+        cache_tabs = unique_route_cache_tabs(old_cache)
         for i, d in enumerate(diagrams):
             if is_grid(d):
-                seeds = seed_routes_from_cache(old_cache, i, d)
+                key = tab_keys[i]
+                cached = cache_tabs.get(key) if key_counts[key] == 1 else None
+                seeds = (seed_routes_from_cache(
+                    {"tabs": [cached]}, i, d) if cached is not None else None)
                 if seeds is not None:
                     seeds_by_tab[i] = seeds
 
@@ -7790,7 +7867,8 @@ def _build(args) -> int:
         snap = d.pop("_routes_out", None)
         if write_cache:
             cache_tabs.append(None if snap is None else {
-                "name": orig.get("name"), "hash": routes_struct_hash(orig),
+                "name": orig.get("name"), "key": route_cache_tab_key(orig),
+                "hash": routes_struct_hash(orig),
                 "equalized": snap["equalized"], "edges": snap["edges"]})
     if args.emit_abs:
         abs_path = out.with_name(
@@ -7835,9 +7913,7 @@ def _build(args) -> int:
     if want_svg:
         stem = out.name.removesuffix(".drawio")
         for i, d in enumerate(diagrams):
-            tab = ("" if len(diagrams) == 1
-                   else "." + re.sub(r"[^\w\-]+", "_",
-                                     str(d.get("name") or f"tab{i}")))
+            tab = preview_tab_suffix(diagrams, i, d)
             svg_path = out.with_name(f"{stem}{tab}.svg")
             svg_path.write_text(emit_svg(d, icons), encoding="utf-8")
             print(f"SVG プレビュー: {svg_path}")

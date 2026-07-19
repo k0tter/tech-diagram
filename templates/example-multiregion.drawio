@@ -106,126 +106,126 @@
         <mxCell id="_lg_t4" value="監視" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontFamily=Arial;fontColor=#5A6C86;" vertex="1" parent="_legend">
           <mxGeometry x="95" y="205" width="32" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="e1" value="HTTPS" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="users" target="cf" >
+        <mxCell id="e1" value="HTTPS" awsdiagKind="main" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="users" target="cf" >
           <mxGeometry x="0.7405" relative="1" as="geometry">
             <Array as="points"><mxPoint x="86" y="343" /></Array>
             <mxPoint as="offset" x="0.0" y="0.0" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e2" value="DNS" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#7D8998;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=0.5;exitY=1;exitDx=0;exitDy=20;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="users" target="r53" >
+        <mxCell id="e2" value="DNS" awsdiagKind="sub" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#7D8998;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=0.5;exitY=1;exitDx=0;exitDy=20;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="users" target="r53" >
           <mxGeometry x="0.4648" relative="1" as="geometry">
             <Array as="points"><mxPoint x="86" y="951" /></Array>
             <mxPoint as="offset" x="0.0" y="0.0" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#7D8998;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.6;entryDx=0;entryDy=0;" edge="1" parent="1" source="waf" target="cf" >
+        <mxCell id="e3" value="" awsdiagKind="sub" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#7D8998;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.6;entryDx=0;entryDy=0;" edge="1" parent="1" source="waf" target="cf" >
           <mxGeometry x="0" relative="1" as="geometry">
             <Array as="points"><mxPoint x="328.6" y="773" /><mxPoint x="328.6" y="350.8" /></Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.2;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cf" target="albA" >
+        <mxCell id="e4" value="" awsdiagKind="main" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.2;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cf" target="albA" >
           <mxGeometry x="0" relative="1" as="geometry">
             <Array as="points"><mxPoint x="339.3" y="319.6" /><mxPoint x="339.3" y="595" /></Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e5" value="オリジン切替&lt;br&gt;(Route 53 failover)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#E8730C;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=1;exitY=0.4;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cf" target="albB" >
+        <mxCell id="e5" value="オリジン切替&lt;br&gt;(Route 53 failover)" awsdiagKind="failover" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#E8730C;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=1;exitY=0.4;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cf" target="albB" >
           <mxGeometry x="-0.2438" relative="1" as="geometry">
             <Array as="points"><mxPoint x="318" y="335.2" /><mxPoint x="318" y="185" /><mxPoint x="1065.2" y="185" /><mxPoint x="1065.2" y="595" /></Array>
             <mxPoint as="offset" x="0.0" y="0.0" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e6" value="静的配信" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#7D8998;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=1;exitY=0.8;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cf" target="s3A" >
+        <mxCell id="e6" value="静的配信" awsdiagKind="sub" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#7D8998;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=1;exitY=0.8;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cf" target="s3A" >
           <mxGeometry x="0.5512" relative="1" as="geometry">
             <Array as="points"><mxPoint x="318" y="366.4" /><mxPoint x="318" y="432" /><mxPoint x="198" y="432" /><mxPoint x="198" y="890" /><mxPoint x="674" y="890" /></Array>
             <mxPoint as="offset" x="0.0" y="0.0" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.35;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="albA" target="svcA1" >
+        <mxCell id="e7" value="" awsdiagKind="main" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.35;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="albA" target="svcA1" >
           <mxGeometry x="0" relative="1" as="geometry">
             <Array as="points"><mxPoint x="576" y="583.3" /><mxPoint x="576" y="343" /></Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.65;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="albA" target="svcA2" >
+        <mxCell id="e8" value="" awsdiagKind="main" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.65;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="albA" target="svcA2" >
           <mxGeometry x="0" relative="1" as="geometry">
             <Array as="points"><mxPoint x="674" y="606.7" /></Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.35;entryDx=0;entryDy=0;" edge="1" parent="1" source="svcA1" target="auroraA" >
+        <mxCell id="e9" value="" awsdiagKind="main" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.35;entryDx=0;entryDy=0;" edge="1" parent="1" source="svcA1" target="auroraA" >
           <mxGeometry x="0" relative="1" as="geometry">
             <Array as="points"><mxPoint x="772" y="343" /><mxPoint x="772" y="583.3" /></Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.65;entryDx=0;entryDy=0;" edge="1" parent="1" source="svcA2" target="auroraA" >
+        <mxCell id="e10" value="" awsdiagKind="main" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.65;entryDx=0;entryDy=0;" edge="1" parent="1" source="svcA2" target="auroraA" >
           <mxGeometry x="0" relative="1" as="geometry">
             <Array as="points"><mxPoint x="772" y="773" /><mxPoint x="772" y="606.7" /></Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e11" value="非同期レプリケーション" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#2E8B57;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=1;exitY=0.65;exitDx=0;exitDy=0;entryX=0;entryY=0.675;entryDx=0;entryDy=0;" edge="1" parent="1" source="auroraA" target="auroraB" >
+        <mxCell id="e11" value="非同期レプリケーション" awsdiagKind="repl" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#2E8B57;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=1;exitY=0.65;exitDx=0;exitDy=0;entryX=0;entryY=0.675;entryDx=0;entryDy=0;" edge="1" parent="1" source="auroraA" target="auroraB" >
           <mxGeometry x="0.1188" relative="1" as="geometry">
             <Array as="points"><mxPoint x="1079.2" y="606.7" /><mxPoint x="1079.2" y="705" /><mxPoint x="1504.1" y="705" /><mxPoint x="1504.1" y="608.6" /></Array>
             <mxPoint as="offset" x="0.0" y="0.0" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e12" value="CRR" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#2E8B57;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="s3A" target="s3B" >
+        <mxCell id="e12" value="CRR" awsdiagKind="repl" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#2E8B57;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="s3A" target="s3B" >
           <mxGeometry x="-0.0000" relative="1" as="geometry">
             <mxPoint as="offset" x="0.0" y="0.0" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="albB" target="svcB1" >
+        <mxCell id="e13" value="" awsdiagKind="main" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="albB" target="svcB1" >
           <mxGeometry x="0" relative="1" as="geometry">
           </mxGeometry>
         </mxCell>
-        <mxCell id="e14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="svcB1" target="auroraB" >
+        <mxCell id="e14" value="" awsdiagKind="main" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="svcB1" target="auroraB" >
           <mxGeometry x="0" relative="1" as="geometry">
           </mxGeometry>
         </mxCell>
-        <mxCell id="e15" value="イベント発行" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#7D8998;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=0;exitY=0.65;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="svcA2" target="eb" >
+        <mxCell id="e15" value="イベント発行" awsdiagKind="sub" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#7D8998;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=0;exitY=0.65;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="svcA2" target="eb" >
           <mxGeometry x="-0.5710" relative="1" as="geometry">
             <Array as="points"><mxPoint x="350" y="784.7" /><mxPoint x="350" y="1115" /></Array>
             <mxPoint as="offset" x="0.0" y="0.0" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#7D8998;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=0.5;exitY=1;exitDx=0;exitDy=20;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="eb" target="lam" >
+        <mxCell id="e16" value="" awsdiagKind="sub" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#7D8998;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=0.5;exitY=1;exitDx=0;exitDy=20;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="eb" target="lam" >
           <mxGeometry x="0" relative="1" as="geometry">
           </mxGeometry>
         </mxCell>
-        <mxCell id="e17" value="集計読み取り&lt;br&gt;(Replica 参照)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#7D8998;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.85;entryDx=0;entryDy=0;" edge="1" parent="1" source="lam" target="auroraB" >
+        <mxCell id="e17" value="集計読み取り&lt;br&gt;(Replica 参照)" awsdiagKind="sub" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#7D8998;strokeWidth=1.5;dashed=1;dashPattern=4 4;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.85;entryDx=0;entryDy=0;" edge="1" parent="1" source="lam" target="auroraB" >
           <mxGeometry x="-0.5498" relative="1" as="geometry">
             <Array as="points"><mxPoint x="1308.2" y="1265" /><mxPoint x="1308.2" y="1334" /><mxPoint x="1608.2" y="1334" /><mxPoint x="1608.2" y="719" /><mxPoint x="1514.1" y="719" /><mxPoint x="1514.1" y="622.3" /></Array>
             <mxPoint as="offset" x="0.0" y="0.0" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e18" value="メトリクス" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#0FA3A6;strokeWidth=1.5;dashed=1;dashPattern=1 3;exitX=1;exitY=0.8497;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vpcA" target="cw" >
+        <mxCell id="e18" value="メトリクス" awsdiagKind="obs" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#0FA3A6;strokeWidth=1.5;dashed=1;dashPattern=1 3;exitX=1;exitY=0.8497;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vpcA" target="cw" >
           <mxGeometry x="-0.5119" relative="1" as="geometry">
             <Array as="points"><mxPoint x="1494.1" y="773" /><mxPoint x="1494.1" y="1204" /><mxPoint x="1406.2" y="1204" /></Array>
             <mxPoint as="offset" x="-0.0" y="-0.0" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="_lg_e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;" edge="1" parent="1" >
+        <mxCell id="_lg_e0" value="" awsdiagKind="main" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=2;" edge="1" parent="1" >
           <mxGeometry x="0" relative="1" as="geometry">
             <mxPoint x="45" y="1431" as="sourcePoint" />
             <mxPoint x="105" y="1431" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="_lg_e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#7D8998;strokeWidth=1.5;dashed=1;dashPattern=4 4;" edge="1" parent="1" >
+        <mxCell id="_lg_e1" value="" awsdiagKind="sub" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#7D8998;strokeWidth=1.5;dashed=1;dashPattern=4 4;" edge="1" parent="1" >
           <mxGeometry x="0" relative="1" as="geometry">
             <mxPoint x="45" y="1471" as="sourcePoint" />
             <mxPoint x="105" y="1471" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="_lg_e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#2E8B57;strokeWidth=1.5;dashed=1;dashPattern=4 4;" edge="1" parent="1" >
+        <mxCell id="_lg_e2" value="" awsdiagKind="repl" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#2E8B57;strokeWidth=1.5;dashed=1;dashPattern=4 4;" edge="1" parent="1" >
           <mxGeometry x="0" relative="1" as="geometry">
             <mxPoint x="45" y="1511" as="sourcePoint" />
             <mxPoint x="105" y="1511" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="_lg_e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#E8730C;strokeWidth=1.5;dashed=1;dashPattern=4 4;" edge="1" parent="1" >
+        <mxCell id="_lg_e3" value="" awsdiagKind="failover" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#E8730C;strokeWidth=1.5;dashed=1;dashPattern=4 4;" edge="1" parent="1" >
           <mxGeometry x="0" relative="1" as="geometry">
             <mxPoint x="45" y="1551" as="sourcePoint" />
             <mxPoint x="105" y="1551" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="_lg_e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#0FA3A6;strokeWidth=1.5;dashed=1;dashPattern=1 3;" edge="1" parent="1" >
+        <mxCell id="_lg_e4" value="" awsdiagKind="obs" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#0FA3A6;strokeWidth=1.5;dashed=1;dashPattern=1 3;" edge="1" parent="1" >
           <mxGeometry x="0" relative="1" as="geometry">
             <mxPoint x="45" y="1591" as="sourcePoint" />
             <mxPoint x="105" y="1591" as="targetPoint" />

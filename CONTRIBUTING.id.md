@@ -13,10 +13,15 @@ pustaka standar Python (3.10+), jadi persiapan cukup dengan clone.
 python3 scripts/tests.py
 ```
 
-253 tes per v1.0.0 (builder / validator / mesin tata letak / tf_to_spec).
-**Jalankan sebelum dan sesudah setiap perubahan** dan jaga semuanya tetap
-lulus. Jika Anda menyentuh mesin, tambahkan tes yang sesuai di berkas yang
-sama.
+Suite memeriksa paket skill, builder, validator, mesin tata letak, dan
+tf_to_spec. **Jalankan sebelum dan sesudah setiap perubahan** dan jaga
+semuanya tetap lulus. Jika Anda menyentuh mesin, tambahkan tes yang sesuai di
+berkas yang sama. Untuk pemeriksaan cepat paket/frontmatter saat mengubah
+`SKILL.md`, jalankan:
+
+```bash
+python3 scripts/tests.py TestSkillPackage
+```
 
 ### 2. Regenerasi templat dan gerbang byte-identik
 

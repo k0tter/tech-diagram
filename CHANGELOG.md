@@ -6,6 +6,52 @@ and versioning follows [Semantic Versioning](https://semver.org/). The
 distribution zip and auto-generated notes for each version live on GitHub
 Releases.
 
+## [1.2.0] - 2026-07-19
+
+Reliability and release hardening. / 信頼性とリリース品質の強化。/
+Penguatan keandalan dan kualitas rilis.
+
+### Added
+
+- Strict Agent Skill frontmatter regression check, including parser-portable
+  JSON-compatible YAML scalars
+- Release-package builder that keeps the runtime zip minimal, rewrites links
+  to excluded public assets to version-pinned URLs, and fails on any broken
+  relative Markdown link
+- Adversarial coverage for unknown edge endpoints, non-finite/non-positive
+  geometry, unlabeled failover semantics, parallel-edge preservation,
+  colliding preview names and reordered route-cache tabs
+
+### Changed
+
+- Generated edges now persist their semantic kind in `awsdiagKind`, allowing
+  W16 failover validation without relying on human-readable labels
+- Route cache v2 follows a unique tab-name key instead of the numeric tab
+  position; ambiguous duplicate names disable reuse rather than mixing routes
+- Multi-tab PNG/SVG previews use an indexed filename
+  (`.01-<sanitized-tab-name>`) so normalized names cannot overwrite each other
+- The public semantic false-positive sweep is now fully reproducible from the
+  10 bundled templates and 5 reference specs; machine-local paths and stale
+  test-count claims were removed from public eval documentation
+
+### Fixed
+
+- Validator now rejects NaN/infinite coordinates, non-positive vertex sizes,
+  invalid waypoints and invalid edge-entry/exit numeric style values as E12
+- `--graph-superset` now preserves parallel-edge multiplicity instead of
+  collapsing graph lines into a set
+- Edge references to missing nodes or containers fail at the input boundary
+  with actionable messages instead of reaching layout internals
+- Release zip no longer contains broken README language, gallery or eval links
+
+### Release hardening
+
+- Tag releases now require a stable `vX.Y.Z` tag contained in `main`, a matching
+  CHANGELOG entry, and a successful `main` push CI run for the exact commit
+- Release creation verifies that the remote tag already exists and remains
+  compatible with GitHub immutable releases while retaining checksums and
+  build-provenance attestations
+
 ## [1.1.0] - 2026-07-19
 
 Architectural-placement correctness. / 配置のアーキテクチャ的正しさ。/

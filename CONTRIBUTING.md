@@ -13,9 +13,14 @@ standard library (3.10+), so setup is just a clone.
 python3 scripts/tests.py
 ```
 
-253 tests as of v1.0.0 (builder / validator / layout engine / tf_to_spec).
-**Run before and after every change** and keep everything green. When you
-touch an engine, add matching tests to the same file.
+The suite covers the skill package, builder, validator, layout engine and
+tf_to_spec. **Run it before and after every change** and keep everything
+green. When you touch an engine, add matching tests to the same file. For a
+fast package/frontmatter check while editing `SKILL.md`, run:
+
+```bash
+python3 scripts/tests.py TestSkillPackage
+```
 
 ### 2. Template regeneration and the byte-identical gate
 

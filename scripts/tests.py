@@ -33,6 +33,9 @@ sys.path.insert(0, str(HERE))
 from _common import seg_cross  # noqa: E402
 import build_drawio as B  # noqa: E402
 
+sys.path.insert(0, str(ROOT / "tools"))
+import prepare_release as P  # noqa: E402
+
 
 def run_build(spec_path: Path, *extra: str,
               cwd: Path | None = None) -> subprocess.CompletedProcess:
@@ -60,6 +63,131 @@ def base_spec(**over):
          "edges": [{"id": "e1", "src": "a", "dst": "b", "kind": "main"}]}
     s.update(over)
     return s
+
+
+class TestSkillPackage(unittest.TestCase):
+    def test_frontmatter_uses_strict_yaml_subset(self):
+        """YAML 実装差で skill discovery が壊れない JSON 互換 scalar に固定。"""
+        text = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        parts = text.split("---", 2)
+        self.assertEqual(parts[0], "", "SKILL.md は YAML frontmatter で始める")
+        self.assertEqual(len(parts), 3, "SKILL.md の frontmatter 区切りが不正")
+        fields = {}
+        for line in parts[1].strip().splitlines():
+            key, sep, value = line.partition(":")
+            self.assertEqual(sep, ":", f"frontmatter の行が不正: {line!r}")
+            self.assertNotIn(key, fields, f"frontmatter key が重複: {key}")
+            fields[key] = json.loads(value.strip())
+        self.assertEqual(set(fields), {"name", "description"})
+        self.assertEqual(fields["name"], "tech-diagram")
+        self.assertTrue(fields["description"].strip())
+
+
+class TestReleasePackage(unittest.TestCase):
+    @staticmethod
+    def _minimal_source(root: Path) -> Path:
+        source = root / "source"
+        source.mkdir()
+        for name in P.FILES:
+            (source / name).write_text(f"# {name}\n", encoding="utf-8")
+        for name in P.DIRS:
+            directory = source / name
+            directory.mkdir()
+            (directory / "included.txt").write_text(name, encoding="utf-8")
+        return source
+
+    def test_minimal_package_has_no_broken_relative_links(self):
+        with tempfile.TemporaryDirectory() as td:
+            output = Path(td) / "tech-diagram"
+            P.prepare(ROOT, output, "v9.9.9", "example/tech-diagram")
+            self.assertEqual(P.check_markdown_links(output), [])
+            self.assertTrue((output / "README.ja.md").is_file())
+            self.assertTrue((output / "templates" / "example-3tier.drawio").is_file())
+            self.assertFalse((output / "scripts" / "tests.py").exists())
+            self.assertFalse((output / "evals").exists())
+            readme = (output / "README.md").read_text(encoding="utf-8")
+            self.assertIn(
+                "https://raw.githubusercontent.com/example/tech-diagram/"
+                "v9.9.9/docs/images/samples/03-ecs-multiaz.png", readme)
+            self.assertNotIn("](docs/images/", readme)
+            self.assertIn(
+                "https://github.com/example/tech-diagram/blob/"
+                "v9.9.9/evals/README.md", readme)
+
+    def test_package_rejects_unsafe_inputs(self):
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            existing = tmp / "existing"
+            existing.mkdir()
+            with self.assertRaises(P.PackageError):
+                P.prepare(ROOT, existing, "v9.9.9", "example/repo")
+            with self.assertRaises(P.PackageError):
+                P.prepare(ROOT, tmp / "bad-ref", "main", "example/repo")
+            with self.assertRaises(P.PackageError):
+                P.prepare(ROOT, tmp / "bad-repo", "v1.0.0", "not a repo")
+
+    def test_package_rejects_fixed_directory_root_symlinks(self):
+        for directory in P.DIRS:
+            with self.subTest(directory=directory), tempfile.TemporaryDirectory() as td:
+                tmp = Path(td)
+                source = self._minimal_source(tmp)
+                outside = tmp / "outside"
+                outside.mkdir()
+                (outside / "OUTSIDE_ROOT_MARKER.txt").write_text(
+                    "must not ship", encoding="utf-8")
+                shutil.rmtree(source / directory)
+                (source / directory).symlink_to(outside, target_is_directory=True)
+                with self.assertRaisesRegex(P.PackageError, "symlink"):
+                    P.prepare(source, tmp / "package", "v1.2.0", "example/repo")
+
+    def test_package_rejects_nested_symlink_and_invalid_fixed_roots(self):
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            source = self._minimal_source(tmp)
+            outside = tmp / "outside.txt"
+            outside.write_text("must not ship", encoding="utf-8")
+            (source / "references" / "nested-link.txt").symlink_to(outside)
+            with self.assertRaisesRegex(P.PackageError, "symlink"):
+                P.prepare(source, tmp / "nested", "v1.2.0", "example/repo")
+
+        for state in ("missing", "file"):
+            with self.subTest(state=state), tempfile.TemporaryDirectory() as td:
+                tmp = Path(td)
+                source = self._minimal_source(tmp)
+                shutil.rmtree(source / "templates")
+                if state == "file":
+                    (source / "templates").write_text("not a directory", encoding="utf-8")
+                with self.assertRaisesRegex(P.PackageError, "必須ディレクトリ"):
+                    P.prepare(source, tmp / "package", "v1.2.0", "example/repo")
+
+    def test_minimal_package_accepts_regular_files_and_directories(self):
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            source = self._minimal_source(tmp)
+            output = tmp / "package"
+            P.prepare(source, output, "v1.2.0", "example/repo")
+            self.assertTrue((output / "references" / "included.txt").is_file())
+
+    def test_release_gate_requires_successful_main_push_for_exact_sha(self):
+        workflow = (ROOT / ".github" / "workflows" / "release.yml").read_text(
+            encoding="utf-8")
+        self.assertIn("head_sha=${GITHUB_SHA}", workflow)
+        self.assertIn('.event == "push"', workflow)
+        self.assertIn('.head_branch == "main"', workflow)
+        self.assertIn('.conclusion == "success"', workflow)
+
+
+class TestSpecEndpointValidation(unittest.TestCase):
+    def test_unknown_edge_endpoints_are_rejected_at_input_boundary(self):
+        spec = base_spec(edges=[
+            {"id": "from_missing", "src": "ghost_src", "dst": "b"},
+            {"id": "to_missing", "src": "a", "dst": "ghost_dst"},
+        ])
+        with self.assertRaises(B.SpecError) as cm:
+            B.validate_spec(spec)
+        message = str(cm.exception)
+        self.assertIn("edge 'from_missing' の src 'ghost_src'", message)
+        self.assertIn("edge 'to_missing' の dst 'ghost_dst'", message)
 
 
 # (名前, スペック(dict or 生テキスト), 期待 rc)
@@ -95,6 +223,10 @@ ADVERSARIAL: list[tuple[str, object, int]] = [
         {"id": "c2", "type": "vpc", "parent": "c1"}]), 2),
     ("self-loop-node", base_spec(edges=[{"id": "e1", "src": "a", "dst": "a"}]), 0),
     ("edge-no-src", base_spec(edges=[{"id": "e1", "dst": "b"}]), 2),
+    ("edge-unknown-src", base_spec(edges=[
+        {"id": "e1", "src": "ghost", "dst": "b"}]), 2),
+    ("edge-unknown-dst", base_spec(edges=[
+        {"id": "e1", "src": "a", "dst": "ghost"}]), 2),
     ("unknown-kind", base_spec(edges=[
         {"id": "e1", "src": "a", "dst": "b", "kind": "replication"}]), 2),
     ("bad-kind-color", base_spec(
@@ -268,6 +400,149 @@ class TestValidatorAdversarial(unittest.TestCase):
             self.assertIn("E10", r.stdout, "重複 id が E10 で報告されない")
         finally:
             os.unlink(p)
+
+    def test_non_finite_and_non_positive_geometry(self):
+        cases = {
+            "nan-x": '<mxGeometry x="NaN" y="0" width="78" height="78" as="geometry"/>',
+            "inf-point": ('<mxGeometry relative="1" as="geometry">'
+                          '<mxPoint x="Infinity" y="10" as="sourcePoint"/>'
+                          '<mxPoint x="100" y="10" as="targetPoint"/>'
+                          '</mxGeometry>'),
+            "zero-width": '<mxGeometry x="0" y="0" width="0" height="78" as="geometry"/>',
+            "negative-height": '<mxGeometry x="0" y="0" width="78" height="-1" as="geometry"/>',
+        }
+        for label, geometry in cases.items():
+            is_edge = label == "inf-point"
+            attrs = ('edge="1"' if is_edge else
+                     'vertex="1" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;"')
+            xml = ("<mxfile><diagram><mxGraphModel><root>"
+                   '<mxCell id="0"/><mxCell id="1" parent="0"/>'
+                   f'<mxCell id="bad" parent="1" {attrs}>{geometry}</mxCell>'
+                   "</root></mxGraphModel></diagram></mxfile>")
+            with self.subTest(case=label), tempfile.NamedTemporaryFile(
+                    "w", suffix=".drawio", delete=False) as f:
+                f.write(xml)
+                p = f.name
+            try:
+                r = self.run_validator(p)
+                self.check(r, (1,), label)
+                self.assertIn("E12", r.stdout, r.stdout + r.stderr)
+            finally:
+                os.unlink(p)
+
+
+class TestGraphSuperset(unittest.TestCase):
+    @staticmethod
+    def _multi_tab_xml(tabs):
+        diagrams = []
+        for index, (name, node_id) in enumerate(tabs):
+            diagrams.append(
+                f'<diagram id="d{index}" name="{name}"><mxGraphModel><root>'
+                '<mxCell id="0"/><mxCell id="1" parent="0"/>'
+                f'<mxCell id="{node_id}" value="{node_id}" vertex="1" parent="1">'
+                '<mxGeometry x="0" y="0" width="80" height="40" '
+                'as="geometry"/></mxCell>'
+                '</root></mxGraphModel></diagram>')
+        return "<mxfile>" + "".join(diagrams) + "</mxfile>"
+
+    def test_parallel_edge_multiplicity_is_preserved(self):
+        def xml(edge_ids):
+            edges = "".join(
+                f'<mxCell id="{eid}" value="same" awsdiagKind="main" '
+                'style="edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" '
+                'source="a" target="b"><mxGeometry relative="1" '
+                'as="geometry"/></mxCell>' for eid in edge_ids)
+            return ("<mxfile><diagram><mxGraphModel><root>"
+                    '<mxCell id="0"/><mxCell id="1" parent="0"/>'
+                    '<mxCell id="a" value="A" vertex="1" parent="1">'
+                    '<mxGeometry x="0" y="0" width="80" height="40" '
+                    'as="geometry"/></mxCell>'
+                    '<mxCell id="b" value="B" vertex="1" parent="1">'
+                    '<mxGeometry x="200" y="0" width="80" height="40" '
+                    'as="geometry"/></mxCell>' + edges +
+                    "</root></mxGraphModel></diagram></mxfile>")
+
+        with tempfile.TemporaryDirectory() as td:
+            base = Path(td) / "base.drawio"
+            current = Path(td) / "current.drawio"
+            base.write_text(xml(("e1", "e2")), encoding="utf-8")
+            current.write_text(xml(("e1",)), encoding="utf-8")
+            r = subprocess.run(
+                [sys.executable, str(ROOT / "evals" / "check_diagram.py"),
+                 str(current), "--graph-superset", str(base), "--json"],
+                capture_output=True, text=True, timeout=15)
+        self.assertEqual(r.returncode, 1, r.stdout + r.stderr)
+        result = json.loads(r.stdout)
+        guard = next(c for c in result["checks"] if "1:1 保持" in c["name"])
+        self.assertFalse(guard["pass"])
+        self.assertIn("edge\\ta->b\\tsame", guard["detail"])
+
+    def test_graph_superset_preserves_tab_membership(self):
+        sys.path.insert(0, str(ROOT / "evals"))
+        import check_diagram as C
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            base = tmp / "base.drawio"
+            current = tmp / "current.drawio"
+            base.write_text(self._multi_tab_xml((("A", "a"), ("B", "b"))),
+                            encoding="utf-8")
+            current.write_text(self._multi_tab_xml((("A", "b"), ("B", "a"))),
+                               encoding="utf-8")
+            self.assertNotEqual(C.graph_lines(base), C.graph_lines(current))
+            self.assertTrue(C.graph_lines(base) - C.graph_lines(current))
+
+    def test_duplicate_and_string_equivalent_tab_names_fall_back_to_index(self):
+        sys.path.insert(0, str(ROOT / "evals"))
+        import check_diagram as C
+        cases = (
+            (("dup", "dup"), ("dup", "dup")),
+            (("42", "42"), (42, "42")),
+        )
+        for draw_names, spec_names in cases:
+            with self.subTest(draw_names=draw_names, spec_names=spec_names), \
+                    tempfile.TemporaryDirectory() as td:
+                tmp = Path(td)
+                drawio = tmp / "tabs.drawio"
+                spec = tmp / "tabs.spec.json"
+                drawio.write_text(self._multi_tab_xml(
+                    tuple((name, f"n{i}") for i, name in enumerate(draw_names))),
+                    encoding="utf-8")
+                spec.write_text(json.dumps({"diagrams": [
+                    {"name": name, "marker": i, "nodes": [], "edges": []}
+                    for i, name in enumerate(spec_names)]}), encoding="utf-8")
+                mapped = C._tabs_with_spec(drawio, spec)
+                self.assertEqual([row[-1]["marker"] for row in mapped], [0, 1])
+
+
+class TestRouterSweepInputs(unittest.TestCase):
+    @staticmethod
+    def _module():
+        import importlib.util
+        path = ROOT / "evals" / "files" / "router-regression" / "verify.py"
+        spec = importlib.util.spec_from_file_location("router_verify_test", path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return module
+
+    def test_sweep_rejects_symlink_fifo_huge_and_malformed_files(self):
+        module = self._module()
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            extra = tmp / "extra"
+            refs = tmp / "refs"
+            extra.mkdir()
+            refs.mkdir()
+            module.SWEEP_DIRS = ()
+            module.REFARCH = refs
+            (extra / "link.drawio").symlink_to(
+                ROOT / "templates" / "example-3tier.drawio")
+            if hasattr(os, "mkfifo"):
+                os.mkfifo(extra / "pipe.drawio")
+            with (extra / "huge.drawio").open("wb") as f:
+                f.truncate(module.SWEEP_MAX_BYTES + 1)
+            (extra / "malformed.drawio").write_text("not xml", encoding="utf-8")
+            self.assertFalse(module.sem_sweep(
+                BUILD, tmp, (("extra", extra),)))
 
 
 class TestValidatorW4W10(unittest.TestCase):
@@ -597,6 +872,20 @@ class TestSemanticAntipatterns(unittest.TestCase):
             rv = self.run_validator_on_file(Path(td) / "w16bad.spec.out.drawio")
             self.assertEqual(rv.returncode, 0, rv.stdout + rv.stderr)
             self.assertIn("W16", rv.stdout, "バリデータ W16 が出ない")
+
+    def test_w16_kind_survives_without_label(self):
+        spec = self.dr_spec("r53")
+        del spec["edges"][-1]["label"]
+        with tempfile.TemporaryDirectory() as td:
+            r = build_spec(spec, Path(td), "w16-unlabeled")
+            self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+            self.assertIn("WARN: W16", r.stdout, "ビルド段 W16 が出ない")
+            out = Path(td) / "w16-unlabeled.spec.out.drawio"
+            self.assertIn('awsdiagKind="failover"', out.read_text(encoding="utf-8"))
+            rv = self.run_validator_on_file(out)
+            self.assertIn("W16", rv.stdout, "kind が validator まで保持されない")
+            self.assertIn("1 warning(s)", r.stdout,
+                          "CI の 0e0w gate が W16 を見逃す")
 
     def test_w16_symmetric_origin_switch_ok(self):
         # 正しい形: cf→ALB(DR) のオリジン切替(エッジスタック共通)
@@ -1013,6 +1302,29 @@ class TestAbsAndPageGuards(unittest.TestCase):
             self.assertEqual(r.returncode, 2, r.stdout + r.stderr)
             self.assertIn("id に使えない文字", r.stdout + r.stderr)
 
+    def test_abs_unknown_edge_endpoints_are_rejected_without_validate(self):
+        for term in ("src", "dst"):
+            spec = self._abs_node()
+            spec["nodes"].append(
+                {"id": "b", "icon": "s3", "cx": 200, "cy": 40})
+            edge = {"id": "e", "src": "a", "dst": "b", "kind": "main"}
+            edge[term] = "ghost"
+            spec["edges"] = [edge]
+            with self.subTest(term=term), tempfile.TemporaryDirectory() as td:
+                r = build_spec(spec, Path(td), f"abs_unknown_{term}",
+                               "--no-validate")
+                self.assertEqual(r.returncode, 2, r.stdout + r.stderr)
+                self.assertIn("nodes/containers にありません", r.stdout + r.stderr)
+
+    def test_abs_fixed_point_edges_without_src_dst_are_allowed(self):
+        """src_at/dst_at 固定座標エッジ(--emit-abs の凡例形)は src/dst 不要。"""
+        spec = self._abs_node()
+        spec["edges"] = [{"id": "e_free", "kind": "main",
+                          "src_at": [10, 100], "dst_at": [70, 100]}]
+        with tempfile.TemporaryDirectory() as td:
+            r = build_spec(spec, Path(td), "abs_fixed_point", "--no-validate")
+            self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+
     def test_abs_internal_ids_still_allowed(self):
         """--emit-abs 出力の _meta 等(先頭アンダースコア)は弾かない。"""
         spec = {"name": "t", "nodes": [
@@ -1107,6 +1419,25 @@ class TestAbsAndPageGuards(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             r = build_spec(spec, Path(td), "svgname", "--emit-svg")
             self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+
+    def test_emit_svg_colliding_tab_names_do_not_overwrite(self):
+        """ファイル名へ正規化すると同名になるタブも別々に出力する。"""
+        spec = {"diagrams": [
+            {"name": "A/B", "meta": {"purpose": "first"},
+             "nodes": [{"id": "a", "label": "First", "icon": "ec2",
+                        "col": 0, "row": 0}]},
+            {"name": "A?B", "meta": {"purpose": "second"},
+             "nodes": [{"id": "b", "label": "Second", "icon": "s3",
+                        "col": 0, "row": 0}]}]}
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            r = build_spec(spec, tmp, "svg-collision", "--emit-svg")
+            self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+            first = tmp / "svg-collision.spec.out.01-A_B.svg"
+            second = tmp / "svg-collision.spec.out.02-A_B.svg"
+            self.assertTrue(first.exists(), sorted(p.name for p in tmp.iterdir()))
+            self.assertTrue(second.exists(), sorted(p.name for p in tmp.iterdir()))
+            self.assertNotEqual(first.read_bytes(), second.read_bytes())
 
 
 class TestEntityDiagram(unittest.TestCase):
@@ -5181,7 +5512,9 @@ class TestRouteInertia(unittest.TestCase):
         route = {"exit": ["R", 0.5], "entry": ["L", 0.5],
                  "runs": [["h", 100.0]], "direct": True}
         cache = {"version": B.ROUTE_CACHE_VERSION,
-                 "tabs": [{"hash": h0, "equalized": False,
+                 "tabs": [{"name": self.SPEC["name"],
+                           "key": B.route_cache_tab_key(self.SPEC),
+                           "hash": h0, "equalized": False,
                            "edges": {"e3": route}}]}
         got = B.seed_routes_from_cache(cache, 0, self.SPEC)
         self.assertIsNotNone(got)
@@ -5191,7 +5524,39 @@ class TestRouteInertia(unittest.TestCase):
         added = json.loads(json.dumps(self.SPEC))
         added["nodes"].append({"id": "n9", "icon": "ec2", "col": 4, "row": 1})
         self.assertIsNone(B.seed_routes_from_cache(cache, 0, added))
-        self.assertIsNone(B.seed_routes_from_cache(cache, 1, self.SPEC))
+        self.assertIsNone(B.seed_routes_from_cache(cache, -1, self.SPEC))
+
+    def test_cache_follows_unique_tab_name_after_reorder(self):
+        """同一構造のタブを並べ替えても、index で別タブの経路を流用しない。"""
+        a = json.loads(json.dumps(self.SPEC))
+        b = json.loads(json.dumps(self.SPEC))
+        a["name"], b["name"] = "A", "B"
+        h = B.routes_struct_hash(a)
+
+        def encoded(coord):
+            return {"exit": ["R", 0.5], "entry": ["L", 0.5],
+                    "runs": [["h", coord]], "direct": True}
+
+        cache = {"version": B.ROUTE_CACHE_VERSION, "tabs": [
+            {"name": "A", "key": B.route_cache_tab_key(a), "hash": h,
+             "equalized": False, "edges": {"e3": encoded(100.0)}},
+            {"name": "B", "key": B.route_cache_tab_key(b), "hash": h,
+             "equalized": False, "edges": {"e3": encoded(200.0)}}]}
+        keys = [B.route_cache_tab_key(b), B.route_cache_tab_key(a)]
+        got_b = B.seed_routes_from_cache(cache, 0, b, keys)
+        got_a = B.seed_routes_from_cache(cache, 1, a, keys)
+        self.assertEqual(got_b[0]["e3"].runs[0].coord, 200.0)
+        self.assertEqual(got_a[0]["e3"].runs[0].coord, 100.0)
+
+        # current 側で名前が重複した場合は曖昧なので安全側に無効化する。
+        dup = [B.route_cache_tab_key(a), B.route_cache_tab_key(a)]
+        self.assertIsNone(B.seed_routes_from_cache(cache, 0, a, dup))
+
+        duplicate_cache = {"tabs": [cache["tabs"][0], cache["tabs"][0],
+                                     cache["tabs"][1]]}
+        indexed = B.unique_route_cache_tabs(duplicate_cache)
+        self.assertNotIn(B.route_cache_tab_key(a), indexed)
+        self.assertIs(indexed[B.route_cache_tab_key(b)], cache["tabs"][1])
 
     def test_invalidation_end_to_end(self):
         # ノード追加 → 構成ハッシュ不一致で全体無効(クラッシュせず素の配線)。

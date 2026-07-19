@@ -3,9 +3,7 @@ name: CI
 on:
   push:
     branches: [main]
-    paths-ignore: ["**.md"]
   pull_request:
-    paths-ignore: ["**.md"]
   workflow_dispatch:
   schedule:
     # 週次: 浮動依存(draw.io 最新版)の破壊を push が無くても検知する
@@ -54,6 +52,9 @@ jobs:
             out=$(python3 scripts/build_drawio.py "$f" -o "${f%.spec.json}.drawio" 2>&1) || fail=1
             echo "$out" | grep -q "=== 0 error(s), 0 warning(s) ===" || {
               echo "::error::$f が 0e0w でない"; echo "$out"; fail=1; }
+            if printf '%s\n' "$out" | grep -Eq '^(WARN:|注意:)'; then
+              echo "::error::$f にビルド段 WARN が残っています"; echo "$out"; fail=1
+            fi
           done
           git diff --exit-code -- templates/ || {
             echo "::error::テンプレートがエンジンと非同期です。" \

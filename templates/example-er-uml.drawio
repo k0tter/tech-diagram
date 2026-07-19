@@ -31,29 +31,29 @@
         <mxCell id="_lg_t1" value="1 対 0..多" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontFamily=Arial;fontColor=#5A6C86;" vertex="1" parent="_legend">
           <mxGeometry x="95" y="85" width="72.9" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="r1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=ERmany;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;startArrow=ERone;startFill=0;startSize=12;endSize=14;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="customers" target="orders" >
+        <mxCell id="r1" value="" awsdiagKind="er_1n" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=ERmany;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;startArrow=ERone;startFill=0;startSize=12;endSize=14;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="customers" target="orders" >
           <mxGeometry x="0" relative="1" as="geometry">
           </mxGeometry>
         </mxCell>
-        <mxCell id="r2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=ERmany;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;startArrow=ERone;startFill=0;startSize=12;endSize=14;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="orders" target="order_items" >
+        <mxCell id="r2" value="" awsdiagKind="er_1n" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=ERmany;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;startArrow=ERone;startFill=0;startSize=12;endSize=14;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="orders" target="order_items" >
           <mxGeometry x="0" relative="1" as="geometry">
           </mxGeometry>
         </mxCell>
-        <mxCell id="r3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=ERmany;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;startArrow=ERone;startFill=0;startSize=12;endSize=14;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="products" target="order_items" >
+        <mxCell id="r3" value="" awsdiagKind="er_1n" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=ERmany;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;startArrow=ERone;startFill=0;startSize=12;endSize=14;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="products" target="order_items" >
           <mxGeometry x="0" relative="1" as="geometry">
           </mxGeometry>
         </mxCell>
-        <mxCell id="r4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=ERzeroToMany;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;startArrow=ERone;startFill=0;startSize=12;endSize=14;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="categories" target="products" >
+        <mxCell id="r4" value="" awsdiagKind="er_0n" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=ERzeroToMany;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;startArrow=ERone;startFill=0;startSize=12;endSize=14;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="categories" target="products" >
           <mxGeometry x="0" relative="1" as="geometry">
           </mxGeometry>
         </mxCell>
-        <mxCell id="_lg_e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=ERmany;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;startArrow=ERone;startFill=0;startSize=12;endSize=14;" edge="1" parent="1" >
+        <mxCell id="_lg_e0" value="" awsdiagKind="er_1n" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=ERmany;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;startArrow=ERone;startFill=0;startSize=12;endSize=14;" edge="1" parent="1" >
           <mxGeometry x="0" relative="1" as="geometry">
             <mxPoint x="45" y="351" as="sourcePoint" />
             <mxPoint x="105" y="351" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="_lg_e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=ERzeroToMany;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;startArrow=ERone;startFill=0;startSize=12;endSize=14;" edge="1" parent="1" >
+        <mxCell id="_lg_e1" value="" awsdiagKind="er_0n" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=ERzeroToMany;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;startArrow=ERone;startFill=0;startSize=12;endSize=14;" edge="1" parent="1" >
           <mxGeometry x="0" relative="1" as="geometry">
             <mxPoint x="45" y="391" as="sourcePoint" />
             <mxPoint x="105" y="391" as="targetPoint" />
@@ -106,54 +106,54 @@
         <mxCell id="_lg_t3" value="関連" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontFamily=Arial;fontColor=#5A6C86;" vertex="1" parent="_legend">
           <mxGeometry x="95" y="165" width="32" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="u1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;dashed=1;dashPattern=4 4;endSize=16;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5001;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="stripe" target="gateway" >
+        <mxCell id="u1" value="" awsdiagKind="uml_implement" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;dashed=1;dashPattern=4 4;endSize=16;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5001;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="stripe" target="gateway" >
           <mxGeometry x="0" relative="1" as="geometry">
             <Array as="points"><mxPoint x="412.3" y="353" /></Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="u2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;dashed=1;dashPattern=4 4;endSize=16;exitX=0.5001;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.7145;entryDx=0;entryDy=0;" edge="1" parent="1" source="bank" target="gateway" >
+        <mxCell id="u2" value="" awsdiagKind="uml_implement" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;dashed=1;dashPattern=4 4;endSize=16;exitX=0.5001;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.7145;entryDx=0;entryDy=0;" edge="1" parent="1" source="bank" target="gateway" >
           <mxGeometry x="0" relative="1" as="geometry">
             <Array as="points"><mxPoint x="684.3" y="223.3" /></Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="u3" value="uses" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;dashed=1;dashPattern=4 4;endSize=10;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="svc" target="gateway" >
+        <mxCell id="u3" value="uses" awsdiagKind="uml_depend" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;dashed=1;dashPattern=4 4;endSize=10;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="svc" target="gateway" >
           <mxGeometry x="0.0001" relative="1" as="geometry">
             <mxPoint as="offset" x="0.0" y="0.0" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="u4" value="creates" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;endSize=10;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="svc" target="order" >
+        <mxCell id="u4" value="creates" awsdiagKind="uml_assoc" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;endSize=10;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="svc" target="order" >
           <mxGeometry x="0.0012" relative="1" as="geometry">
             <mxPoint as="offset" x="0.0" y="0.0" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="u5" value="1..*" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=none;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;startArrow=diamondThin;startFill=1;startSize=16;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="order" target="line" >
+        <mxCell id="u5" value="1..*" awsdiagKind="uml_compose" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=none;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;startArrow=diamondThin;startFill=1;startSize=16;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="order" target="line" >
           <mxGeometry x="0.0000" relative="1" as="geometry">
             <mxPoint as="offset" x="0.0" y="0.0" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="u6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;endSize=10;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="order" target="customer" >
+        <mxCell id="u6" value="" awsdiagKind="uml_assoc" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;endSize=10;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="order" target="customer" >
           <mxGeometry x="0" relative="1" as="geometry">
           </mxGeometry>
         </mxCell>
-        <mxCell id="_lg_e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;dashed=1;dashPattern=4 4;endSize=16;" edge="1" parent="1" >
+        <mxCell id="_lg_e0" value="" awsdiagKind="uml_implement" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;dashed=1;dashPattern=4 4;endSize=16;" edge="1" parent="1" >
           <mxGeometry x="0" relative="1" as="geometry">
             <mxPoint x="45" y="616" as="sourcePoint" />
             <mxPoint x="105" y="616" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="_lg_e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;dashed=1;dashPattern=4 4;endSize=10;" edge="1" parent="1" >
+        <mxCell id="_lg_e1" value="" awsdiagKind="uml_depend" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;dashed=1;dashPattern=4 4;endSize=10;" edge="1" parent="1" >
           <mxGeometry x="0" relative="1" as="geometry">
             <mxPoint x="45" y="656" as="sourcePoint" />
             <mxPoint x="105" y="656" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="_lg_e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=none;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;startArrow=diamondThin;startFill=1;startSize=16;" edge="1" parent="1" >
+        <mxCell id="_lg_e2" value="" awsdiagKind="uml_compose" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=none;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;startArrow=diamondThin;startFill=1;startSize=16;" edge="1" parent="1" >
           <mxGeometry x="0" relative="1" as="geometry">
             <mxPoint x="45" y="696" as="sourcePoint" />
             <mxPoint x="105" y="696" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="_lg_e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;endSize=10;" edge="1" parent="1" >
+        <mxCell id="_lg_e3" value="" awsdiagKind="uml_assoc" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=8;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontFamily=Arial;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;endArrow=open;endFill=0;strokeColor=#232F3E;strokeWidth=1.2;endSize=10;" edge="1" parent="1" >
           <mxGeometry x="0" relative="1" as="geometry">
             <mxPoint x="45" y="736" as="sourcePoint" />
             <mxPoint x="105" y="736" as="targetPoint" />

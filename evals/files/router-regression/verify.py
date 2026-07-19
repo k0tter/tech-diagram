@@ -65,8 +65,12 @@ validate 発火)し、正解6本(ok/)を 0 件で通し、凍結産物(broken/*.
   python3 evals/files/router-regression/verify.py \
       --engine <旧 build_drawio.py へのパス> --expect-fail [--era r3|r4|r5|r7|sem]
 
-  # W16〜W21 の誤検知ゼロ確認(テンプレ+リファレンス5+構成図/フロー図)
+  # W16〜W21 の誤検知ゼロ確認(リポジトリ内テンプレ10+リファレンス5)
   python3 evals/files/router-regression/verify.py --sweep-sem
+
+  # 任意の手元図も追加(繰り返し指定可)
+  python3 evals/files/router-regression/verify.py --sweep-sem \
+      --sweep-dir team=/absolute/path/to/drawio-files
 
 --era の既定は r4。旧エンジンのスナップショットはスキル外(例: scratchpad の
 バックアップ)に置いたものを --engine で指すこと(era=sem は旧 build_drawio.py と
@@ -244,13 +248,10 @@ SEM_WRONG = {
 # 正解スペック(ok/): 同じ題材の正しい形。W16〜W21 が 1 件も出ないこと
 SEM_OK = ("w16-ok.spec.json", "w17-ok.spec.json", "w18-ok.spec.json",
           "w19-ok.spec.json", "w20-ok.spec.json", "w21-ok.spec.json")
-# 誤検知ゼロの固定対象(--sweep-sem): 存在しないディレクトリは SKIP 表示
-SWEEP_DIRS = (
-    ("templates", EVALS.parent / "templates"),
-    ("構成図", Path("/Users/user/Documents/Github/構成図")),
-    ("フロー図", Path("/Users/user/Documents/Github/フロー図")),
-)
+# 誤検知ゼロの固定対象(--sweep-sem)。手元図は --sweep-dir で明示追加する。
+SWEEP_DIRS = (("templates", EVALS.parent / "templates"),)
 REFARCH = EVALS.parent / "references" / "reference-architectures"
+SWEEP_MAX_BYTES = 64 * 1024 * 1024
 
 
 def build(engine, spec_name, td, spec_dir=None):
@@ -362,18 +363,33 @@ def sem_fail_before(engine, td):
     return ok
 
 
-def sem_sweep(engine, td):
-    """W16〜W21 の誤検知ゼロ固定: テンプレ・実案件図は validate 直、
+def sem_sweep(engine, td, extra_dirs=()):
+    """W16〜W21 の誤検知ゼロ固定: テンプレ・追加図は validate 直、
     リファレンススペック5本は現行ビルド+validate で確認する。"""
     ok = True
     total = 0
-    for label, d in SWEEP_DIRS:
+    for label, d in (*SWEEP_DIRS, *extra_dirs):
         if not d.is_dir():
             print(f"SKIP {label}: {d} なし(この環境には無い)")
             continue
         for p in sorted(d.glob("*.drawio")):
-            codes = sem_codes(p)
             total += 1
+            if p.is_symlink() or not p.is_file():
+                print("NG", f"sweep {label}/{p.name}: symlink・特殊ファイルは対象外")
+                ok = False
+                continue
+            if p.stat().st_size > SWEEP_MAX_BYTES:
+                print("NG", f"sweep {label}/{p.name}: "
+                      f"{SWEEP_MAX_BYTES} bytes を超えています")
+                ok = False
+                continue
+            try:
+                codes = sem_codes(p)
+            except (OSError, SystemExit, json.JSONDecodeError,
+                    subprocess.TimeoutExpired) as exc:
+                print("NG", f"sweep {label}/{p.name}: validator error: {exc}")
+                ok = False
+                continue
             print(("OK" if not codes else "NG"),
                   f"sweep {label}/{p.name}: W16〜W21 = {sorted(codes)}")
             ok = ok and not codes
@@ -401,6 +417,22 @@ def run_check(name, out, spec_name):
     return fn(out, spec_path) if name in SPEC_AWARE else fn(out)
 
 
+def sweep_dirs_from_args(argv):
+    """--sweep-dir label=/path を順序どおり読む。"""
+    out = []
+    for i, arg in enumerate(argv):
+        if arg != "--sweep-dir":
+            continue
+        if i + 1 >= len(argv) or "=" not in argv[i + 1]:
+            raise ValueError("--sweep-dir は label=/absolute/path で指定してください")
+        label, raw = argv[i + 1].split("=", 1)
+        path = Path(raw)
+        if not label or not raw or not path.is_absolute():
+            raise ValueError("--sweep-dir は label=/absolute/path で指定してください")
+        out.append((label, path))
+    return out
+
+
 def main(argv):
     engine = EVALS.parent / "scripts" / "build_drawio.py"
     expect_fail = "--expect-fail" in argv
@@ -410,10 +442,15 @@ def main(argv):
         return 2
     if "--engine" in argv:
         engine = Path(argv[argv.index("--engine") + 1])
+    try:
+        extra_dirs = sweep_dirs_from_args(argv)
+    except ValueError as exc:
+        print(f"ERROR: {exc}")
+        return 2
     ok = True
     with tempfile.TemporaryDirectory(prefix="router-regression-") as td:
         if "--sweep-sem" in argv:
-            ok = sem_sweep(engine, td)
+            ok = sem_sweep(engine, td, extra_dirs)
             print("=>", "PASS" if ok else "FAIL")
             return 0 if ok else 1
         if expect_fail and era == "sem":

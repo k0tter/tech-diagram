@@ -19,6 +19,7 @@
       join/map/filter/length/toString 等)— PNG/SVG エクスポートが
       「Export failed」で沈黙破損する(CLI v30.3.11 実測)。ジェネレータは
       自動で末尾 "_" に退避するため、手編集 XML でのみ発生する
+  E12 geometry/edge port の数値が NaN/Inf、または vertex の幅/高さが 0 以下
   W4  エッジラベル同士が重なっている(ごく小さな接触は無視)
   W8  マネージドサービス(S3/DynamoDB/SQS 等)が VPC/VNet・サブネットの内側にある
   W10 サブネット常駐サービス(EC2/RDS/ALB 等)が、サブネットを持つ VPC 内なのに
@@ -31,7 +32,8 @@
   W14 ゲートウェイ/アタッチメント系ノードの配置規約違反(IGW/VGW=VPC 直下、
       NAT GW=パブリックサブネット内、TGW/Direct Connect=VPC 外。
       規約表は _common.GATEWAY_PLACEMENT — ビルド段の検査と共有)
-  W16 フェイルオーバー線(ラベルに failover/フェイルオーバー)が CloudFront/
+  W16 フェイルオーバー線(awsdiagKind=failover。手編集図はラベルの
+      failover/フェイルオーバーも後方互換で認識)が CloudFront/
       WAF をバイパスして DR の LB/コンピュートへ直行(平常時経路は CDN/WAF
       前段なのに非対称。ビルド段は kind=failover で同判定)— WARN
   W17 CloudFront/Route 53/WAF(CloudFront 接続)が region/VPC/サブネットの
@@ -231,6 +233,7 @@ class Cell:
         self.value = (attrs.get("label", attrs.get("value", ""))
                       if user_object is not None else el.get("value", ""))
         self.link = attrs.get("link")
+        self.kind = attrs.get("awsdiagKind") or el.get("awsdiagKind")
         self.style = parse_style(el.get("style", ""))
         self.parent = el.get("parent")
         self.source = el.get("source")
@@ -608,6 +611,46 @@ def validate_model(model):
             f"「Export failed」になります。'{uid}_' 等へ改名してください"
             "(ジェネレータ経由なら自動退避されます)")
     diag = Diagram(model)
+    geometry_bad = False
+
+    def check_number(cell, field, raw, *, positive=False):
+        nonlocal geometry_bad
+        try:
+            value = float(raw)
+        except (TypeError, ValueError):
+            value = None
+        if value is None or not math.isfinite(value):
+            add("ERROR", "E12", f"cell '{cell.id}' の {field}={raw!r} は"
+                "有限な数値ではありません")
+            geometry_bad = True
+        elif positive and value <= 0:
+            add("ERROR", "E12", f"cell '{cell.id}' の {field}={raw!r} は"
+                "正の数値である必要があります")
+            geometry_bad = True
+
+    # NaN/Inf は大小比較を全て偽にして幾何検査を静かにすり抜けるため、
+    # 座標を使う前の信頼境界で一括拒否する。
+    for c in diag.cells.values():
+        if c.geo is not None:
+            for attr in ("x", "y", "width", "height"):
+                raw = c.geo.get(attr)
+                if raw is not None:
+                    check_number(c, f"mxGeometry.{attr}", raw,
+                                 positive=c.is_vertex and attr in ("width", "height"))
+            for point in c.geo.iter("mxPoint"):
+                for attr in ("x", "y"):
+                    raw = point.get(attr)
+                    if raw is not None:
+                        check_number(c, f"mxPoint.{attr}", raw)
+        for attr in ("exitX", "exitY", "entryX", "entryY",
+                     "exitDx", "exitDy", "entryDx", "entryDy"):
+            raw = c.style.get(attr)
+            if raw is not None:
+                check_number(c, f"style.{attr}", raw)
+    if geometry_bad:
+        n_edges = sum(1 for c in diag.cells.values() if c.is_edge)
+        return findings, [], 0, [], n_edges
+
     vertices = [c for c in diag.cells.values() if c.is_vertex and c.geo is not None
                 and not (diag.cells.get(c.parent) or Cell(ET.Element("mxCell"))).is_edge]
     edges = [c for c in diag.cells.values() if c.is_edge]
@@ -771,7 +814,8 @@ def validate_model(model):
     for e in edges:
         if (e.id or "").startswith("_") or not front_edge:
             continue
-        if not FAILOVER_LABEL_RE.search(strip_html(e.value)):
+        if (e.kind != "failover"
+                and not FAILOVER_LABEL_RE.search(strip_html(e.value))):
             continue
         s = diag.cells.get(e.source)
         t = diag.cells.get(e.target)

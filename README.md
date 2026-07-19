@@ -17,9 +17,9 @@ correctness and architecture anti-patterns before it reaches you.
 
 ## Gallery
 
-Everything below is the **unmodified generated output** from the bundled
-templates ([templates/](templates/)) and production-grade specs (click for
-full size).
+Everything below is **unmodified generated output**. The three Samples are
+curated gallery examples; the 10 Templates link to the bundled, reproducible
+specs in [templates/](templates/) (click for full size).
 
 ### Samples
 
@@ -61,7 +61,9 @@ full size).
   runs a deterministic placement local search (`pin` to fix nodes in place)
 - **Preview**: `--emit-png` renders a real PNG (auto-detects the draw.io
   CLI); `--emit-svg` emits a self-contained SVG for visual checks without the
-  CLI (icons substituted with official-color rectangles)
+  CLI (icons substituted with official-color rectangles). Multi-tab previews
+  use `<output>.<01-based-index>-<sanitized-tab-name>.*`, so similar tab names
+  cannot overwrite one another
 - **Terraform import**: `tf_to_spec.py` parses `.tf` files directly and
   produces a spec skeleton plus review notes (no credentials, no terraform
   CLI, no state files)
@@ -90,9 +92,8 @@ nicely but architecturally wrong*:
   bypasses CloudFront/WAF straight into the DR load balancer, an
   "HA / Multi-AZ" label with one or zero AZ containers, and a private-subnet
   node reaching outside without NAT / IGW / endpoints are flagged as warnings
-- **Calibrated against false positives**: a sweep over 26 real diagrams
-  (templates, production-grade specs, flowcharts, reference specs) reports
-  zero findings from these checks
+- **Calibrated against false positives**: a reproducible sweep over 10 bundled
+  templates and 5 reference specs reports zero W16–W21 findings
 
 ## Using it
 
@@ -157,20 +158,16 @@ engine vs. v1.0.0:
 | [![Fan with mixed exit and entry sides](docs/images/before-after/fan-mixed-before.png)](docs/images/before-after/fan-mixed-before.png) | [![Fan unified to symmetric slots and mirrored entries](docs/images/before-after/fan-mixed-after.png)](docs/images/before-after/fan-mixed-after.png) |
 | Paired edges from the same ALB split between the right and bottom sides, with mixed entry sides | Unified: exits from symmetric right-side slots (0.35/0.65), mirrored entries on facing top/bottom sides |
 
-## Does the skill actually help? (measured)
+## Evaluation
 
-Whether an agent can go from a natural-language request to a 0-error /
-0-warning `.drawio` with no manual fixes, measured with the evaluation suite
-in [evals/](evals/) (2026-07-15, n=2 per configuration):
-
-| Configuration | Expectations met | 0-error / 0-warning diagrams |
-|---|---|---|
-| **With skill** (all 16 evals at the time) | **83/83** | **16/16** |
-| Without skill (12 basic evals) | 34/61 | 3/12 |
-
-Grading is done by an independent fresh-context agent that is neither the
-eval designer nor the executing agent, and everything machine-checkable is
-verified automatically. See [evals/README.md](evals/README.md) for details.
+The reproducible evaluation suite in [evals/](evals/) checks whether an agent
+can turn a natural-language request into a 0-error / 0-warning `.drawio`
+without manual fixes. Machine-checkable requirements run through
+`evals/check_diagram.py`; judgment and reporting requirements are graded by a
+separate fresh-context agent. Published benchmark numbers must include the raw
+run artifacts plus the client, model, version and environment, so this README
+does not repeat unauditable historical aggregates. See
+[evals/README.md](evals/README.md) for the protocol and fixtures.
 
 ## License and trademarks
 

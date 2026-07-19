@@ -13,9 +13,13 @@ tech-diagram の開発の回し方。依存は Python 標準ライブラリの�
 python3 scripts/tests.py
 ```
 
-v1.0.0 時点で 253 件(ビルダー / バリデータ / レイアウトエンジン / tf_to_spec)。
+スキルパッケージ / ビルダー / バリデータ / レイアウトエンジン / tf_to_spec を検証する。
 **変更の前後で必ず実行**し、全件 OK を保つ。エンジンに手を入れたら、対応する
-テストを同ファイルに追加する。
+テストを同ファイルに追加する。`SKILL.md` 編集中の frontmatter / パッケージ簡易検査は:
+
+```bash
+python3 scripts/tests.py TestSkillPackage
+```
 
 ### 2. テンプレート再生成とバイト一致ゲート
 

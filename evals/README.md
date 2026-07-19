@@ -2,22 +2,21 @@
 
 ## 何を測るか
 
-**「Claude がこのスキルを起動して、自然言語の作図依頼から、人手修正なしでそのまま使える
+**「Claude/Codex 等のエージェントがこのスキルを起動して、自然言語の作図依頼から、人手修正なしでそのまま使える
 0 エラー・0 警告の .drawio を作れるか」** を測る。アイコン選択・境界配置(グローバル/
 リージョナル、サブネット内外)・縮約の判断・番号付け・バリデータ反復・納品レポートまでを
 含む、エージェントの判断の質を評価する。
 
-### `scripts/tests.py`(250件)との違い
+### `scripts/tests.py` との違い
 
 | | `scripts/tests.py` | `evals/`(これ) |
 |---|---|---|
-| 対象 | スクリプト内部(ビルダー/バリデータ/レイアウトエンジン/tf_to_spec) | Claude がスキルを使う end-to-end |
+| 対象 | スクリプト内部(ビルダー/バリデータ/レイアウトエンジン/tf_to_spec) | エージェントがスキルを使う end-to-end |
 | 問い | 「サブネット内のマネージドサービスに W8 を出すか」 | 「"AWS 3層図を作って" から W8 の出ない正しい図を作れるか」 |
 | 入力 | 固定 spec・敵対的 spec | 自然言語の作図依頼 |
-| 実行 | `python3 scripts/tests.py`(CI) | 採点エージェント/人手(skill-creator ループ) |
+| 実行 | `python3 scripts/tests.py`(CI) | 独立した実行エージェント/採点エージェント |
 
-従来この end-to-end 検証は RUN_STATE の手動「実戦検証 A/B/C」でしか行っていなかった。
-本 evals はそれを再現可能な形に定式化したもの。
+本 evals は、手動の実戦検証を再現可能な end-to-end 評価として定式化したもの。
 
 ## eval 一覧(全20件 = 基本12+高難度4+回帰2+アーキ正しさ2、118 expectations)
 
@@ -120,10 +119,10 @@ era=sem(旧 = SEM-3 実装前 v1.9.0 スナップショット、実測 2026-07-1
 ビルド拒否、W16/W20/W21 で WARN+validate 発火させ、正解形 6 本(`ok/`)は
 0 error・0 warning・W16〜W21 = 0 件で通る(すべて `verify.py` が毎回実証)。
 
-誤検知ゼロの固定: `verify.py --sweep-sem` がテンプレ10+実案件の構成図6+
-フロー図5(validate 直)+リファレンススペック5(現行ビルド+validate)の
-**計26ファイルで W16〜W21 = 0 件**を確認する(実測 2026-07-18 全 OK。
-構成図/フロー図ディレクトリが無い環境では SKIP 表示)。
+誤検知ゼロの固定: `verify.py --sweep-sem` が同梱テンプレ10(validate 直)+
+リファレンススペック5(現行ビルド+validate)の**計15ファイルで
+W16〜W21 = 0 件**を確認する。任意の手元図は
+`--sweep-dir label=/absolute/path` で明示追加できる。
 
 **fail-before の実証**(エージェント実走なしの判別力確認):
 `files/router-regression/verify.py` が固定スペック(fixture 12本+
@@ -200,7 +199,7 @@ gateway_topology / diamond_vertices の ≥1 違反検出を確認する(REV-3)�
 
 ## 実行方法(2段)
 
-skill-creator の eval ループに従う。各 eval を **with_skill**(スキルを渡す)と
+以下の隔離 eval ループに従う。各 eval を **with_skill**(スキルを渡す)と
 **without_skill**(ベースライン)の2構成で実行し比較する。
 
 1. **executor**: 新品コンテキストのサブエージェントに、スキルへのパスと `prompt`
@@ -345,11 +344,14 @@ FB第5R の4チェック:
   入出とも複数の混合 gateway は違反(fork/join に分割する。REV-8)。
   gateway端点の4頂点規約はcheck_diamond_verticesが独立に担う
 
-追加7チェックはテンプレ10種(`templates/*.drawio`)+構成図6種
-(`/Users/user/Documents/Github/構成図/*.drawio`)+フロー図5種
-(`/Users/user/Documents/Github/フロー図/*.drawio`)の**計21ファイルで各0件**、
+追加7チェックはリポジトリ内のテンプレ10種(`templates/*.drawio`)+
+リファレンス5種(`references/reference-architectures/*.spec.json`)の
+**計15ファイルで各0件**、
 全17チェックはrouter-regression 12本+example-complexの現行ビルド13本で各0件を
 確認済み(2026-07-18)。
+
+任意の手元ディレクトリも加える場合は、`--sweep-dir label=/absolute/path` を
+繰り返し指定する。リポジトリ固有でないパスは既定の検査対象に含めない。
 
 ### eval ごとの機械チェック対応
 
@@ -382,13 +384,12 @@ FB第5R の4チェック:
 最終報告を run ディレクトリの `report.md` に保存し、grader は
 `eval_metadata.json` + `outputs/` + `report.md` だけから採点する
 (機械照合を先に走らせ、報告の自己申告は生成物の痕跡と突き合わせる)。
-分散を見るため **runs_per_configuration ≥ 2 を推奨**。実測(2026-07-15、workspace の
-run2-summary.md): **当時の全16 eval(id17 追加前)の with_skill n=2 = 83/83(全16本 0e0w)**、基本12の
-without_skill n=2 = 34/61(0/0 は 3/12)→ 基本12の delta +0.44。
-公平性ノート: draw.io CLI が入った環境では baseline も実描画で目視反復でき
-run1(0.46)→run2(0.56)に改善する — それでも 9/12 に幾何エラーが残り、差は
-「検証器が保証する幾何品質+納品規律」に集中する。『references を参照した』系の
-assertion は without では原理的に充足不能(スキル lift の信号として意図どおり)。
+分散を見るため **runs_per_configuration ≥ 2 を推奨**。結果を公開するときは、
+client / model / model version / 実行日 / OS・Python・draw.io version / 各 run の
+`eval_metadata.json`・`grading.json`・生成物を揃える。これらの raw artifact を
+同梱していない過去 run の集計値は、本リポジトリの再現可能な実測値として扱わない。
+公平性のため with_skill / without_skill は同じ実行・目視環境を使い、
+『references を参照した』等の skill 固有 assertion は lift と機能品質を分けて報告する。
 
 ## fixtures(`files/`)
 
@@ -440,6 +441,5 @@ assertion は without では原理的に充足不能(スキル lift の信号と
 ## 補足
 
 - expectations の判定語彙・書き味は他スキル(article-craft 等)の evals.json に揃えている。
-- eval を増やす/採点を回すときは skill-creator(`~/.claude/skills/skill-creator`)の
-  eval ループに従う。RUN_STATE の LOCK は `scripts/*.py` の同時編集事故を防ぐためのもので、
-  `evals/` の追加・実行は scripts を変更しないため LOCK と干渉しない。
+- eval を増やす/採点を回すときは、実行役と採点役を別コンテキストに分け、
+  `evals/grader.md` の固定スキーマと機械照合を使う。

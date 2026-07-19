@@ -32,6 +32,7 @@ evals/evals.json の expectations のうち機械照合できる部分(0 error�
   # まとめて JSON で受け取る(採点エージェント向け)
   python3 evals/check_diagram.py <out.drawio> --json
 """
+from collections import Counter
 import json
 import math
 import re
@@ -43,6 +44,7 @@ from pathlib import Path
 SCRIPTS = Path(__file__).resolve().parent.parent / "scripts"
 VALIDATOR = SCRIPTS / "validate_drawio.py"
 BUILDER = SCRIPTS / "build_drawio.py"
+VALIDATOR_TIMEOUT_SECONDS = 30
 
 sys.path.insert(0, str(SCRIPTS))
 import validate_drawio as V  # noqa: E402  幾何(セグメント抽出・座標系)を E7/W5 と共有する
@@ -68,10 +70,14 @@ def build_from_spec(spec_path):
 
 def run_validator(path, extra=()):
     """validate_drawio.py を呼び、(stdout, returncode) を返す。"""
-    cp = subprocess.run(
-        [sys.executable, str(VALIDATOR), str(path), *extra],
-        capture_output=True, text=True,
-    )
+    try:
+        cp = subprocess.run(
+            [sys.executable, str(VALIDATOR), str(path), *extra],
+            capture_output=True, text=True, timeout=VALIDATOR_TIMEOUT_SECONDS,
+        )
+    except subprocess.TimeoutExpired:
+        return "", (f"validator timeout after "
+                    f"{VALIDATOR_TIMEOUT_SECONDS}s: {path}"), 2
     return cp.stdout, cp.stderr, cp.returncode
 
 
@@ -83,15 +89,21 @@ def validate_json(path):
 
 
 def graph_lines(path):
-    """--graph の出力から、比較対象になる vertex/edge 行だけを集合で返す。"""
+    """--graph をタブ所属込みの multiset で返す(並列 edge も保持)。"""
     out, _, rc = run_validator(path, ("--graph",))
     if rc == 2:
         raise SystemExit(f"--graph 実行エラー: {path}")
-    lines = set()
+    lines = Counter()
+    tab_index = -1
+    tab_name = "図"
     for ln in out.splitlines():
         ln = ln.rstrip()
+        if ln.startswith("# tab: "):
+            tab_index += 1
+            tab_name = ln[len("# tab: "):].rsplit("(", 1)[0]
+            continue
         if ln.startswith("vertex\t") or ln.startswith("edge\t"):
-            lines.add(ln)
+            lines[f"tab[{tab_index}]={tab_name}\t{ln}"] += 1
     return lines
 
 
@@ -224,7 +236,10 @@ def _tabs_with_spec(path, spec_path=None):
     """出力タブへ同名(無ければ同じ順番)の spec タブを対応付ける。"""
     tabs = _tabs(path)
     specs = _spec_diagrams(spec_path)
-    by_name = {str(s.get("name", "")): s for s in specs}
+    names = [str(s.get("name", "")) for s in specs]
+    counts = Counter(names)
+    by_name = {name: spec for name, spec in zip(names, specs)
+               if counts[name] == 1}
     out = []
     for i, tab_data in enumerate(tabs):
         tab = tab_data[0]
@@ -1274,7 +1289,7 @@ def check(path, absent=(), present=(), graph_superset=None, spec=None,
     if graph_superset:
         base = graph_lines(graph_superset)
         cur = graph_lines(path)
-        missing = sorted(base - cur)
+        missing = sorted((base - cur).elements())
         checks.append((f"{Path(graph_superset).name} の構成を 1:1 保持",
                        not missing,
                        "全保持" if not missing else f"欠落 {len(missing)}: {missing[:6]}"))

@@ -13,6 +13,7 @@ jobs:
     # write 権限はこのジョブに限定(トップレベルは read のみ)
     permissions:
       contents: write       # Release の作成・資産アップロード
+      actions: read         # 対象 SHA の main CI 成功を照合
       id-token: write       # attest-build-provenance の OIDC 署名
       attestations: write   # attestation の保存
     runs-on: ubuntu-latest
@@ -24,6 +25,24 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: "3.12"
+      - name: タグの出所・CHANGELOG・main CI を照合
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eu
+          printf '%s\n' "${GITHUB_REF_NAME}" | grep -Eq '^v[0-9]+\.[0-9]+\.[0-9]+$' || {
+            echo "::error::リリースタグは安定版 vX.Y.Z 形式に限定します"; exit 1; }
+          git fetch origin main --no-tags
+          git merge-base --is-ancestor "${GITHUB_SHA}" origin/main || {
+            echo "::error::タグの commit は main に含まれていません"; exit 1; }
+          version=${GITHUB_REF_NAME#v}
+          grep -Fq "## [${version}] - " CHANGELOG.md || {
+            echo "::error::CHANGELOG.md に ${version} の項目がありません"; exit 1; }
+          successes=$(gh api \
+            "repos/${GITHUB_REPOSITORY}/actions/workflows/ci.yml/runs?head_sha=${GITHUB_SHA}&status=completed&per_page=100" \
+            --jq '[.workflow_runs[] | select(.event == "push" and .head_branch == "main" and .conclusion == "success")] | length')
+          test "${successes}" -ge 1 || {
+            echo "::error::対象 SHA の main push CI 成功が確認できません"; exit 1; }
       - name: リリース前検証(テスト+テンプレ同期)
         run: |
           set -eu
@@ -32,19 +51,22 @@ jobs:
             out=$(python3 scripts/build_drawio.py "$f" -o "${f%.spec.json}.drawio" 2>&1)
             echo "$out" | grep -q "=== 0 error(s), 0 warning(s) ===" || {
               echo "::error::$f が 0e0w でない"; echo "$out"; exit 1; }
+            if printf '%s\n' "$out" | grep -Eq '^(WARN:|注意:)'; then
+              echo "::error::$f にビルド段 WARN が残っています"; echo "$out"; exit 1
+            fi
           done
           git diff --exit-code -- templates/
       - name: 配布 zip を作成
         run: |
           set -eu
-          mkdir -p dist/tech-diagram
-          # 利用に必要な最小構成のみ(テスト・ファザーは開発用 = リポジトリ側)
-          cp -R SKILL.md README.md LICENSE NOTICE references scripts \
-                templates dist/tech-diagram/
-          rm -f dist/tech-diagram/scripts/tests.py
-          rm -rf dist/tech-diagram/scripts/__pycache__
+          rm -rf dist
+          mkdir dist
+          python3 tools/prepare_release.py \
+            --ref "${GITHUB_REF_NAME}" --repo "${GITHUB_REPOSITORY}" \
+            --output dist/tech-diagram
           (cd dist && zip -qr "tech-diagram-${GITHUB_REF_NAME}.zip" tech-diagram)
-          unzip -l "dist/tech-diagram-${GITHUB_REF_NAME}.zip" | tail -3
+          unzip -t "dist/tech-diagram-${GITHUB_REF_NAME}.zip"
+          unzip -l "dist/tech-diagram-${GITHUB_REF_NAME}.zip"
       - name: SHA256SUMS を作成(改ざん検知用チェックサム)
         run: |
           set -eu
@@ -68,5 +90,6 @@ jobs:
             "dist/tech-diagram-${GITHUB_REF_NAME}.zip" \
             "dist/tech-diagram-${GITHUB_REF_NAME}.zip.intoto.jsonl" \
             "dist/SHA256SUMS" \
+            --verify-tag --fail-on-no-commits \
             --title "tech-diagram ${GITHUB_REF_NAME}" \
             --notes-file notes.md

@@ -19,9 +19,9 @@ anti-pola arsitektur — sebelum sampai ke tangan Anda.
 
 ## Galeri
 
-Semua gambar di bawah adalah **hasil generate tanpa suntingan** dari templat
-bawaan ([templates/](templates/)) dan spesifikasi setara proyek nyata (klik
-untuk ukuran penuh).
+Semua gambar di bawah adalah **hasil generate tanpa suntingan**. Tiga Contoh
+dikurasi untuk galeri; 10 Templat dapat direproduksi dari spesifikasi bawaan
+di [templates/](templates/) (klik untuk ukuran penuh).
 
 ### Contoh
 
@@ -64,7 +64,9 @@ untuk ukuran penuh).
   deterministik (`pin` untuk mengunci posisi node)
 - **Pratinjau**: `--emit-png` merender PNG sungguhan (mendeteksi otomatis CLI
   draw.io); `--emit-svg` menghasilkan SVG mandiri untuk pemeriksaan visual
-  tanpa CLI (ikon diganti persegi panjang berwarna resmi)
+  tanpa CLI (ikon diganti persegi panjang berwarna resmi). Pratinjau multi-tab
+  memakai `<output>.<indeks-mulai-01>-<nama-tab-aman>.*`, sehingga nama tab
+  yang mirip tidak saling menimpa
 - **Impor dari Terraform**: `tf_to_spec.py` mem-parsing berkas `.tf` secara
   langsung dan menghasilkan kerangka spesifikasi plus catatan reviu (tanpa
   kredensial, tanpa CLI terraform, tanpa berkas state)
@@ -94,9 +96,9 @@ yang "tergambar rapi tetapi salah secara arsitektur":
   melewati CloudFront/WAF dan langsung menuju load balancer DR, label
   "HA / Multi-AZ" dengan satu kontainer AZ atau kurang, dan node subnet
   privat yang keluar tanpa NAT / IGW / endpoint ditandai sebagai warning
-- **Terkalibrasi terhadap false positive**: penyisiran atas 26 diagram nyata
-  (templat, spesifikasi setara proyek nyata, flowchart, spesifikasi
-  referensi) menghasilkan 0 temuan dari pemeriksaan-pemeriksaan ini
+- **Terkalibrasi terhadap false positive**: penyisiran yang dapat direproduksi
+  atas 10 templat bawaan dan 5 spesifikasi referensi menghasilkan 0 temuan
+  W16–W21
 
 ## Cara menggunakan
 
@@ -161,20 +163,16 @@ mesin generasi lama vs. v1.0.0:
 | [![Fan dengan sisi keluar dan masuk yang campur aduk](docs/images/before-after/fan-mixed-before.png)](docs/images/before-after/fan-mixed-before.png) | [![Fan diseragamkan ke slot simetris dan masuk tercermin](docs/images/before-after/fan-mixed-after.png)](docs/images/before-after/fan-mixed-after.png) |
 | Garis berpasangan dari ALB yang sama terpecah ke sisi kanan dan bawah, sisi masuknya pun campur aduk | Diseragamkan: keluar dari slot simetris sisi kanan (0.35/0.65), masuk tercermin pada sisi atas/bawah yang berhadapan |
 
-## Apakah skill ini benar-benar membantu? (terukur)
+## Evaluasi
 
-Apakah agen dapat menghasilkan `.drawio` dengan 0 error / 0 warning dari
-permintaan bahasa alami tanpa perbaikan manual, diukur dengan suite evaluasi
-di [evals/](evals/) (2026-07-15, n=2 per konfigurasi):
-
-| Konfigurasi | Expectations terpenuhi | Diagram 0 error / 0 warning |
-|---|---|---|
-| **Dengan skill** (seluruh 16 eval saat itu) | **83/83** | **16/16** |
-| Tanpa skill (12 eval dasar) | 34/61 | 3/12 |
-
-Penilaian dilakukan oleh agen independen berkonteks baru yang bukan perancang
-eval maupun agen pelaksana, dan bagian yang dapat dicocokkan secara mekanis
-diverifikasi otomatis. Lihat [evals/README.md](evals/README.md) untuk detail.
+Suite evaluasi yang dapat direproduksi di [evals/](evals/) memeriksa apakah
+agen dapat mengubah permintaan bahasa alami menjadi `.drawio` 0 error /
+0 warning tanpa perbaikan manual. Persyaratan mekanis dijalankan melalui
+`evals/check_diagram.py`; penilaian dan pelaporan dinilai oleh agen lain dengan
+konteks baru. Angka benchmark yang dipublikasikan harus menyertakan artefak
+run mentah beserta client, model, version, dan environment, sehingga README
+ini tidak mengulang agregat historis yang tidak dapat diaudit. Lihat
+[evals/README.md](evals/README.md) untuk protokol dan fixture.
 
 ## Lisensi dan merek dagang
 

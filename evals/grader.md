@@ -25,7 +25,7 @@ eval の採点を、実行エージェントとも eval 設計者とも別の**�
    assertions は `report.md` の実文で確認する。**「やった」と書いてあるだけで
    生成物に痕跡が無いものは fail**(例: 「バリデータ 0/0」と書いてあるのに
    check_diagram が warning を出す → fail、evidence に両方を書く)。
-4. **grading.json を書く**(スキーマは skill-creator の grading.json に準拠):
+4. **grading.json を書く**(この eval で固定する次のスキーマに準拠):
    ```json
    {"expectations": [{"text": "...", "passed": true, "evidence": "機械照合/構造/報告のどれでどう確認したか"}],
     "summary": {"passed": N, "failed": M, "total": T, "pass_rate": 0.0}}
