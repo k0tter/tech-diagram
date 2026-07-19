@@ -78,8 +78,10 @@ jobs:
         with:
           subject-path: dist/tech-diagram-${{ github.ref_name }}.zip
       - name: 来歴バンドルを Release 資産に含める(オフライン検証・Scorecard Signed-Releases 用)
-        run: cp "${{ steps.attest.outputs.bundle-path }}" \
-               "dist/tech-diagram-${GITHUB_REF_NAME}.zip.intoto.jsonl"
+        # plain scalar だと行継続 \ が折り畳みでエスケープ空白になるため block scalar 必須
+        run: |
+          cp "${{ steps.attest.outputs.bundle-path }}" \
+             "dist/tech-diagram-${GITHUB_REF_NAME}.zip.intoto.jsonl"
       - name: リリースノート生成(前タグからのコミットを分類)
         run: python3 tools/release_notes.py "${GITHUB_REF_NAME}" > notes.md && cat notes.md
       - name: GitHub Release を公開
