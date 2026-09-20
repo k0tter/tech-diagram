@@ -74,7 +74,7 @@ jobs:
           cat dist/SHA256SUMS
       - name: ビルド来歴の attestation(gh attestation verify で検証可能)
         id: attest
-        uses: actions/attest-build-provenance@0f67c3f4856b2e3261c31976d6725780e5e4c373 # v4
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4
         with:
           subject-path: dist/tech-diagram-${{ github.ref_name }}.zip
       - name: 来歴バンドルを Release 資産に含める(オフライン検証・Scorecard Signed-Releases 用)
