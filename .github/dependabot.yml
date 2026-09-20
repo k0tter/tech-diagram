@@ -7,3 +7,8 @@ updates:
       interval: weekly
     commit-message:
       prefix: ci
+    groups:
+      # codeql-action は init / analyze / upload-sarif の版が揃わないと失敗するため 1 PR にまとめる
+      codeql-action:
+        patterns:
+          - "github/codeql-action*"
