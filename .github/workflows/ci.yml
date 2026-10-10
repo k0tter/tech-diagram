@@ -131,7 +131,7 @@ jobs:
             test "$size" -gt 20000 || { echo "::error::$t.png が小さすぎる(描画失敗の疑い)"; exit 1; }
           done
       - name: 描画結果を artifact に保存(目視確認用)
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: rendered-png
           path: /tmp/example-*.png
